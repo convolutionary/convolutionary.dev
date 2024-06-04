@@ -20,7 +20,7 @@ const Socials = () => {
 					<div className="flex items-center flex-row h-[72px] text-[#E5E5E5]">
 						<img
 							className="rounded-full m-[10px]"
-							src="https://cdn.discordapp.com/avatars/1178440413212844102/a_93f64dd91a092c923647b01415d92bca?size=1024"
+							src="https://cdn.discordapp.com/avatars/1178440413212844102/a_93f64dd91a092c923647b01415d92bca?size=48"
 							alt=""
 						/>
 						<p className="text-xl">pyrexcia</p>
