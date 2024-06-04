@@ -84,7 +84,7 @@ const Socials = () => {
 						<p className="hidden md:block font-bold min-w-20">PGP</p>
 						<div className="bg-[#29292b] px-2 rounded-full inline-block">
 							<a href={Pgp} target="blank">
-								8943 22C9 F3BA 7981
+								288A F8FD 6457 B638
 							</a>
 						</div>
 					</li>
