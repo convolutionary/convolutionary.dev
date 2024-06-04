@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
+
+body {
+	background: #202021;
+	min-width: 210px;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: #3d3d3d;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #292929;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #1a1a1a;
+}
+
+.nav li {
+	cursor: pointer;
+}
+
+@media (max-width: 200px) {
+	* {
+		text-align: center;
+	}
+}
+
+* {
+	font-family: "Figtree", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: normal;
+	font-style: normal;
+}
+
+@layer components {
+	.about_tech a img {
+		@apply min-w-[2em] w-[2em] h-[2em] mx-1 rounded-lg inline-flex;
+	}
+	@media (min-height: 768px) {
+		.test {
+			@apply min-h-full;
+		}
+	}
+
+	.form-in div input, textarea {
+		@apply bg-[#29292b] py-2 px-3 min-h-[36px] rounded-lg border-2 border-gray-500 outline-none focus:border-[#7f08f7] transition-all;
+	}
+}
