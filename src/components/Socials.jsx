@@ -13,7 +13,7 @@ const Socials = () => {
 					<div>
 						<img
 							className="object-cover w-full h-[48px] rounded-t-lg"
-							src="https://cdn.discordapp.com/banners/1178440413212844102/a_1153bb9634254ebdf47a80199cd58a8b.gif?size=1048"
+							src="https://cdn.discordapp.com/banners/1178440413212844102/a_1153bb9634254ebdf47a80199cd58a8b.gif?size=1024"
 							alt=""
 						/>
 					</div>
