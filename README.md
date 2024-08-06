@@ -21,6 +21,3 @@ Check out the live site [here](https://noxerating.dev/).
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Contact
-For any inquiries, please contact me at:
-- **Email:** [cerfnet@anche.no](mailto:cerfnet@anche.no)
