@@ -20,7 +20,7 @@ const Socials = () => {
 					<div className="flex items-center flex-row h-[72px] text-[#E5E5E5]">
 						<img
 							className="rounded-full m-[10px]"
-							src="https://cdn.discordapp.com/avatars/1178440413212844102/a_bb9c4be9288e28a0ff03bc24a2e3fb1e.gif?size=48"
+							src="https://cdn.discordapp.com/guilds/1156958280367747182/users/1178440413212844102/avatars/a_c3f2d98c6e31a228bdd3c7ba65b9a917.gif?size=48"
 							alt=""
 						/>
 						<p className="text-xl">pyrexcia</p>
@@ -43,8 +43,8 @@ const Socials = () => {
 						<FaTelegramPlane size={30} />
 						<p className="hidden md:block font-bold min-w-20">Telegram</p>
 						<div className="bg-[#29292b] px-2 rounded-full inline-block">
-							<a href="https://t.me/cataIectic" target="blank">
-								cataIectic
+							<a href="https://t.me/" target="blank">
+								redacted
 							</a>
 						</div>
 					</li>
