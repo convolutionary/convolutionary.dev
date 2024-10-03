@@ -2,125 +2,125 @@ const images = {
     languages: [
         {
             img: require("../assets/languages/bash.png"),
-            link: "asd"
+            link: "https://www.gnu.org/software/bash/"
         },
         {
             img: require("../assets/languages/go.png"),
-            link: "asd"
+            link: "https://golang.org/"
         },
         {
             img: require("../assets/languages/java.png"),
-            link: "asd"
+            link: "https://www.java.com/"
         },
         {
             img: require("../assets/languages/javascript.png"),
-            link: "asd"
+            link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
         },
         {
             img: require("../assets/languages/python.png"),
-            link: "asd"
+            link: "https://www.python.org/"
         },
         {
             img: require("../assets/languages/rust.png"),
-            link: "asd"
+            link: "https://www.rust-lang.org/"
         },
         {
             img: require("../assets/languages/typescript.png"),
-            link: "asd"
+            link: "https://www.typescriptlang.org/"
         },
     ],
     frameworks: [
         {
             img: require("../assets/technologies-frameworks/angular.png"),
-            link: "asd"
+            link: "https://angular.io/"
         },
         {
             img: require("../assets/technologies-frameworks/apollo.png"),
-            link: "asd"
+            link: "https://www.apollographql.com/"
         },
         {
             img: require("../assets/technologies-frameworks/bootstrap.png"),
-            link: "asd"
+            link: "https://getbootstrap.com/"
         },
         {
             img: require("../assets/technologies-frameworks/bun.png"),
-            link: "asd"
+            link: "https://bun.sh/"
         },
         {
             img: require("../assets/technologies-frameworks/css.png"),
-            link: "asd"
+            link: "https://developer.mozilla.org/en-US/docs/Web/CSS"
         },
         {
             img: require("../assets/technologies-frameworks/djs.png"),
-            link: "asd"
+            link: "https://discord.js.org/"
         },
         {
             img: require("../assets/technologies-frameworks/electron.png"),
-            link: "asd"
+            link: "https://www.electronjs.org/"
         },
         {
             img: require("../assets/technologies-frameworks/express.png"),
-            link: "asd"
+            link: "https://expressjs.com/"
         },
         {
             img: require("../assets/technologies-frameworks/go.png"),
-            link: "asd"
+            link: "https://golang.org/"
         },
         {
             img: require("../assets/technologies-frameworks/graphql.png"),
-            link: "asd"
+            link: "https://graphql.org/"
         },
         {
             img: require("../assets/technologies-frameworks/hibernate.png"),
-            link: "asd"
+            link: "https://hibernate.org/"
         },
         {
             img: require("../assets/technologies-frameworks/html.png"),
-            link: "asd"
+            link: "https://developer.mozilla.org/en-US/docs/Web/HTML"
         },
         {
             img: require("../assets/technologies-frameworks/javascript.png"),
-            link: "asd"
+            link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
         },
         {
             img: require("../assets/technologies-frameworks/nestjs.png"),
-            link: "asd"
+            link: "https://nestjs.com/"
         },
         {
             img: require("../assets/technologies-frameworks/nextjs.png"),
-            link: "asd"
+            link: "https://nextjs.org/"
         },
         {
             img: require("../assets/technologies-frameworks/nodejs.png"),
-            link: "asd"
+            link: "https://nodejs.org/"
         },
         {
             img: require("../assets/technologies-frameworks/prisma.png"),
-            link: "asd"
+            link: "https://www.prisma.io/"
         },
         {
             img: require("../assets/technologies-frameworks/puppeteer.png"),
-            link: "asd"
+            link: "https://pptr.dev/"
         },
         {
             img: require("../assets/technologies-frameworks/react.png"),
-            link: "asd"
+            link: "https://reactjs.org/"
         },
         {
             img: require("../assets/technologies-frameworks/selenium.png"),
-            link: "asd"
+            link: "https://www.selenium.dev/"
         },
         {
             img: require("../assets/technologies-frameworks/socketio.png"),
-            link: "asd"
+            link: "https://socket.io/"
         },
         {
             img: require("../assets/technologies-frameworks/spring-boot.png"),
-            link: "asd"
+            link: "https://spring.io/projects/spring-boot"
         },
         {
             img: require("../assets/technologies-frameworks/tailwind.png"),
-            link: "asd"
+            link: "https://tailwindcss.com/"
         },
     ],
 }
