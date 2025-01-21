@@ -26,11 +26,10 @@ const Navbar = () => {
 	};
 
 	const closeNotification = () => {
+		setNotification(prev => ({ ...prev, animate: false }));
 		if (timeoutRef.current) {
 			clearTimeout(timeoutRef.current);
 		}
-
-		setNotification((prev) => ({ ...prev, animate: false }));
 		setTimeout(() => {
 			setNotification({ show: false, message: "", animate: false });
 		}, 300);
@@ -130,15 +129,18 @@ const Navbar = () => {
 			{/* Notification */}
 			{notification.show && (
 				<div
-					className={`fixed bottom-4 right-4 glass px-6 py-4 rounded-xl flex items-center justify-between max-w-md ${
+					className={`fixed bottom-4 right-4 glass px-6 py-4 rounded-xl flex items-center justify-between max-w-md backdrop-blur-xl bg-[#1a1a2e]/80 border border-[#7f08f7]/20 z-50 ${
 						notification.animate ? "animate-slide-up" : "animate-slide-down"
 					}`}
 				>
 					<div>
-						<p className="font-semibold">{notification.message}</p>
+						<p className="font-semibold text-[#b366ff]">{notification.message}</p>
 						<p className="text-white/60">Please try again later.</p>
 					</div>
-					<button onClick={closeNotification} className="ml-4 glass-card px-4 py-2 hover:text-[#7f08f7]">
+					<button 
+						onClick={closeNotification} 
+						className="ml-4 px-4 py-2 rounded-lg text-[#b366ff] hover:text-white bg-white/5 hover:bg-[#7f08f7]/30 border border-[#7f08f7]/20 transition-all duration-300 cursor-pointer relative z-[51]"
+					>
 						Close
 					</button>
 				</div>

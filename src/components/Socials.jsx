@@ -10,23 +10,23 @@ import discordPfp from "../assets/discord/pfp.png";
 const Socials = () => {
 	return (
 		<div className="flex flex-col gap-y-4">
-			<div className="min-w-min">
+			<div className="w-full">
 				<div className="bg-[#232627] rounded-lg relative">
-					<div>
+					<div className="w-full">
 						<img
-							className="object-cover w-full h-[48px] rounded-t-lg"
+							className="object-cover w-full h-[64px] rounded-t-lg"
 							src={discordBanner}
 							alt=""
 						/>
 					</div>
 					<div className="flex items-center flex-row h-[72px] text-[#E5E5E5]">
 						<img
-							className="rounded-full m-[10px]"
+							className="rounded-full m-[10px] w-[48px] h-[48px]"
 							src={discordPfp}
 							alt=""
 						/>
-						<p className="text-xl">pyrexcia</p>
-						<FaDiscord className="absolute bottom-[8px] right-[8px] text-[#7f08f7]"></FaDiscord>
+						<p className="text-xl font-medium">pyrexcia</p>
+						<FaDiscord className="absolute bottom-[8px] right-[8px] text-[#7f08f7] text-xl"></FaDiscord>
 					</div>
 				</div>
 			</div>
