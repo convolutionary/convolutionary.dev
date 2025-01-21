@@ -13,14 +13,14 @@ const Socials = () => {
 					<div>
 						<img
 							className="object-cover w-full h-[48px] rounded-t-lg"
-							src="https://cdn.discordapp.com/banners/1178440413212844102/a_b78a93596d058b36206525c7f4b6e4e5.gif?size=1024"
+							src="https://cdn.discordapp.com/banners/1178440413212844102/a_a633af27f3c618962c79a42c5a37498d.gif?size=1024"
 							alt=""
 						/>
 					</div>
 					<div className="flex items-center flex-row h-[72px] text-[#E5E5E5]">
 						<img
 							className="rounded-full m-[10px]"
-							src="https://cdn.discordapp.com/guilds/1156958280367747182/users/1178440413212844102/avatars/7f1a995c6a9a0909670c8f62626f41b2.webp?size=48"
+							src="https://cdn.discordapp.com/avatars/1178440413212844102/3f45aa7490702ea1cc6d7d5af64e180e.png?size=48"
 							alt=""
 						/>
 						<p className="text-xl">pyrexcia</p>
