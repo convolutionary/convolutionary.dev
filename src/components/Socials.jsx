@@ -4,6 +4,8 @@ import Pgp from "../pgp.txt";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiCodeberg } from "react-icons/si";
 import { IoMdKey, IoMdMail } from "react-icons/io";
+import discordBanner from "../assets/discord/banner.gif";
+import discordPfp from "../assets/discord/pfp.png";
 
 const Socials = () => {
 	return (
@@ -13,14 +15,14 @@ const Socials = () => {
 					<div>
 						<img
 							className="object-cover w-full h-[48px] rounded-t-lg"
-							src="https://cdn.discordapp.com/banners/1178440413212844102/a_b78a93596d058b36206525c7f4b6e4e5.gif?size=1024"
+							src={discordBanner}
 							alt=""
 						/>
 					</div>
 					<div className="flex items-center flex-row h-[72px] text-[#E5E5E5]">
 						<img
 							className="rounded-full m-[10px]"
-							src="https://cdn.discordapp.com/guilds/1156958280367747182/users/1178440413212844102/avatars/7f1a995c6a9a0909670c8f62626f41b2.webp?size=48"
+							src={discordPfp}
 							alt=""
 						/>
 						<p className="text-xl">pyrexcia</p>

@@ -52,22 +52,22 @@ const Navbar = () => {
 	return (
 		<div>
 			<div
-				className={`fixed top-0 z-10 w-full h-[80px] flex justify-between items-center px-4 ${
-					isScrolled ? "bg-[#1e1e1f] bg-opacity-80 shadow-lg" : "bg-[#1e1e1f]"
-				} text-gray-300 transition-all duration-300 ease-in-out`}
+				className={`fixed top-0 z-10 w-full h-[80px] flex justify-between items-center px-8 ${
+					isScrolled ? "glass shadow-lg" : "bg-transparent"
+				} transition-all duration-300 ease-in-out`}
 			>
 				{/* Left Side - Logo/Icon */}
 				<div className="flex items-center">
-					<FaBars className="text-2xl cursor-pointer md:hidden" onClick={handleClick} />
-					<h2 className="text-xl font-bold ml-4">Noxia</h2>
+					<FaBars className="text-2xl cursor-pointer md:hidden hover:text-[#7f08f7] transition-colors" onClick={handleClick} />
+					<h2 className="text-2xl font-bold ml-4 bg-gradient-to-r from-[#7f08f7] to-[#b366ff] bg-clip-text text-transparent">Noxia</h2>
 				</div>
 
 				{/* Center - Navigation Links */}
-				<ul className="hidden md:flex gap-x-4 nav">
+				<ul className="hidden md:flex gap-x-8 nav">
 					{["home", "about", "contact", "blog"].map((item) => (
 						<li
 							key={item}
-							className="hover:text-white transition-colors duration-200"
+							className="nav-link"
 							onClick={(e) => {
 								if (item === "blog") {
 									e.preventDefault();
@@ -88,7 +88,7 @@ const Navbar = () => {
 
 				{/* Right Side - Profile Link */}
 				<div
-					className="hidden md:flex items-center cursor-pointer"
+					className="hidden md:flex items-center cursor-pointer hover:text-[#7f08f7] transition-colors"
 					onClick={() => handleNotification("Profile not implemented")}
 				>
 					<FaUserCircle className="text-2xl" />
@@ -100,13 +100,13 @@ const Navbar = () => {
 					className={
 						!nav
 							? "hidden"
-							: "nav absolute top-0 left-0 w-full h-screen bg-[#1e1e1f] bg-opacity-80 flex flex-col justify-center items-center"
+							: "nav absolute top-0 left-0 w-full h-screen glass backdrop-blur-lg flex flex-col justify-center items-center gap-y-8"
 					}
 				>
 					{["home", "about", "contact", "blog", "profile"].map((item) => (
 						<li
 							key={item}
-							className="py-6 text-4xl"
+							className="text-3xl hover:text-[#7f08f7] transition-colors"
 							onClick={(e) => {
 								handleClick();
 								if (item === "blog" || item === "profile") {
@@ -130,15 +130,15 @@ const Navbar = () => {
 			{/* Notification */}
 			{notification.show && (
 				<div
-					className={`fixed bottom-4 right-4 bg-[#1e1e1f] text-white px-6 py-4 rounded-lg shadow-lg flex items-center justify-between w-96 ${
+					className={`fixed bottom-4 right-4 glass px-6 py-4 rounded-xl flex items-center justify-between max-w-md ${
 						notification.animate ? "animate-slide-up" : "animate-slide-down"
 					}`}
 				>
 					<div>
 						<p className="font-semibold">{notification.message}</p>
-						<p className="text-gray-400">Please try again later.</p>
+						<p className="text-white/60">Please try again later.</p>
 					</div>
-					<button onClick={closeNotification} className="ml-4 bg-white text-black px-3 py-1 rounded">
+					<button onClick={closeNotification} className="ml-4 glass-card px-4 py-2 hover:text-[#7f08f7]">
 						Close
 					</button>
 				</div>

@@ -3,9 +3,11 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
 
-body {
-	background: #202021;
-	min-width: 210px;
+@layer base {
+	body {
+		@apply bg-gradient-to-br from-[#0f0f1a] via-[#1a1a2e] to-[#0f0f1a] min-h-screen text-white;
+		background-attachment: fixed;
+	}
 }
 
 ::-webkit-scrollbar {
@@ -86,4 +88,24 @@ body {
 	.form-in div input, textarea {
 		@apply bg-[#29292b] py-2 px-3 min-h-[36px] rounded-lg border-2 border-gray-500 outline-none focus:border-[#7f08f7] transition-all;
 	}
+
+	.glass {
+		@apply bg-white/10 backdrop-blur-lg border border-white/10 shadow-xl;
+	}
+	
+	.glass-card {
+		@apply glass rounded-xl p-6 hover:bg-white/[0.15] transition-all duration-300;
+	}
+	
+	.glass-input {
+		@apply glass rounded-lg p-3 bg-white/5 focus:outline-none focus:ring-2 focus:ring-[#7f08f7]/50 w-full;
+	}
+
+	.nav-link {
+		@apply relative text-white/80 hover:text-white transition-colors after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[#7f08f7] after:transition-all hover:after:w-full;
+	}
+}
+
+.form-in input, .form-in textarea {
+	@apply glass-input;
 }
