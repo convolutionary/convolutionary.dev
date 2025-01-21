@@ -25,11 +25,11 @@ const About = () => {
 		<div className="min-h-screen bg-[#202021]" name="about">
 			<div className="max-w-[1024px] mx-auto p-8 h-full">
 				<div className="flex flex-col gap-y-8">
-					<h1 className="text-4xl text-[#7f08f7] font-bold"># About me</h1>
+					<h1 className="text-4xl text-[#7f08f7] font-bold">About Me</h1>
 					<p className="text-[#E5E5E5] text-xl">
-						I'm just bored, enthuastic about learning new things and developing random funnies. I've been programming since 2017,
-						and trying to expand my knowledge and skills in the last 5 years. :)
-						schizo vibes
+						I am a passionate software developer with a focus on web technologies and application development. Since 2017, 
+						I have been dedicated to expanding my technical expertise and creating innovative solutions. 
+						I enjoy tackling complex problems and continuously learning new technologies to enhance my skill set.
 					</p>
 					<h2 className="text-2xl text-[#7f08f7] font-bold">## Tech Stack</h2>
 					<div className="flex flex-col gap-3 min-w-[160px]">
