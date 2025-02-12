@@ -52,11 +52,36 @@ jobs:
       - name: Build project
         run: ${{ steps.detect-package-manager.outputs.runner }} npm run build
 
+      - name: Check for symlinks (GitHub Pages does not support them)
+        run: |
+          if find ./build -type l | read; then
+            echo "Error: Symlinks detected in the build folder. Remove them before deploying."
+            exit 1
+          fi
+
+      - name: Check build size (must be under 10GB)
+        run: |
+          BUILD_SIZE=$(du -sh ./build | cut -f1)
+          echo "Build size: $BUILD_SIZE"
+          if [ $(du -s ./build | cut -f1) -gt 10000000 ]; then
+            echo "Error: Build folder exceeds 10GB. Reduce file sizes before deployment."
+            exit 1
+          fi
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
           path: ./build
+          if-no-files-found: error
+          retention-days: 1
+          exclude: |
+            **/*.log
+            **/.git
+            **/node_modules
+            **/.next/cache
+            **/coverage
+            **/*.tmp
 
   deploy:
     environment:
