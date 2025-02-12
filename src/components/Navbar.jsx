@@ -1,22 +1,30 @@
-import React, { useState, useEffect, useRef } from "react";
-import { FaBars, FaUserCircle } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-scroll";
 
 const Navbar = () => {
-	const [nav, setNav] = useState(false);
-	const [isScrolled, setIsScrolled] = useState(false);
 	const [notification, setNotification] = useState({ show: false, message: "", animate: false });
-	const timeoutRef = useRef(null);
+	const [isScrolled, setIsScrolled] = useState(false);
+	const timeoutRef = React.useRef(null);
+	const lastScrollY = React.useRef(0);
 
-	const handleClick = () => setNav(!nav);
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentScrollY = window.scrollY;
+			const scrollThreshold = 5;
+			
+			if (Math.abs(currentScrollY - lastScrollY.current) > scrollThreshold) {
+				setIsScrolled(currentScrollY > 10);
+				lastScrollY.current = currentScrollY;
+			}
+		};
+
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
 	const handleNotification = (message) => {
-		if (timeoutRef.current) {
-			clearTimeout(timeoutRef.current);
-		}
-
+		if (timeoutRef.current) clearTimeout(timeoutRef.current);
 		setNotification({ show: true, message, animate: true });
-
 		timeoutRef.current = setTimeout(() => {
 			setNotification((prev) => ({ ...prev, animate: false }));
 			setTimeout(() => {
@@ -25,121 +33,84 @@ const Navbar = () => {
 		}, 3000);
 	};
 
-	const closeNotification = () => {
-		setNotification(prev => ({ ...prev, animate: false }));
-		if (timeoutRef.current) {
-			clearTimeout(timeoutRef.current);
-		}
-		setTimeout(() => {
-			setNotification({ show: false, message: "", animate: false });
-		}, 300);
-	};
-
-	useEffect(() => {
-		const handleScroll = () => {
-			if (window.scrollY > 0) {
-				setIsScrolled(true);
-			} else {
-				setIsScrolled(false);
-			}
-		};
-
-		window.addEventListener("scroll", handleScroll);
-		return () => window.removeEventListener("scroll", handleScroll);
-	}, []);
-
 	return (
-		<div>
-			<div
-				className={`fixed top-0 z-10 w-full h-[80px] flex justify-between items-center px-8 ${
-					isScrolled ? "glass shadow-lg" : "bg-transparent"
-				} transition-all duration-300 ease-in-out`}
-			>
-				{/* Left Side - Logo/Icon */}
-				<div className="flex items-center">
-					<FaBars className="text-2xl cursor-pointer md:hidden hover:text-[#7f08f7] transition-colors" onClick={handleClick} />
-					<h2 className="text-2xl font-bold ml-4 bg-gradient-to-r from-[#7f08f7] to-[#b366ff] bg-clip-text text-transparent">Noxia</h2>
+		<div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out will-change-transform ${
+			isScrolled ? "nav-scrolled" : "nav-top"
+		}`}>
+			{/* Status bar */}
+			<div className={`bg-[#16161e]/95 text-sm px-4 transition-all duration-700 ease-in-out flex items-center justify-between border-b border-[#1f1f2e]/30 ${
+				isScrolled ? "h-6 opacity-90" : "h-7"
+			}`}>
+				<div className="flex items-center gap-2">
+					<span className="status-dot online transition-all duration-700 ease-in-out"></span>
+					<span className="text-white/50 transition-all duration-700 ease-in-out text-xs tracking-wide">
+						all systems operational ✨
+					</span>
 				</div>
+			</div>
 
-				{/* Center - Navigation Links */}
-				<ul className="hidden md:flex gap-x-8 nav">
-					{["home", "about", "contact", "blog"].map((item) => (
-						<li
-							key={item}
-							className="nav-link"
-							onClick={(e) => {
-								if (item === "blog") {
-									e.preventDefault();
-									handleNotification("Blog not implemented");
-								}
-							}}
-						>
-							{item !== "blog" ? (
-								<Link to={item} smooth={true} duration={500} offset={-80}>
-									{item.charAt(0).toUpperCase() + item.slice(1)}
-								</Link>
-							) : (
-								<span>{item.charAt(0).toUpperCase() + item.slice(1)}</span>
-							)}
-						</li>
-					))}
-				</ul>
-
-				{/* Right Side - Profile Link */}
-				<div
-					className="hidden md:flex items-center cursor-pointer hover:text-[#7f08f7] transition-colors"
-					onClick={() => handleNotification("Profile not implemented")}
-				>
-					<FaUserCircle className="text-2xl" />
-					<span className="ml-2">Profile</span>
+			{/* Main navbar */}
+			<div className="bg-[#16161e]/95 border-b border-[#1f1f2e]/30 transition-all duration-700 ease-in-out backdrop-blur-lg">
+				<div className="max-w-[1024px] mx-auto">
+					{/* Logo section */}
+					<div className={`transition-all duration-700 ease-in-out border-b border-[#1f1f2e]/30 overflow-hidden flex items-center justify-center ${
+						isScrolled ? "h-8" : "h-11"
+					}`}>
+						<h1 className={`text-2xl transition-all duration-700 ease-in-out transform-gpu ${
+							isScrolled ? "scale-90 -translate-y-0.5" : "scale-100"
+						}`}>
+							<span className="bg-gradient-to-r from-[#7f08f7] to-[#b366ff] bg-clip-text text-transparent hover:to-[#7f08f7] transition-all duration-500 cursor-pointer font-medium">
+								Aurora
+							</span>
+						</h1>
+					</div>
+					
+					{/* Navigation */}
+					<nav className={`flex justify-center transition-all duration-700 ease-in-out overflow-hidden ${
+						isScrolled ? "h-7" : "h-9"
+					}`}>
+						{["home", "about", "contact", "blog"].map((item) => (
+							<Link
+								key={item}
+								to={item}
+								spy={true}
+								offset={-60}
+								className={`relative mx-4 transition-all duration-700 ease-in-out text-white/50 hover:text-white group ${
+									isScrolled ? "text-sm py-1" : "text-base py-1.5"
+								}`}
+								smooth={true}
+								duration={700}
+								onClick={(e) => {
+									if (item === "blog") {
+										e.preventDefault();
+										handleNotification("Blog not implemented");
+									}
+								}}
+							>
+								{item}
+								<span className="absolute -bottom-0.5 left-0 w-0 h-[2px] bg-gradient-to-r from-[#7f08f7] to-[#b366ff] transition-all duration-300 ease-in-out opacity-0 group-hover:w-full group-hover:opacity-100"></span>
+							</Link>
+						))}
+					</nav>
 				</div>
-
-				{/* Mobile Menu */}
-				<ul
-					className={
-						!nav
-							? "hidden"
-							: "nav absolute top-0 left-0 w-full h-screen glass backdrop-blur-lg flex flex-col justify-center items-center gap-y-8"
-					}
-				>
-					{["home", "about", "contact", "blog", "profile"].map((item) => (
-						<li
-							key={item}
-							className="text-3xl hover:text-[#7f08f7] transition-colors"
-							onClick={(e) => {
-								handleClick();
-								if (item === "blog" || item === "profile") {
-									e.preventDefault();
-									handleNotification(`${item.charAt(0).toUpperCase() + item.slice(1)} not implemented`);
-								}
-							}}
-						>
-							{item !== "blog" && item !== "profile" ? (
-								<Link to={item} smooth={true} duration={500} offset={-80}>
-									{item.charAt(0).toUpperCase() + item.slice(1)}
-								</Link>
-							) : (
-								<span>{item.charAt(0).toUpperCase() + item.slice(1)}</span>
-							)}
-						</li>
-					))}
-				</ul>
 			</div>
 
 			{/* Notification */}
 			{notification.show && (
 				<div
-					className={`fixed bottom-4 right-4 glass px-6 py-4 rounded-xl flex items-center justify-between max-w-md backdrop-blur-xl bg-[#1a1a2e]/80 border border-[#7f08f7]/20 z-50 ${
+					className={`fixed bottom-4 right-4 bg-[#16161e]/95 border border-[#1f1f2e] px-6 py-4 rounded-lg flex items-center justify-between max-w-md z-50 backdrop-blur-lg ${
 						notification.animate ? "animate-slide-up" : "animate-slide-down"
 					}`}
 				>
 					<div>
-						<p className="font-semibold text-[#b366ff]">{notification.message}</p>
-						<p className="text-white/60">Please try again later.</p>
+						<p className="font-medium bg-gradient-to-r from-[#7f08f7] to-[#b366ff] bg-clip-text text-transparent">
+							{notification.message}
+						</p>
+						<p className="text-sm text-white/40">Please try again later ✨</p>
 					</div>
 					<button 
-						onClick={closeNotification} 
-						className="ml-4 px-4 py-2 rounded-lg text-[#b366ff] hover:text-white bg-white/5 hover:bg-[#7f08f7]/30 border border-[#7f08f7]/20 transition-all duration-300 cursor-pointer relative z-[51]"
+						onClick={() => setNotification(prev => ({ ...prev, animate: false }))}
+						className="ml-4 px-4 py-2 rounded-lg text-white/50 hover:text-white bg-[#1f1f2e]/50 hover:bg-[#7f08f7]/20 border border-[#1f1f2e]/50 hover:border-[#7f08f7]/50 transition-all duration-300"
 					>
 						Close
 					</button>

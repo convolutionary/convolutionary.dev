@@ -25,7 +25,7 @@ const Socials = () => {
 							src={discordPfp}
 							alt=""
 						/>
-						<p className="text-xl font-medium">pyrexcia</p>
+						<p className="text-xl font-medium">relativi.ty</p>
 						<FaDiscord className="absolute bottom-[8px] right-[8px] text-[#7f08f7] text-xl"></FaDiscord>
 					</div>
 				</div>

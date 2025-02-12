@@ -1,33 +1,45 @@
 import React from "react";
-import Socials from "./Socials";
 
 const Home = () => {
 	return (
-		<div className="w-full min-h-screen mt-[80px] relative" name="home">
-			{/* Background gradient circles */}
-			<div className="absolute top-20 left-20 w-96 h-96 bg-[#7f08f7]/30 rounded-full blur-3xl"></div>
-			<div className="absolute bottom-20 right-20 w-96 h-96 bg-[#b366ff]/20 rounded-full blur-3xl"></div>
-			
-			<div className="max-w-[1024px] mx-auto p-8 h-full relative">
-				<div className="glass-card flex flex-col gap-y-8">
-					<h1 className="text-4xl bg-gradient-to-r from-[#7f08f7] to-[#b366ff] bg-clip-text text-transparent font-bold"># Home</h1>
-					<h1 className="text-5xl font-bold">
-						Hi, I'm <span className="bg-gradient-to-r from-[#7f08f7] to-[#b366ff] bg-clip-text text-transparent">Noxia</span>
-					</h1>
-					<p className="text-xl text-white/80">
-						I'm a self-taught software developer, passionate about creating elegant solutions. 
-						I thrive on contributing to open-source projects and continuously expanding my knowledge 
-						in software development.
-					</p>
-					<div className="flex flex-col gap-y-6">
-						<p className="text-lg font-semibold text-white/90">
-							Connect with me across the web:
-						</p>
-						<div className="glass p-4 rounded-xl">
-							<Socials />
+		<div className="w-full pt-[140px]" id="home">
+			{/* Main content */}
+			<div className="max-w-[1024px] mx-auto px-8">
+				<div className="glass-card">
+					<div className="sparkle-wrapper" />
+					{/* Title section */}
+					<div className="flex items-center gap-2 mb-4">
+						<span className="text-[#7f08f7] text-2xl animate-pulse-slow">#</span>
+						<h1 className="text-2xl group">
+							<span className="bg-gradient-to-r from-[#7f08f7] to-[#b366ff] bg-clip-text text-transparent hover:text-white transition-all duration-300">
+								Aurora
+							</span>
+						</h1>
+						<div className="ml-2 w-2 h-4 bg-[#7f08f7] animate-blink"></div>
+					</div>
+
+					{/* Introduction */}
+					<div className="text-sm text-white/80 space-y-3">
+						<div className="flex items-center gap-2">
+							<p className="typing-animation inline-block">Hi, I'm</p>
+							<span className="bg-gradient-to-r from-[#7f08f7] to-[#b366ff] bg-clip-text text-transparent hover:text-white transition-all duration-300">
+								Aurora
+							</span>
 						</div>
+						<p className="leading-relaxed max-w-[600px] hover:text-white/90 transition-colors">
+							I'm a self-taught software developer, passionate about creating elegant solutions. 
+							I thrive on contributing to open-source projects and continuously expanding my knowledge 
+							in software development.
+						</p>
 					</div>
 				</div>
+			</div>
+
+			{/* News ticker */}
+			<div className="news-scroll fixed bottom-0 left-0 right-0 w-full">
+				<span className="text-white/60">
+					Latest Projects (you'll never find em) • Welcome to my digital space
+				</span>
 			</div>
 		</div>
 	);
