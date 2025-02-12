@@ -39,13 +39,12 @@ jobs:
       - name: Build project
         env:
           CI: false
+          GENERATE_SOURCEMAP: true
         run: npm run build
 
       - name: Optimize build
         run: |
-          # Remove any source maps
-          find build -name '*.map' -delete
-          # Remove any test files
+          # Remove test files
           find build -name '*.test.*' -delete
           # Remove any hidden files/folders
           find build -name ".*" -delete
