@@ -9,10 +9,13 @@ const About = () => {
 		const fetchRepos = async () => {
 			try {
 				const response = await fetch(
-					"https://api.github.com/users/xoncia/repos"
+					"https://api.github.com/users/convolutionary/repos"
 				);
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
 				const data = await response.json();
-				setRepos(data);
+				setRepos(data || []);
 			} catch (error) {
 				console.error("Error fetching repos:", error);
 				setRepos([]);
