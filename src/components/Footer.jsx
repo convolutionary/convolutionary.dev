@@ -10,7 +10,7 @@ const Footer = () => {
 					<p className="text-white/90 flex items-center gap-2">
 						Made with <PiBrain className="text-[#7f08f7] hover:scale-110 transition-all" size={24}/> by 
 						<span className="bg-gradient-to-r from-[#7f08f7] to-[#b366ff] bg-clip-text text-transparent font-medium">
-							Noxcia
+							Aurora
 						</span>
 					</p>
 				</div>
