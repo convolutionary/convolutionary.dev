@@ -36,8 +36,8 @@ const Socials = () => {
 						<FaGithub size={30} />
 						<p className="hidden md:block font-bold min-w-20">Github</p>
 						<div className="bg-[#29292b] px-2 rounded-full inline-block">
-							<a href="https://github.com/xoncia" target="blank">
-								xoncia
+							<a href="https://github.com/convolutionary" target="blank">
+								Aurora
 							</a>
 						</div>
 					</li>
