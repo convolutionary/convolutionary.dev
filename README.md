@@ -4,8 +4,8 @@
 ![React](https://img.shields.io/badge/React-17.0.2-blue)
 ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-deployed-brightgreen)
 ![CSS](https://img.shields.io/badge/CSS-3-264de4)
-![Website](https://img.shields.io/website?url=https%3A%2F%2Fnoxerating.dev)
-![Maintenance](https://img.shields.io/maintenance/yes/2024)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Fconvolutionary.dev)
+![Maintenance](https://img.shields.io/maintenance/yes/2025)
 
 ## Overview
 personal website wip
