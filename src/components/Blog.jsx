@@ -13,7 +13,16 @@ const Blog = () => {
 			preview: "What my experience has been like these past few weeks",
 			readTime: "depends on you",
 			imageUrl: "https://i.pinimg.com/originals/2f/01/ea/2f01eadfd0be42b8102c19b4d39052f6.gif",
-		}
+		},
+        {
+            id: 2,
+            title: "second blog post",
+            date: "2025-02-15",
+            tags: ["coding", "personal"],
+            preview: "update: life",
+            readTime: "depends on you",
+            imageUrl: "https://i.pinimg.com/originals/eb/50/87/eb50875a68b04b0480fa929af2c7547c.gif",
+        }
 	]);
 
 	return (

@@ -45,7 +45,25 @@ const BlogPost = () => {
                 `,
 			readTime: "whatever you want",
 			imageUrl: "https://i.pinimg.com/originals/2f/01/ea/2f01eadfd0be42b8102c19b4d39052f6.gif",
-		}
+		},
+        {
+            id: 2,
+            title: "second blog post",
+            date: "2025-02-15",
+            tags: ["coding", "personal"],
+            content: `
+                just had to put another rant here. things really feel like shit when you think you're on your own, striving for some sort of eternal companionship.
+                some people like to say that it's 'cringe' to want that sort of thing. I don't think it's like that at all, as humans we are social creatures. We strive
+                to find people that we can connect with, share our experiences with. We want to be loved, to be cared for, to be understood. 
+                i just had to start typing another post because i just feel like im going to be left behind anyway, and maybe i've almost made my peace with that.
+                maybe that's just how it's supposed to happen, i've fought as much as i could, but i can't stop the tidal waves. i'll just sit back and expect what 
+                is to come. whatever happens, i'll try to take it in my stride. hopefully there's some reason why i'm here, and i've been given this type of intuition and intelligence.
+
+                have fun while you can lads, happiness can be fleeting sometimes, i wish i happiness wasn't so fleeting for me.
+            `,
+            readTime: "whatever you want",
+            imageUrl: "https://i.pinimg.com/originals/eb/50/87/eb50875a68b04b0480fa929af2c7547c.gif",
+        }
 	];
 
 	const { id } = useParams();
