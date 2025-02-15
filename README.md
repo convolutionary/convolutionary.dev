@@ -1,7 +1,7 @@
 # noxerating.dev
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![React](https://img.shields.io/badge/React-17.0.2-blue)
+![React](https://img.shields.io/badge/React-18.3.1-blue)
 ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-deployed-brightgreen)
 ![CSS](https://img.shields.io/badge/CSS-3-264de4)
 ![Website](https://img.shields.io/website?url=https%3A%2F%2Fconvolutionary.dev)
