@@ -8,7 +8,7 @@ const Blog = () => {
 		{
 			id: 1,
 			title: "first blog post (idk what to put here)",
-			date: "2024-03-15",
+			date: "2025-02-15",
 			tags: ["philosophy", "personal"],
 			preview: "What my experience has been like these past few weeks",
 			readTime: "depends on you",

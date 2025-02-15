@@ -7,7 +7,7 @@ const BlogPost = () => {
 		{
 			id: 1,
 			title: "first blog post (idk what to put here)",
-			date: "2024-03-15",
+			date: "2025-02-15",
 			tags: ["coding", "personal"],
 			content: `
 				Well, I'm not sure what to put here.
