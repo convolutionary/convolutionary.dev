@@ -10,60 +10,11 @@ const BlogPost = () => {
 			date: "2025-02-15",
 			tags: ["coding", "personal"],
 			content: `
-				Well, I'm not sure what to put here.
-                Welcome to my first blog post, I really don't know why I even made this post. I was told by a friend that doing this would be good for my own self-conceptions and might serve to help others.
-                So here I am.
-
-                So you must be wondering, what is this guy waffling about by himself alone in a blog post?
-                Well, I'm not sure either.
-
-                Recently, I've been navigating through a myriad of circumstances, and truthfully, it has been quite illuminating regarding my own disposition and the current zeitgeist of our world.
-                This blog post essentially embodies the amalgamation of my scattered contemplations at this point in time.
-                I've observed that this existence can be remarkably caustic, relentless and merciless towards those who lack the capacity to withstand its demands.
-
-                Sometimes when I think back to the past, I can't help but yearn for the solitude/peace, and most of all, the simplicity of how it once was.
-                I met someone really special, and well. It has been a rollercoaster of emotions to say the least. I don't even know where to begin. Some things are just hard to explain, 
-                I don't know why I'm even worth it for this person. The self-destructive thoughts are just like a flood so powerful, it has the force of the niagara falls.
-
-                I'm not sure what to do, I'm not sure what to say. I'm just glad that they've never given up on me. But why does the mind try to make me feel like I'll eventually get left behind?
-                Like eventually I'll be thrown away, cast aside like yesterday's trash? It's sometimes a brutal battle. My mind has some crazy thoughts and it's like I'm dodging bullets from a machine gun.
-
-                Love can be a painful thing sometimes, it's beautiful but it's also painful. Things in life are never as simple as they seem. We all want the simple and easy way out, to be loved without any 
-                strings attached. But that's not how life works, is it? I'm not a stupid guy, I know that sometimes it's not easy to deal with uncertainty. My mind has the tendency to overreact and overthink.
-
-                I'm not being a pussy, but sometimes I have feelings that undermine my own confidence, and well. Just noticing subtle nuances and personality changes just makes my mind spin into overdrive.
-                The life of a random coder is crazy, isn't it?
-
-                If you read all this far, and you're thinking 'what's the moral of this story?', well. I don't know.
-                Everyone should understand that sometimes, there exists only certain things that we can control. Attempting to control those certain other things, just causes you misery, pain and problems.
-                So why not let it happen?
-                All I can do is create contingency plans for my heart and mind, and if you ever find yourself in a similar situation, I emplore you to never assume anything.
-
-                **P.S. This isn't supposed to be a post about anybody in particular, this is just a collection of my thought processes, and none of this should be taken seriously. Seriously. It's just a blog post.**
-
-                \`\`\`And if that one person is reading this thinking it's about them, it's not. Don't worry, I love you so much but these feelings aren't due to you. <3\`\`\`
+redacted, but obviously this isn't hard to find again :P
                 `,
 			readTime: "whatever you want",
 			imageUrl: "https://i.pinimg.com/originals/2f/01/ea/2f01eadfd0be42b8102c19b4d39052f6.gif",
-		},
-        {
-            id: 2,
-            title: "second blog post",
-            date: "2025-02-15",
-            tags: ["coding", "personal"],
-            content: `
-                just had to put another rant here. things really feel like shit when you think you're on your own, striving for some sort of eternal companionship.
-                some people like to say that it's 'cringe' to want that sort of thing. I don't think it's like that at all, as humans we are social creatures. We strive
-                to find people that we can connect with, share our experiences with. We want to be loved, to be cared for, to be understood. 
-                i just had to start typing another post because i just feel like im going to be left behind anyway, and maybe i've almost made my peace with that.
-                maybe that's just how it's supposed to happen, i've fought as much as i could, but i can't stop the tidal waves. i'll just sit back and expect what 
-                is to come. whatever happens, i'll try to take it in my stride. hopefully there's some reason why i'm here, and i've been given this type of intuition and intelligence.
-
-                have fun while you can lads, happiness can be fleeting sometimes, i wish i happiness wasn't so fleeting for me.
-            `,
-            readTime: "whatever you want",
-            imageUrl: "https://i.pinimg.com/originals/eb/50/87/eb50875a68b04b0480fa929af2c7547c.gif",
-        }
+		}
 	];
 
 	const { id } = useParams();
