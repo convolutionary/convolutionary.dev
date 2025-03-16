@@ -64,20 +64,6 @@ const DiscordPresence = () => {
 
 		const style = document.createElement('style');
 		style.textContent = `
-			@keyframes diceIntro {
-				0% { 
-					opacity: 0;
-					transform: scale(0.95);
-				}
-				20% { 
-					opacity: 1;
-					transform: scale(1);
-				}
-				100% { 
-					opacity: 1;
-					transform: scale(1);
-				}
-			}
 			@keyframes diceIdle {
 				0% {
 					transform: scale(1);
@@ -96,6 +82,7 @@ const DiscordPresence = () => {
 
 		const runDiceAnimation = () => {
 			const newSuccess = Math.random() > 0.5;
+			
 			setDiceState({
 				isSuccess: newSuccess,
 				isIntro: true,
@@ -187,9 +174,7 @@ const DiscordPresence = () => {
 					alt="Profile Decoration"
 					className="absolute inset-0 w-full h-full object-cover"
 					style={{
-						animation: diceState.isIntro 
-							? 'diceIntro 4s cubic-bezier(0.11, 0, 0.5, 0)'
-							: 'diceIdle 2s ease-in-out infinite'
+						animation: !diceState.isIntro && 'diceIdle 2s ease-in-out infinite'
 					}}
 				/>
 			</div>
@@ -207,15 +192,21 @@ const DiscordPresence = () => {
 				<div className="px-4 pb-4">
 					<div className="relative -mt-[76px]">
 						<div className="relative inline-block">
+							{/* Avatar Decoration */}
+							<img
+								src="https://itspi3141.github.io/discord-fake-avatar-decorations/public/decorations/solar_orbit.png"
+								alt="Avatar Decoration"
+								className="absolute pointer-events-none select-none z-[2]"
+							/>
 							<img
 								src={`https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}`}
 								alt="Discord Avatar"
-								className="w-[92px] h-[92px] rounded-full border-[6px] border-[#18191c] relative"
+								className="w-[92px] h-[92px] rounded-full border-[6px] border-[#18191c] relative z-[1]"
 							/>
 							<div
 								className={`absolute bottom-1 right-1 w-[22px] h-[22px] rounded-full ${getStatusColor(
 									data.discord_status
-								)} ring-[3px] ring-[#18191c] status-indicator`}
+								)} ring-[3px] ring-[#18191c] z-[3]`}
 							/>
 						</div>
 					</div>
