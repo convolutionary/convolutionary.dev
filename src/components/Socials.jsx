@@ -1,35 +1,18 @@
 import React from "react";
-import { FaDiscord, FaGithub, FaTelegramPlane } from "react-icons/fa";
+import { FaGithub, FaTelegramPlane } from "react-icons/fa";
 import Pgp from "../pgp.txt";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiCodeberg } from "react-icons/si";
 import { IoMdKey, IoMdMail } from "react-icons/io";
-import discordBanner from "../assets/discord/banner.gif";
-import discordPfp from "../assets/discord/pfp.png";
+import DiscordPresence from "./DiscordPresence";
 
 const Socials = () => {
 	return (
 		<div className="flex flex-col gap-y-4">
-			<div className="w-full">
-				<div className="bg-[#232627] rounded-lg relative">
-					<div className="w-full">
-						<img
-							className="object-cover w-full h-[64px] rounded-t-lg"
-							src={discordBanner}
-							alt=""
-						/>
-					</div>
-					<div className="flex items-center flex-row h-[72px] text-[#E5E5E5]">
-						<img
-							className="rounded-full m-[10px] w-[48px] h-[48px]"
-							src={discordPfp}
-							alt=""
-						/>
-						<p className="text-xl font-medium">relativi.ty</p>
-						<FaDiscord className="absolute bottom-[8px] right-[8px] text-[#7f08f7] text-xl"></FaDiscord>
-					</div>
-				</div>
-			</div>
+			{/* Discord Presence */}
+			<DiscordPresence />
+
+			{/* Other Social Links */}
 			<div>
 				<ul className="flex flex-col text-sm gap-y-2">
 					<li className="inline-flex gap-x-2 items-center text-white">
