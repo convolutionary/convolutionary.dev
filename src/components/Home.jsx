@@ -3,13 +3,10 @@ import React from "react";
 const Home = () => {
 	return (
 		<div className="w-full pt-[140px]" id="home">
-			{/* Main content */}
 			<div className="max-w-[1024px] mx-auto px-8">
 				<div className="flex flex-col gap-6">
-					{/* Profile Card */}
 					<div className="glass-card">
 						<div className="sparkle-wrapper" />
-						{/* Title section */}
 						<div className="flex items-center gap-2 mb-4">
 							<span className="text-[#7f08f7] text-2xl animate-pulse-slow">#</span>
 							<h1 className="text-2xl group">
@@ -20,7 +17,6 @@ const Home = () => {
 							<div className="ml-2 w-2 h-4 bg-[#7f08f7] animate-blink"></div>
 						</div>
 
-						{/* Introduction */}
 						<div className="text-sm text-white/80 space-y-3">
 							<div className="flex items-center gap-2">
 								<p className="typing-animation inline-block">Hi, I'm</p>
@@ -39,7 +35,6 @@ const Home = () => {
 				</div>
 			</div>
 
-			{/* News ticker */}
 			<div className="news-scroll fixed bottom-0 left-0 right-0 w-full">
 				<span className="text-white/60">
 					Latest Projects (you'll never find em) • Welcome to my digital space

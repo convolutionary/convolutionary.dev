@@ -57,7 +57,6 @@ const Navbar = () => {
 		<div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out will-change-transform ${
 			isScrolled ? "nav-scrolled" : "nav-top"
 		}`}>
-			{/* Status bar */}
 			<div className="bg-[#16161e]/95 text-sm px-4 transition-all duration-300 ease-in-out flex items-center justify-between border-b border-[#1f1f2e]/30"
 				style={{ height: `${statusBarHeight}px` }}>
 				<div className="flex items-center gap-2">
@@ -68,10 +67,8 @@ const Navbar = () => {
 				</div>
 			</div>
 
-			{/* Main navbar */}
 			<div className="bg-[#16161e]/95 border-b border-[#1f1f2e]/30 transition-all duration-300 ease-in-out backdrop-blur-lg">
 				<div className="max-w-[1024px] mx-auto">
-					{/* Logo section */}
 					<div className="transition-all duration-300 ease-in-out border-b border-[#1f1f2e]/30 overflow-hidden flex items-center justify-center"
 						style={{ height: `${logoHeight}px` }}>
 						<Link to="/">
@@ -84,7 +81,6 @@ const Navbar = () => {
 						</Link>
 					</div>
 					
-					{/* Navigation */}
 					<nav className="flex justify-center transition-all duration-300 ease-in-out overflow-hidden"
 						style={{ height: `${navHeight}px` }}>
 						{["home", "about", "blog", "contact"].map((item) => (
@@ -105,7 +101,6 @@ const Navbar = () => {
 				</div>
 			</div>
 
-			{/* Notification */}
 			{notification.show && (
 				<div
 					className={`fixed bottom-4 right-4 bg-[#16161e]/95 border border-[#1f1f2e] px-6 py-4 rounded-lg flex items-center justify-between max-w-md z-50 backdrop-blur-lg ${

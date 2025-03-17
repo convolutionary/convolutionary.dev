@@ -166,12 +166,12 @@ const DiscordPresence = () => {
 	const decorationUrl = getProfileDecoration();
 
 	return (
-		<div className="glass-card overflow-hidden bg-[#18191c] rounded-lg relative">
+		<div className="glass-card overflow-hidden bg-[#18191c] rounded-lg relative min-h-[800px]">
 			<div className="absolute inset-0 z-[100]">
 				<img
 					key={diceState.key}
 					src={decorationUrl}
-					alt="Profile Decoration"
+					alt=""
 					className="absolute inset-0 w-full h-full object-cover"
 					style={{
 						animation: !diceState.isIntro && 'diceIdle 2s ease-in-out infinite'
@@ -192,7 +192,6 @@ const DiscordPresence = () => {
 				<div className="px-4 pb-4">
 					<div className="relative -mt-[76px]">
 						<div className="relative inline-block">
-							{/* Avatar Decoration */}
 							<img
 								src="https://itspi3141.github.io/discord-fake-avatar-decorations/public/decorations/solar_orbit.png"
 								alt="Avatar Decoration"

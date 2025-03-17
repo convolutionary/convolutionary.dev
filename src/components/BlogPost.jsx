@@ -59,7 +59,6 @@ redacted, but obviously this isn't hard to find again :P
 				<div className="glass-card">
 					<div className="sparkle-wrapper" />
 					
-					{/* Back button */}
 					<Link 
 						to="/blog" 
 						className="inline-flex items-center gap-2 text-[#7f08f7] hover:text-[#b366ff] transition-colors mb-6"
@@ -68,7 +67,6 @@ redacted, but obviously this isn't hard to find again :P
 						Back to blog
 					</Link>
 
-					{/* Hero image */}
 					<div className="relative h-[300px] -mx-6 -mt-6 mb-8">
 						<div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#16161e]" />
 						<img 
@@ -78,7 +76,6 @@ redacted, but obviously this isn't hard to find again :P
 						/>
 					</div>
 
-					{/* Post header */}
 					<div className="mb-8">
 						<h1 className="text-3xl font-medium text-white mb-4">
 							{post.title}
@@ -93,7 +90,6 @@ redacted, but obviously this isn't hard to find again :P
 						</div>
 					</div>
 
-					{/* Tags */}
 					<div className="flex flex-wrap gap-2 mb-8">
 						{post.tags.map((tag) => (
 							<span 
@@ -106,7 +102,6 @@ redacted, but obviously this isn't hard to find again :P
 						))}
 					</div>
 
-					{/* Content */}
 					<div className="prose prose-invert prose-purple max-w-none">
 						{post.content.split('\n\n').map((paragraph, index) => {
 							if (paragraph.startsWith('```')) {

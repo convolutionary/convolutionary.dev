@@ -9,10 +9,7 @@ import DiscordPresence from "./DiscordPresence";
 const Socials = () => {
 	return (
 		<div className="flex flex-col gap-y-4">
-			{/* Discord Presence */}
 			<DiscordPresence />
-
-			{/* Other Social Links */}
 			<div>
 				<ul className="flex flex-col text-sm gap-y-2">
 					<li className="inline-flex gap-x-2 items-center text-white">

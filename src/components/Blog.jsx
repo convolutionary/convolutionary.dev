@@ -21,7 +21,6 @@ const Blog = () => {
 			<div className="max-w-[1024px] mx-auto px-8">
 				<div className="glass-card">
 					<div className="sparkle-wrapper" />
-					{/* Title section */}
 					<div className="flex items-center gap-2 mb-6">
 						<span className="text-[#7f08f7] text-2xl animate-pulse-slow">#</span>
 						<h1 className="text-2xl">
@@ -31,7 +30,6 @@ const Blog = () => {
 						</h1>
 					</div>
 
-					{/* Blog posts grid */}
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 						{posts.map((post) => (
 							<article 
@@ -39,7 +37,6 @@ const Blog = () => {
 								onClick={() => navigate(`/blog/${post.id}`)}
 								className="group bg-[#16161e] border-2 border-[#1f1f2e] rounded-lg overflow-hidden hover:border-[#7f08f7]/30 transition-all duration-300 hover:-translate-y-1 cursor-pointer"
 							>
-								{/* Image */}
 								<div className="relative h-48 overflow-hidden">
 									<div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#16161e]/50" />
 									<img 
@@ -49,7 +46,6 @@ const Blog = () => {
 									/>
 								</div>
 
-								{/* Content */}
 								<div className="p-4">
 									<div className="flex items-center gap-2 text-xs text-white/50 mb-2">
 										<AiOutlineCalendar className="text-[#7f08f7]" />
