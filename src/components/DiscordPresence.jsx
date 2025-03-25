@@ -193,8 +193,8 @@ const DiscordPresence = () => {
 					<div className="relative -mt-[76px]">
 						<div className="relative inline-block">
 							<img
-								src="https://itspi3141.github.io/discord-fake-avatar-decorations/public/decorations/solar_orbit.png"
-								alt="Avatar Decoration"
+								src="https://cdn.jsdelivr.net/gh/itspi3141/discord-fake-avatar-decorations@main/images/decorations/solar_orbit.png"
+								alt=""
 								className="absolute pointer-events-none select-none z-[2]"
 							/>
 							<img
