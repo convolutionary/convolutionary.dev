@@ -144,7 +144,7 @@ const DiscordPresence = () => {
 	};
 
 	const getBannerUrl = () => {
-		return "https://cdn.discordapp.com/banners/1178440413212844102/a_31124cf50617f5912d50e20487ca43af.gif?size=1024";
+		return "https://cdn.discordapp.com/banners/1178440413212844102/8075c2d44d48f8ace588b73946c5f403.webp?size=1024";
 	};
 
 	const getProfileDecoration = () => {
