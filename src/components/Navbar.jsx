@@ -4,22 +4,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 const Navbar = () => {
 	const [notification, setNotification] = useState({ show: false, message: "", animate: false });
 	const [isScrolled, setIsScrolled] = useState(false);
-	const [scrollProgress, setScrollProgress] = useState(0);
 	const timeoutRef = React.useRef(null);
-	const lastScrollY = React.useRef(0);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const isHomePage = location.pathname === "/";
 
 	useEffect(() => {
 		const handleScroll = () => {
-			const currentScrollY = window.scrollY;
-			const maxScroll = 20;
-			
-			const progress = Math.min(currentScrollY / maxScroll, 1);
-			setScrollProgress(progress);
-			setIsScrolled(progress > 0);
-			lastScrollY.current = currentScrollY;
+			const scrollTop = window.scrollY;
+			setIsScrolled(scrollTop > 20);
 		};
 
 		window.addEventListener("scroll", handleScroll, { passive: true });
@@ -48,80 +41,90 @@ const Navbar = () => {
 		}
 	};
 
-	const statusBarHeight = 28 - (scrollProgress * 8);
-	const logoHeight = 44 - (scrollProgress * 12);
-	const navHeight = 36 - (scrollProgress * 8);
-	const scale = 1 - (scrollProgress * 0.1);
-
 	return (
-		<div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out will-change-transform ${
-			isScrolled ? "nav-scrolled" : "nav-top"
-		}`}>
-			<div className="bg-[#16161e]/95 text-sm px-4 transition-all duration-300 ease-in-out flex items-center justify-between border-b border-[#1f1f2e]/30"
-				style={{ height: `${statusBarHeight}px` }}>
-				<div className="flex items-center gap-2">
-					<span className="status-dot online transition-all duration-300 ease-in-out"></span>
-					<span className="text-white/50 transition-all duration-300 ease-in-out text-xs tracking-wide">
-						all systems operational ✨
-					</span>
+		<>
+			{/* Status Bar */}
+			<div className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-xl border-b border-gray-800/50">
+				<div className="container mx-auto px-4 py-2">
+					<div className="flex items-center justify-between text-sm">
+						<div className="flex items-center gap-2">
+							<div className="status-dot online"></div>
+							<span className="text-gray-300 font-mono">all systems operational</span>
+						</div>
+						<div className="text-gray-500 font-mono">
+							{new Date().toLocaleDateString()}
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<div className="bg-[#16161e]/95 border-b border-[#1f1f2e]/30 transition-all duration-300 ease-in-out backdrop-blur-lg">
-				<div className="max-w-[1024px] mx-auto">
-					<div className="transition-all duration-300 ease-in-out border-b border-[#1f1f2e]/30 overflow-hidden flex items-center justify-center"
-						style={{ height: `${logoHeight}px` }}>
-						<Link to="/">
-							<h1 className="text-2xl transition-all duration-300 ease-in-out transform-gpu"
-								style={{ transform: `scale(${scale})` }}>
-								<span className="bg-gradient-to-r from-[#7f08f7] to-[#b366ff] bg-clip-text text-transparent hover:to-[#7f08f7] transition-all duration-500 cursor-pointer font-medium">
-									Aurora
-								</span>
-							</h1>
+			{/* Main Navigation */}
+			<nav className={`fixed top-5 left-0 right-0 z-40 transition-all duration-300 ${
+				isScrolled 
+					? "bg-black/80 backdrop-blur-xl border-b border-gray-800/30 shadow-lg shadow-black/20" 
+					: "bg-black/60 backdrop-blur-md border-b border-gray-800/20"
+			}`}>
+				<div className="container mx-auto px-4">
+					<div className="flex items-center justify-between h-16">
+						{/* Logo */}
+						<Link to="/" className="text-2xl font-bold text-white hover:text-gray-300 transition-colors relative">
+							<span className="relative z-10">Aurora</span>
+							<div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-300 -m-2"></div>
 						</Link>
-					</div>
-					
-					<nav className="flex justify-center transition-all duration-300 ease-in-out overflow-hidden"
-						style={{ height: `${navHeight}px` }}>
-						{["home", "about", "blog", "contact"].map((item) => (
-							<button
-								key={item}
-								onClick={() => handleNavClick(item)}
-								className={`relative mx-4 transition-all duration-300 ease-in-out text-white/50 hover:text-white group flex items-center`}
-								style={{ 
-									fontSize: `${14 - (scrollProgress * 2)}px`,
-									padding: `${6 - (scrollProgress * 2)}px 0`
-								}}
-							>
-								{item}
-								<span className="absolute -bottom-0.5 left-0 w-0 h-[2px] bg-gradient-to-r from-[#7f08f7] to-[#b366ff] transition-all duration-300 ease-in-out opacity-0 group-hover:w-full group-hover:opacity-100"></span>
-							</button>
-						))}
-					</nav>
-				</div>
-			</div>
 
-			{notification.show && (
-				<div
-					className={`fixed bottom-4 right-4 bg-[#16161e]/95 border border-[#1f1f2e] px-6 py-4 rounded-lg flex items-center justify-between max-w-md z-50 backdrop-blur-lg ${
-						notification.animate ? "animate-slide-up" : "animate-slide-down"
-					}`}
-				>
-					<div>
-						<p className="font-medium bg-gradient-to-r from-[#7f08f7] to-[#b366ff] bg-clip-text text-transparent">
-							{notification.message}
-						</p>
-						<p className="text-sm text-white/40">Please try again later ✨</p>
+						{/* Navigation Links */}
+						<div className="hidden md:flex items-center space-x-1">
+							{["home", "about", "blog", "contact"].map((item) => (
+								<button
+									key={item}
+									onClick={() => handleNavClick(item)}
+									className="relative px-4 py-2 text-gray-300 hover:text-white transition-all duration-300 capitalize font-medium group"
+								>
+									<span className="relative z-10">{item}</span>
+									<div className="absolute inset-0 bg-white/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm"></div>
+									<div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+								</button>
+							))}
+						</div>
+
+						{/* Mobile Menu Button */}
+						<button className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors backdrop-blur-sm border border-gray-800/30">
+							<svg className="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+							</svg>
+						</button>
 					</div>
-					<button 
-						onClick={() => setNotification(prev => ({ ...prev, animate: false }))}
-						className="ml-4 px-4 py-2 rounded-lg text-white/50 hover:text-white bg-[#1f1f2e]/50 hover:bg-[#7f08f7]/20 border border-[#1f1f2e]/50 hover:border-[#7f08f7]/50 transition-all duration-300"
-					>
-						Close
-					</button>
+				</div>
+			</nav>
+
+			{/* Notification Toast */}
+			{notification.show && (
+				<div className={`fixed bottom-4 right-4 z-50 transition-all duration-300 ${
+					notification.animate ? "animate-fade-in" : "opacity-0 translate-y-2"
+				}`}>
+					<div className="bg-black/80 backdrop-blur-xl border border-gray-800/50 rounded-lg p-4 max-w-md shadow-lg shadow-black/20">
+						<div className="flex items-start justify-between">
+							<div>
+								<p className="font-medium text-white">
+									{notification.message}
+								</p>
+								<p className="text-sm text-gray-400 mt-1">
+									Please try again later
+								</p>
+							</div>
+							<button 
+								onClick={() => setNotification(prev => ({ ...prev, animate: false }))}
+								className="ml-4 text-gray-400 hover:text-gray-200 transition-colors p-1 rounded hover:bg-white/10"
+							>
+								<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+								</svg>
+							</button>
+						</div>
+					</div>
 				</div>
 			)}
-		</div>
+		</>
 	);
 };
 

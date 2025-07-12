@@ -7,15 +7,18 @@ import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
+import NotFound from "./components/NotFound";
+import ParticlesBackground from "./components/ParticlesBackground";
 
 const App = () => {
 	const router = createHashRouter(
 		createRoutesFromElements(
 			<>
 				<Route path="/" element={
-					<div>
+					<div className="bg-black min-h-screen relative">
+						<ParticlesBackground />
 						<Navbar />
-						<main>
+						<main className="bg-black">
 							<Home />
 							<About />
 							<Blog />
@@ -25,10 +28,21 @@ const App = () => {
 					</div>
 				} />
 				<Route path="/blog/:id" element={
-					<div>
+					<div className="bg-black min-h-screen relative">
+						<ParticlesBackground />
 						<Navbar />
-						<main>
+						<main className="bg-black">
 							<BlogPost />
+						</main>
+						<Footer />
+					</div>
+				} />
+				<Route path="*" element={
+					<div className="bg-black min-h-screen relative">
+						<ParticlesBackground />
+						<Navbar />
+						<main className="bg-black">
+							<NotFound />
 						</main>
 						<Footer />
 					</div>
