@@ -1,178 +1,94 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineCalendar, AiOutlineTag, AiOutlineFieldTime, AiOutlineArrowRight } from "react-icons/ai";
+import React from "react";
+import { Link } from "react-router-dom";
+import { AiOutlineFieldTime, AiOutlineEye } from "react-icons/ai";
 
 const Blog = () => {
-	const navigate = useNavigate();
-	const [posts] = useState([
-		{
-			id: 1,
-			title: "first blog post (idk what to put here)",
-			date: "2025-02-15",
-			tags: ["philosophy", "personal"],
-			preview: "A collection of thoughts and reflections on the journey of self-discovery and the complexity of human existence in the digital age.",
-			readTime: "5 min read",
-			imageUrl: "https://i.pinimg.com/originals/2f/01/ea/2f01eadfd0be42b8102c19b4d39052f6.gif",
-			featured: true
-		}
-	]);
-
-	const featuredPost = posts.find(post => post.featured);
-	const otherPosts = posts.filter(post => !post.featured);
+	const featuredPost = 		{
+		id: 1,
+		title: "first blog post (idk what to put here)",
+		date: "2025-02-15",
+		tags: ["philosophy", "personal"],
+		content: `
+redacted, but obviously this isn't hard to find again :P
+			`,
+		readTime: "5 min read",
+		imageUrl: "https://i.pinimg.com/originals/2f/01/ea/2f01eadfd0be42b8102c19b4d39052f6.gif",
+	};
 
 	return (
 		<div className="section" id="blog">
-			<div className="container mx-auto px-4">
-				<div className="space-y-16">
+			<div className="container mx-auto px-4 sm:px-6">
+				<div className="space-y-12 sm:space-y-16">
 					{/* Blog Header */}
 					<div className="text-center">
-						<span className="text-sm font-mono text-gray-400 bg-gray-800 px-3 py-1 rounded-full mb-4 inline-block">
+						<span className="text-xs sm:text-sm font-mono text-gray-400 bg-gray-800 px-2 sm:px-3 py-1 rounded-full mb-4 inline-block">
 							Blog
 						</span>
-						<h2 className="text-4xl font-bold text-white mb-6">
-							Thoughts & Reflections
+						<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
+							Latest thoughts
 						</h2>
-						<p className="text-lg text-gray-300 max-w-2xl mx-auto">
-							Occasional musings on technology, philosophy, and the journey of continuous learning
+						<p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-4">
+							boom boom tung tung
 						</p>
 					</div>
 
-					{/* Featured Post */}
-					{featuredPost && (
-						<div className="max-w-4xl mx-auto">
-							<div className="text-center mb-8">
-								<span className="text-sm font-mono text-gray-400 bg-gray-800 px-3 py-1 rounded-full">
-									Featured Post
-								</span>
-							</div>
-							<article 
-								onClick={() => navigate(`/blog/${featuredPost.id}`)}
-								className="card card-elevated overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-xl bg-gray-900"
-							>
-								<div className="md:flex">
-									<div className="md:w-1/2">
-										<div className="relative h-64 md:h-full overflow-hidden">
-											<img 
-												src={featuredPost.imageUrl}
-												alt={featuredPost.title}
-												className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-											/>
-											<div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-										</div>
-									</div>
-									<div className="md:w-1/2 p-8">
-										<div className="flex flex-wrap gap-2 mb-4">
-											{featuredPost.tags.map((tag) => (
-												<span 
-													key={tag}
-													className="blog-tag"
-												>
-													<AiOutlineTag size={12} />
-													{tag}
-												</span>
-											))}
-										</div>
-										
-										<h3 className="text-2xl font-bold text-white mb-4 group-hover:text-gray-300 transition-colors">
-											{featuredPost.title}
-										</h3>
-										
-										<p className="text-gray-300 mb-6 leading-relaxed">
-											{featuredPost.preview}
-										</p>
-										
-										<div className="flex items-center justify-between">
-											<div className="flex items-center gap-4 text-sm text-gray-500">
-												<div className="flex items-center gap-1">
-													<AiOutlineCalendar />
-													<span>{new Date(featuredPost.date).toLocaleDateString()}</span>
-												</div>
-												<div className="flex items-center gap-1">
-													<AiOutlineFieldTime />
-													<span>{featuredPost.readTime}</span>
-												</div>
-											</div>
-											<div className="flex items-center gap-2 text-white font-medium group-hover:gap-3 transition-all">
-												<span>Read more</span>
-												<AiOutlineArrowRight />
-											</div>
-										</div>
+					{/* Featured Blogs */}
+					<div className="card p-4 sm:p-6 md:p-8 bg-gray-900 mx-4 sm:mx-0">
+						<div className="text-center mb-4 sm:mb-6">
+							<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">Featured Blogs</h3>
+							<p className="text-sm sm:text-base md:text-lg text-gray-300">random new shit</p>
+						</div>
+						
+						<Link to={`/blog/${featuredPost.id}`} className="block group">
+							<div className="relative overflow-hidden rounded-lg mb-4 sm:mb-6">
+								{featuredPost.imageUrl && (
+									<img 
+										src={featuredPost.imageUrl} 
+										alt={featuredPost.title}
+										className="w-full h-48 sm:h-56 md:h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+									/>
+								)}
+								<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+								<div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4">
+									<div className="flex flex-wrap gap-1 sm:gap-2">
+										{featuredPost.tags.map((tag, index) => (
+											<span 
+												key={index} 
+												className="text-xs sm:text-sm bg-white/20 text-white px-2 py-1 rounded backdrop-blur-sm"
+											>
+												{tag}
+											</span>
+										))}
 									</div>
 								</div>
-							</article>
-						</div>
-					)}
-
-					{/* Other Posts */}
-					{otherPosts.length > 0 && (
-						<div>
-							<div className="text-center mb-12">
-								<h3 className="text-2xl font-bold text-white mb-4">All Posts</h3>
-								<p className="text-gray-300">More thoughts and insights</p>
 							</div>
 							
-							<div className="blog-grid">
-								{otherPosts.map((post) => (
-									<article 
-										key={post.id}
-										onClick={() => navigate(`/blog/${post.id}`)}
-										className="blog-card bg-gray-900 border-gray-800"
-									>
-										<img 
-											src={post.imageUrl}
-											alt={post.title}
-											className="blog-card-image"
-										/>
-										<div className="blog-card-content">
-											<div className="flex flex-wrap gap-2 mb-3">
-												{post.tags.map((tag) => (
-													<span 
-														key={tag}
-														className="blog-tag"
-													>
-														<AiOutlineTag size={12} />
-														{tag}
-													</span>
-												))}
-											</div>
-											
-											<h3 className="blog-card-title text-white">
-												{post.title}
-											</h3>
-											
-											<p className="blog-card-excerpt text-gray-300">
-												{post.preview}
-											</p>
-											
-											<div className="blog-card-meta text-gray-400">
-												<div className="flex items-center gap-1">
-													<AiOutlineCalendar />
-													<span>{new Date(post.date).toLocaleDateString()}</span>
-												</div>
-												<div className="flex items-center gap-1">
-													<AiOutlineFieldTime />
-													<span>{post.readTime}</span>
-												</div>
-											</div>
+							<div>
+								<h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 group-hover:text-gray-300 transition-colors">
+									{featuredPost.title}
+								</h4>
+								<p className="text-sm sm:text-base md:text-lg text-gray-300 mb-3 sm:mb-4 leading-relaxed">
+									{featuredPost.excerpt}
+								</p>
+								
+								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+									<div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-gray-400">
+										<div className="flex items-center gap-1 sm:gap-2">
+											<AiOutlineFieldTime className="w-3 h-3 sm:w-4 sm:h-4" />
+											<span>{featuredPost.readTime}</span>
 										</div>
-									</article>
-								))}
+										<div className="flex items-center gap-1 sm:gap-2">
+											<AiOutlineEye className="w-3 h-3 sm:w-4 sm:h-4" />
+											<span>{featuredPost.views}</span>
+										</div>
+									</div>
+									<span className="text-xs sm:text-sm text-white font-medium group-hover:text-gray-300 transition-colors self-start sm:self-auto">
+										Read more →
+									</span>
+								</div>
 							</div>
-						</div>
-					)}
-
-					{/* No Posts State */}
-					{posts.length === 0 && (
-						<div className="text-center py-16">
-							<div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-6">
-								<svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-								</svg>
-							</div>
-							<h3 className="text-xl font-semibold text-white mb-2">No posts yet</h3>
-							<p className="text-gray-400">Check back later for new content!</p>
-						</div>
-					)}
+						</Link>
+					</div>
 
 				</div>
 			</div>

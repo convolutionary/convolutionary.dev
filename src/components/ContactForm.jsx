@@ -348,48 +348,48 @@ const ContactForm = () => {
 
 	return (
 		<div className="section" id="contact">
-			<div className="container mx-auto px-4">
-				<div className="space-y-16">
+			<div className="container mx-auto px-4 sm:px-6">
+				<div className="space-y-12 sm:space-y-16">
 					{/* Contact Header */}
 					<div className="text-center">
-						<span className="text-sm font-mono text-gray-400 bg-gray-800 px-3 py-1 rounded-full mb-4 inline-block">
+						<span className="text-xs sm:text-sm font-mono text-gray-400 bg-gray-800 px-2 sm:px-3 py-1 rounded-full mb-4 inline-block">
 							Contact
 						</span>
-						<h2 className="text-4xl font-bold text-white mb-6">
+						<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
 							Let's work together
 						</h2>
-						<p className="text-lg text-gray-300 max-w-2xl mx-auto">
+						<p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-4">
 							Have a project in mind? Let's discuss how we can bring your ideas to life.
 						</p>
 					</div>
 
-					<div className="grid lg:grid-cols-2 gap-16">
+					<div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
 						{/* Contact Form */}
 						<div className="order-2 lg:order-1">
-							<div className="card card-elevated p-8 bg-gray-900">
-								<h3 className="text-2xl font-bold text-white mb-6">Send a message</h3>
+							<div className="card card-elevated p-4 sm:p-6 md:p-8 bg-gray-900">
+								<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-6">Send a message</h3>
 								
 								{submitted ? (
-									<div className="text-center py-8">
-										<div className="w-16 h-16 bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
-											<svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<div className="text-center py-6 sm:py-8">
+										<div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+											<svg className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
 											</svg>
 										</div>
-										<h4 className="text-xl font-semibold text-white mb-2">Message sent!</h4>
-										<p className="text-gray-300 mb-4">Thank you for reaching out. I'll get back to you soon.</p>
+										<h4 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">Message sent!</h4>
+										<p className="text-sm sm:text-base text-gray-300 mb-4 px-4">Thank you for reaching out. I'll get back to you soon.</p>
 										<button 
 											onClick={() => setSubmitted(false)}
-											className="btn btn-secondary"
+											className="btn btn-secondary w-full sm:w-auto"
 										>
 											Send another message
 										</button>
 									</div>
 								) : (
-									<form ref={form} onSubmit={sendEmail} className="space-y-6">
-										<div className="grid md:grid-cols-2 gap-6">
+									<form ref={form} onSubmit={sendEmail} className="space-y-4 sm:space-y-6">
+										<div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
 											<div>
-												<label className="form-label">Name</label>
+												<label className="form-label text-sm sm:text-base">Name</label>
 												<input
 													type="text"
 													name="user_name"
@@ -397,11 +397,11 @@ const ContactForm = () => {
 													onChange={handleInputChange}
 													required
 													placeholder="Your name"
-													className="form-input"
+													className="form-input w-full text-sm sm:text-base"
 												/>
 											</div>
 											<div>
-												<label className="form-label">Email</label>
+												<label className="form-label text-sm sm:text-base">Email</label>
 												<input
 													type="email"
 													name="user_email"
@@ -409,22 +409,22 @@ const ContactForm = () => {
 													onChange={handleInputChange}
 													required
 													placeholder="your@email.com"
-													className="form-input"
+													className="form-input w-full text-sm sm:text-base"
 												/>
 											</div>
 										</div>
 										<div>
-											<label className="form-label">Message</label>
+											<label className="form-label text-sm sm:text-base">Message</label>
 											<textarea
 												name="message"
 												value={formData.message}
 												onChange={handleInputChange}
 												required
 												placeholder="Tell me about your project..."
-												className="form-input form-textarea"
+												className="form-input form-textarea w-full text-sm sm:text-base min-h-[120px] sm:min-h-[150px]"
 											/>
 										</div>
-										<button type="submit" className="btn btn-primary btn-lg w-full">
+										<button type="submit" className="btn btn-primary btn-lg w-full text-sm sm:text-base">
 											Send Message
 										</button>
 									</form>
@@ -433,56 +433,56 @@ const ContactForm = () => {
 						</div>
 
 						{/* Contact Info & Quote */}
-						<div className="order-1 lg:order-2 space-y-8">
+						<div className="order-1 lg:order-2 space-y-6 sm:space-y-8">
 							{/* Social Links */}
-							<div className="card p-8 bg-gray-900">
-								<h3 className="text-2xl font-bold text-white mb-6">Connect with me</h3>
+							<div className="card p-4 sm:p-6 md:p-8 bg-gray-900">
+								<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-6">Connect with me</h3>
 								<Socials />
 							</div>
 
 							{/* Quote of the Day */}
-							<div className="card p-8 bg-gray-900">
-								<div className="flex items-center justify-between mb-6">
-									<h3 className="text-2xl font-bold text-white">Daily Inspiration</h3>
-									<span className="text-sm text-white bg-gray-800 px-3 py-1 rounded-full">
+							<div className="card p-4 sm:p-6 md:p-8 bg-gray-900">
+								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 mb-4 sm:mb-6">
+									<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">Daily Inspiration</h3>
+									<span className="text-xs sm:text-sm text-white bg-gray-800 px-2 sm:px-3 py-1 rounded-full self-start sm:self-auto">
 										{currentQuote.category}
 									</span>
 								</div>
 								
 								<div className={`transition-all duration-300 ${animateQuote ? 'opacity-0 translate-y-2' : 'opacity-100'}`}>
-									<div className="mb-4">
-										<blockquote className="text-lg text-gray-300 italic mb-2 leading-relaxed">
+									<div className="mb-4 sm:mb-6">
+										<blockquote className="text-base sm:text-lg md:text-xl text-gray-300 italic mb-2 sm:mb-3 leading-relaxed">
 											"{currentQuote.latin}"
 										</blockquote>
-										<p className="text-base text-gray-400 mb-3">
+										<p className="text-sm sm:text-base md:text-lg text-gray-400 mb-2 sm:mb-3">
 											{currentQuote.english}
 										</p>
-										<p className="text-sm text-gray-500 leading-relaxed">
+										<p className="text-xs sm:text-sm md:text-base text-gray-500 leading-relaxed">
 											{currentQuote.description}
 										</p>
 									</div>
 								</div>
 								
-								<div className="flex gap-3 mt-6">
+								<div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
 									<button 
 										onClick={cycleQuote}
-										className="btn btn-secondary btn-sm"
+										className="btn btn-secondary btn-sm w-full sm:w-auto text-xs sm:text-sm"
 									>
-										<svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
 										</svg>
 										New Quote
 									</button>
 									<button 
 										onClick={copyQuote}
-										className="btn btn-ghost btn-sm relative"
+										className="btn btn-ghost btn-sm relative w-full sm:w-auto text-xs sm:text-sm"
 									>
-										<svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
 										</svg>
 										Copy
 										{showCopyTooltip && (
-											<span className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-black text-white text-xs rounded-lg">
+											<span className="absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 px-2 sm:px-3 py-1 bg-black text-white text-xs rounded-lg whitespace-nowrap">
 												Copied!
 											</span>
 										)}
@@ -491,40 +491,40 @@ const ContactForm = () => {
 							</div>
 
 							{/* Contact Info */}
-							<div className="card p-8 bg-gray-900">
-								<h3 className="text-2xl font-bold text-white mb-6">Get in touch</h3>
-								<div className="space-y-4">
-									<div className="flex items-start gap-4">
-										<div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0">
-											<svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<div className="card p-4 sm:p-6 md:p-8 bg-gray-900">
+								<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-6">Get in touch</h3>
+								<div className="space-y-3 sm:space-y-4">
+									<div className="flex items-start gap-3 sm:gap-4">
+										<div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0">
+											<svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
 											</svg>
 										</div>
-										<div>
-											<h4 className="font-semibold text-white">Email</h4>
-											<p className="text-gray-400">Best way to reach me</p>
+										<div className="min-w-0">
+											<h4 className="font-semibold text-white text-sm sm:text-base">Email</h4>
+											<p className="text-xs sm:text-sm text-gray-400">Best way to reach me</p>
 										</div>
 									</div>
-									<div className="flex items-start gap-4">
-										<div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0">
-											<svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<div className="flex items-start gap-3 sm:gap-4">
+										<div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0">
+											<svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
 											</svg>
 										</div>
-										<div>
-											<h4 className="font-semibold text-white">Response Time</h4>
-											<p className="text-gray-400">Usually within 24 hours</p>
+										<div className="min-w-0">
+											<h4 className="font-semibold text-white text-sm sm:text-base">Response Time</h4>
+											<p className="text-xs sm:text-sm text-gray-400">Usually within 24 hours</p>
 										</div>
 									</div>
-									<div className="flex items-start gap-4">
-										<div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0">
-											<svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<div className="flex items-start gap-3 sm:gap-4">
+										<div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0">
+											<svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6" />
 											</svg>
 										</div>
-										<div>
-											<h4 className="font-semibold text-white">Collaboration</h4>
-											<p className="text-gray-400">Open to new opportunities</p>
+										<div className="min-w-0">
+											<h4 className="font-semibold text-white text-sm sm:text-base">Collaboration</h4>
+											<p className="text-xs sm:text-sm text-gray-400">Open to new opportunities</p>
 										</div>
 									</div>
 								</div>

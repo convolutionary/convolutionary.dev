@@ -790,3 +790,265 @@ footer {
   transform: scaleX(1);
   transform-origin: left;
 }
+
+.form-input {
+	background-color: var(--color-gray-800) !important;
+	color: var(--color-white) !important;
+	border: 1px solid var(--color-gray-700) !important;
+	border-radius: var(--border-radius-md);
+	padding: 0.75rem 1rem;
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	transition: all 0.2s;
+}
+
+@media (min-width: 640px) {
+	.form-input {
+		padding: 1rem 1.25rem;
+		font-size: 1rem;
+		line-height: 1.5rem;
+	}
+}
+
+.form-input:focus {
+	outline: none;
+	border-color: var(--color-white) !important;
+	box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.form-textarea {
+	resize: vertical;
+	min-height: 120px;
+}
+
+@media (min-width: 640px) {
+	.form-textarea {
+		min-height: 150px;
+	}
+}
+
+.form-label {
+	display: block;
+	color: var(--color-white) !important;
+	font-weight: 500;
+	margin-bottom: 0.5rem;
+	font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+	.form-label {
+		font-size: 1rem;
+	}
+}
+
+/* Button Components - Enhanced for Mobile */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--border-radius-md);
+	font-weight: 500;
+	text-decoration: none;
+	transition: all 0.2s;
+	border: none;
+	cursor: pointer;
+	font-size: 0.875rem;
+	padding: 0.625rem 1.25rem;
+	line-height: 1.25rem;
+}
+
+@media (min-width: 640px) {
+	.btn {
+		font-size: 1rem;
+		padding: 0.75rem 1.5rem;
+		line-height: 1.5rem;
+	}
+}
+
+.btn-sm {
+	font-size: 0.75rem;
+	padding: 0.5rem 1rem;
+	line-height: 1rem;
+}
+
+@media (min-width: 640px) {
+	.btn-sm {
+		font-size: 0.875rem;
+		padding: 0.625rem 1.25rem;
+		line-height: 1.25rem;
+	}
+}
+
+.btn-lg {
+	font-size: 1rem;
+	padding: 0.875rem 2rem;
+	line-height: 1.5rem;
+}
+
+@media (min-width: 640px) {
+	.btn-lg {
+		font-size: 1.125rem;
+		padding: 1rem 2.5rem;
+		line-height: 1.75rem;
+	}
+}
+
+.btn-primary {
+	background-color: var(--color-white) !important;
+	color: var(--color-black) !important;
+}
+
+.btn-primary:hover {
+	background-color: var(--color-gray-300) !important;
+	transform: translateY(-1px);
+}
+
+.btn-secondary {
+	background-color: var(--color-gray-800) !important;
+	color: var(--color-white) !important;
+	border: 1px solid var(--color-gray-700) !important;
+}
+
+.btn-secondary:hover {
+	background-color: var(--color-gray-700) !important;
+	border-color: var(--color-gray-600) !important;
+	transform: translateY(-1px);
+}
+
+.btn-ghost {
+	background-color: transparent !important;
+	color: var(--color-white) !important;
+	border: 1px solid var(--color-gray-800) !important;
+}
+
+.btn-ghost:hover {
+	background-color: var(--color-gray-900) !important;
+	border-color: var(--color-gray-700) !important;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 639px) {
+	.container {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+	
+	/* Improve touch targets */
+	.btn, .form-input, .form-textarea {
+		min-height: 44px;
+	}
+	
+	/* Better spacing for mobile */
+	.section {
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+	}
+	
+	/* Ensure text doesn't get too small */
+	.text-xs {
+		font-size: 0.75rem !important;
+	}
+	
+	.text-sm {
+		font-size: 0.875rem !important;
+	}
+}
+
+/* Line clamp utility for mobile */
+.line-clamp-3 {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+/* Mobile navigation improvements */
+@media (max-width: 767px) {
+	.mobile-menu-container .nav-link {
+		font-size: 1rem;
+		padding: 0.75rem 1rem;
+	}
+}
+
+/* Status dot animation */
+.status-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background-color: #10b981;
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0%, 100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+}
+
+/* Cursor blink animation */
+.cursor-blink {
+	animation: blink 1s infinite;
+}
+
+@keyframes blink {
+	0%, 50% {
+		opacity: 1;
+	}
+	51%, 100% {
+		opacity: 0;
+	}
+}
+
+/* Tech grid responsive improvements */
+.tech-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+	.tech-grid {
+		grid-template-columns: repeat(5, 1fr);
+		gap: 1rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.tech-grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+@media (min-width: 1024px) {
+	.tech-grid {
+		grid-template-columns: repeat(5, 1fr);
+	}
+}
+
+/* Project grid responsive improvements */
+.project-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+
+@media (min-width: 640px) {
+	.project-grid {
+		gap: 1.5rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.project-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (min-width: 1024px) {
+	.project-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}

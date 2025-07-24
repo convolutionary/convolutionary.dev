@@ -111,7 +111,7 @@ redacted, but obviously this isn't hard to find again :P
 							</div>
 							<div className="flex items-center gap-2">
 								<AiOutlineFieldTime />
-								<span>{post.readTime}</span>
+							<span>{post.readTime}</span>
 							</div>
 						</div>
 					</div>
