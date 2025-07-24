@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import pgp from "../pgp.txt";
 
 const Footer = () => {
 	const currentYear = new Date().getFullYear();
@@ -142,7 +143,7 @@ const Footer = () => {
 								Terms
 							</Link>
 							<a 
-								href="/pgp.txt" 
+								href={pgp} 
 								target="_blank" 
 								rel="noopener noreferrer"
 								className="text-xs sm:text-sm text-gray-500 hover:text-gray-300 transition-colors"
