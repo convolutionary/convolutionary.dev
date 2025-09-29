@@ -69,17 +69,17 @@ const Home = () => {
 				</div>
 
 				{}
-				<div className="bg-terminal-black border-l border-r border-terminal-muted p-8 min-h-[80vh]">
+				<div className="bg-terminal-black border-l border-r border-terminal-muted p-4 sm:p-6 md:p-8 min-h-[70vh] sm:min-h-[80vh]">
 
 					{}
-					<div className="mb-8">
-						<pre className="text-terminal-primary text-lg sm:text-xl md:text-2xl leading-tight font-bold whitespace-pre overflow-x-auto">
+					<div className="mb-6 sm:mb-8">
+						<pre className="text-terminal-primary text-xs xs:text-sm sm:text-lg md:text-xl lg:text-2xl leading-tight font-bold whitespace-pre overflow-x-auto scrollbar-hide">
 {asciiArt}
 						</pre>
 					</div>
 
 					{}
-					<div className="mb-8 grid md:grid-cols-2 gap-8">
+					<div className="mb-6 sm:mb-8 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
 						<div>
 							<div className="text-terminal-secondary mb-4">
 								<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~</span><span className="text-white">$ </span>whoami
@@ -120,7 +120,7 @@ const Home = () => {
 					</div>
 
 					{}
-					<div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+					<div className="mb-6 sm:mb-8 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
 						{[
 							{ label: "Years Experience", value: "7+" },
 							{ label: "Technologies", value: "15+" },
@@ -128,8 +128,8 @@ const Home = () => {
 							{ label: "Learning Mode", value: "24/7" }
 						].map((stat, index) => (
 							<div key={index} className="text-center">
-								<div className="text-terminal-primary font-bold text-2xl mb-1">{stat.value}</div>
-								<div className="text-terminal-muted text-sm">{stat.label}</div>
+								<div className="text-terminal-primary font-bold text-lg sm:text-xl md:text-2xl mb-1">{stat.value}</div>
+								<div className="text-terminal-muted text-xs sm:text-sm">{stat.label}</div>
 							</div>
 						))}
 					</div>
@@ -139,8 +139,8 @@ const Home = () => {
 						<div className="text-terminal-secondary mb-4">
 							<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~</span><span className="text-white">$ </span>ls projects/
 						</div>
-						<div className="grid md:grid-cols-2 gap-6">
-							<div className="border border-terminal-dim p-4 rounded">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+							<div className="border border-terminal-dim p-3 sm:p-4 rounded">
 								<div className="flex items-center gap-3 mb-3">
 									<span className="text-terminal-primary font-bold">[WEB]</span>
 									<div>
@@ -152,7 +152,7 @@ const Home = () => {
 									Building scalable web applications with modern frameworks and clean architecture.
 								</p>
 							</div>
-							<div className="border border-terminal-dim p-4 rounded">
+							<div className="border border-terminal-dim p-3 sm:p-4 rounded">
 								<div className="flex items-center gap-3 mb-3">
 									<span className="text-terminal-primary font-bold">[OSS]</span>
 									<div>

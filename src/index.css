@@ -649,31 +649,134 @@ footer {
 	.container {
 		padding: 0 1rem;
 	}
-	
+
+	/* Typography adjustments for mobile */
 	h1 {
-		font-size: 2rem;
+		font-size: 1.75rem;
+		line-height: 1.2;
 	}
-	
+
 	h2 {
-		font-size: 1.5rem;
+		font-size: 1.25rem;
+		line-height: 1.3;
 	}
-	
+
 	.section {
-		padding: 3rem 0;
+		padding: 2.5rem 0;
 	}
-	
+
+	/* ASCII art mobile optimization */
+	pre {
+		font-size: 0.5rem;
+		line-height: 1.1;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+	/* Terminal window mobile adjustments */
+	.bg-terminal-black.border-l.border-r {
+		padding: 1rem 0.75rem;
+		margin: 0 -0.5rem;
+	}
+
+	/* Command prompt mobile styling */
+	.text-terminal-secondary.mb-4 span {
+		font-size: 0.75rem;
+	}
+
+	/* Stats grid mobile optimization */
+	.grid.grid-cols-2.md\\:grid-cols-4 {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
+	/* Form inputs mobile friendly */
+	input, textarea {
+		font-size: 16px; /* Prevents zoom on iOS */
+		padding: 0.875rem;
+	}
+
+	/* Mobile menu improvements */
+	.mobile-menu-container button {
+		padding: 0.75rem 1rem;
+		font-size: 0.875rem;
+	}
+
+	/* Grid layouts mobile responsive */
 	.tech-grid {
 		grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 		gap: 0.75rem;
 		padding: 1rem;
 	}
-	
+
 	.blog-grid {
 		grid-template-columns: 1fr;
 	}
-	
+
 	.project-grid {
 		grid-template-columns: 1fr;
+	}
+
+	/* Terminal title mobile size */
+	.text-4xl.sm\\:text-5xl.md\\:text-6xl {
+		font-size: 1.5rem;
+		line-height: 1.2;
+	}
+
+	/* Navbar mobile adjustments */
+	.fixed.top-0.left-0.right-0 {
+		padding: 0.25rem 0;
+	}
+
+	/* Footer mobile spacing */
+	.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4 {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem;
+	}
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+	/* ASCII art extra small screens */
+	pre {
+		font-size: 0.4rem;
+		line-height: 1.0;
+		transform: scale(0.85);
+		transform-origin: left center;
+		margin: 0.5rem 0;
+	}
+
+	/* Terminal titles ultra compact */
+	.text-4xl.sm\\:text-5xl.md\\:text-6xl {
+		font-size: 1.25rem;
+		line-height: 1.1;
+		margin-bottom: 0.75rem;
+	}
+
+	/* Container extra tight */
+	.container.mx-auto.px-4 {
+		padding-left: 0.75rem;
+		padding-right: 0.75rem;
+	}
+
+	/* Stats single column on tiny screens */
+	.grid.grid-cols-2.md\\:grid-cols-4 {
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+		text-align: center;
+	}
+
+	/* Footer stack on small screens */
+	.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4 {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+		text-align: left;
+	}
+
+	/* Command prompt ultra compact */
+	.text-terminal-secondary.mb-4 {
+		margin-bottom: 0.75rem;
+		font-size: 0.7rem;
 	}
 }
 
@@ -1249,4 +1352,54 @@ footer {
 
 .border-terminal-dim {
 	border-color: var(--color-text-dim) !important;
+}
+
+/* Hide scrollbar for ASCII art on mobile */
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
+
+/* Mobile touch improvements */
+@media (hover: none) and (pointer: coarse) {
+	.hover\\:bg-terminal-muted\\/10:hover {
+		background-color: rgba(32, 178, 170, 0.1) !important;
+	}
+
+	.hover\\:text-terminal-primary:hover {
+		color: var(--color-text-primary) !important;
+	}
+
+	/* Increase touch targets for mobile */
+	button, a {
+		min-height: 44px;
+		min-width: 44px;
+	}
+
+	/* Mobile navbar touch improvements */
+	.mobile-menu-container button {
+		min-height: 48px;
+		padding: 0.875rem 1rem;
+	}
+}
+
+/* Extra small devices optimization */
+@media (max-width: 320px) {
+	.container {
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
+	}
+
+	pre {
+		font-size: 0.35rem;
+		transform: scale(0.8);
+	}
+
+	.text-2xl.sm\\:text-3xl.md\\:text-4xl.lg\\:text-5xl.xl\\:text-6xl {
+		font-size: 1.125rem;
+	}
 }

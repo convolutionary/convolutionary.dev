@@ -68,7 +68,7 @@ const Navbar = () => {
 		<>
 			{}
 			<div className="fixed top-0 left-0 right-0 z-50 bg-terminal-black/95 backdrop-blur-xl border-b border-terminal-muted font-mono">
-				<div className="container mx-auto px-4 py-2">
+				<div className="container mx-auto px-4 py-1.5 sm:py-2">
 					<div className="flex items-center justify-between text-sm">
 						<div className="flex items-center gap-2">
 							<div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
@@ -93,7 +93,7 @@ const Navbar = () => {
 					: "bg-terminal-black/70 backdrop-blur-md border-b border-terminal-muted/30"
 			}`}>
 				<div className="container mx-auto px-4">
-					<div className="flex items-center justify-between h-12 sm:h-16">
+					<div className="flex items-center justify-between h-14 sm:h-16">
 						{}
 						<Link to="/" className="text-xl sm:text-2xl font-bold text-terminal-primary hover:text-terminal-secondary transition-colors relative">
 							<span className="relative z-10">[AURORA]</span>

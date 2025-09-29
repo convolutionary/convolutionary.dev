@@ -149,11 +149,11 @@ const ContactForm = () => {
 		<div className="bg-terminal-black font-mono text-terminal-primary scroll-mt-32" id="contact">
 			<div className="container mx-auto px-4 py-8 max-w-6xl">
 				{}
-				<div className="bg-terminal-black border-l border-r border-terminal-muted p-8 space-y-8">
+				<div className="bg-terminal-black border-l border-r border-terminal-muted p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
 
 					{}
 					<div className="text-center">
-						<div className="text-terminal-secondary text-4xl sm:text-5xl md:text-6xl font-bold mb-6 font-mono">
+						<div className="text-terminal-secondary text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 font-mono">
 							LET'S WORK TOGETHER
 						</div>
 						<div className="text-terminal-secondary mb-4">
@@ -164,10 +164,10 @@ const ContactForm = () => {
 						</p>
 					</div>
 
-					<div className="grid lg:grid-cols-2 gap-8">
+					<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
 						{}
 						<div className="order-2 lg:order-1">
-							<div className="border border-terminal-dim p-6 rounded bg-terminal-darker">
+							<div className="border border-terminal-dim p-4 sm:p-6 rounded bg-terminal-darker">
 								<div className="text-terminal-secondary mb-4">
 									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/contact</span><span className="text-white">$ </span>vim message.txt
 								</div>
@@ -243,7 +243,7 @@ const ContactForm = () => {
 						{}
 						<div className="order-1 lg:order-2 space-y-6">
 							{}
-							<div className="border border-terminal-dim p-6 rounded bg-terminal-darker">
+							<div className="border border-terminal-dim p-4 sm:p-6 rounded bg-terminal-darker">
 								<div className="text-terminal-secondary mb-4">
 									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/contact</span><span className="text-white">$ </span>ls social/
 								</div>
@@ -255,7 +255,7 @@ const ContactForm = () => {
 							</div>
 
 							{}
-							<div className="border border-terminal-dim p-6 rounded bg-terminal-darker">
+							<div className="border border-terminal-dim p-4 sm:p-6 rounded bg-terminal-darker">
 								<div className="text-terminal-secondary mb-4">
 									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/contact</span><span className="text-white">$ </span>fortune | cowsay
 								</div>
@@ -306,7 +306,7 @@ const ContactForm = () => {
 							</div>
 
 							{}
-							<div className="border border-terminal-dim p-6 rounded bg-terminal-darker">
+							<div className="border border-terminal-dim p-4 sm:p-6 rounded bg-terminal-darker">
 								<div className="text-terminal-secondary mb-4">
 									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/contact</span><span className="text-white">$ </span>cat info.txt
 								</div>

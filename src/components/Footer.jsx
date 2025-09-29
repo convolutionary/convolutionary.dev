@@ -18,13 +18,13 @@ const Footer = () => {
 		<footer className="bg-terminal-black font-mono">
 			{}
 			<div className="container mx-auto px-4 py-8 max-w-6xl">
-				<div className="bg-terminal-black border-l border-r border-terminal-muted px-8 py-12">
+				<div className="bg-terminal-black border-l border-r border-terminal-muted px-4 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12">
 					{}
 					<div className="text-terminal-secondary mb-8">
 						<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/footer</span><span className="text-white">$ </span>cat system-info.txt
 					</div>
 
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
 						{}
 						<div>
 							<h3 className="text-terminal-primary font-bold text-xl mb-4 flex items-center gap-3">
