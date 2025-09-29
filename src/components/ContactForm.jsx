@@ -62,216 +62,6 @@ const inspirationalQuotes = [
 		english: "Deeds, not words.",
 		description: "Actions speak louder than words; showing through doing rather than simply saying.",
 		category: "Action"
-	},
-	{
-		latin: "Audentes fortuna iuvat.",
-		english: "Fortune favors the bold.",
-		description: "Those who take risks and show courage are more likely to succeed than those who hang back.",
-		category: "Courage"
-	},
-	{
-		latin: "Faber est suae quisque fortunae.",
-		english: "Each person is the architect of their own fortune.",
-		description: "We create our own destiny through our actions and decisions.",
-		category: "Self-Determination"
-	},
-	{
-		latin: "Memento mori.",
-		english: "Remember that you will die.",
-		description: "A reminder of the inevitability of death, encouraging people to make the most of their time.",
-		category: "Mortality"
-	},
-	{
-		latin: "Ad astra per aspera.",
-		english: "To the stars through difficulties.",
-		description: "Great achievements often require perseverance through hardship and challenges.",
-		category: "Perseverance"
-	},
-	{
-		latin: "Festina lente.",
-		english: "Make haste slowly.",
-		description: "Act with urgency but not at the expense of accuracy and thoroughness.",
-		category: "Balance"
-	},
-	{
-		latin: "Amor vincit omnia.",
-		english: "Love conquers all.",
-		description: "Love overcomes all obstacles and hardships that may arise.",
-		category: "Love"
-	},
-	{
-		latin: "Errare humanum est.",
-		english: "To err is human.",
-		description: "Making mistakes is part of human nature and should be expected and accepted.",
-		category: "Humanity"
-	},
-	{
-		latin: "Non ducor, duco.",
-		english: "I am not led, I lead.",
-		description: "An assertion of leadership and taking control rather than being controlled.",
-		category: "Leadership"
-	},
-	{
-		latin: "Ars longa, vita brevis.",
-		english: "Art is long, life is short.",
-		description: "Life is too short to learn every craft or art form to perfection.",
-		category: "Art"
-	},
-	{
-		latin: "Tempus fugit.",
-		english: "Time flies.",
-		description: "A reminder that time passes quickly and should not be wasted.",
-		category: "Time"
-	},
-	{
-		latin: "Veritas numquam perit.",
-		english: "Truth never perishes.",
-		description: "Truth endures even when attempts are made to conceal or destroy it.",
-		category: "Truth"
-	},
-	{
-		latin: "Fortes fortuna adiuvat.",
-		english: "Fortune helps the brave.",
-		description: "Those who show courage in the face of difficulty are more likely to succeed.",
-		category: "Courage"
-	},
-	{
-		latin: "Quid pro quo.",
-		english: "Something for something.",
-		description: "An exchange of goods, services, or favors of roughly equal value.",
-		category: "Exchange"
-	},
-	{
-		latin: "Modus operandi.",
-		english: "Method of operating.",
-		description: "A particular way or pattern of working that someone regularly follows.",
-		category: "Method"
-	},
-	{
-		latin: "Vincit qui se vincit.",
-		english: "He conquers who conquers himself.",
-		description: "True victory comes from mastering one's own emotions and impulses.",
-		category: "Self-Control"
-	},
-	{
-		latin: "Sapere aude.",
-		english: "Dare to know.",
-		description: "An encouragement to have the courage to use one's own understanding and intellect.",
-		category: "Knowledge"
-	},
-	{
-		latin: "Ex nihilo nihil fit.",
-		english: "Nothing comes from nothing.",
-		description: "Everything that exists has a cause or origin; meaningful results require initial effort.",
-		category: "Creation"
-	},
-	{
-		latin: "Carpe noctem.",
-		english: "Seize the night.",
-		description: "Make the most of the evening hours for productivity, creativity, or enjoyment.",
-		category: "Time"
-	},
-	{
-		latin: "Esse quam videri.",
-		english: "To be, rather than to seem.",
-		description: "It's better to be authentic than to merely appear so; substance over style.",
-		category: "Authenticity"
-	},
-	{
-		latin: "Igne natura renovatur integra.",
-		english: "Through fire, nature is reborn whole.",
-		description: "Transformation often requires destruction of the old to make way for renewal.",
-		category: "Transformation"
-	},
-	{
-		latin: "Omnia vincit amor.",
-		english: "Love conquers all things.",
-		description: "Love has the power to overcome all obstacles and difficulties.",
-		category: "Love"
-	},
-	{
-		latin: "Deo volente.",
-		english: "God willing.",
-		description: "An acknowledgment that outcomes ultimately depend on forces beyond human control.",
-		category: "Faith"
-	},
-	{
-		latin: "Docendo discimus.",
-		english: "By teaching, we learn.",
-		description: "The act of teaching others deepens our own understanding of the subject.",
-		category: "Learning"
-	},
-	{
-		latin: "Flectere si nequeo superos, Acheronta movebo.",
-		english: "If I cannot move heaven, I will raise hell.",
-		description: "When conventional approaches fail, be willing to pursue unconventional alternatives.",
-		category: "Determination"
-	},
-	{
-		latin: "Natura non facit saltus.",
-		english: "Nature makes no leaps.",
-		description: "Natural processes typically occur gradually rather than in sudden jumps.",
-		category: "Nature"
-	},
-	{
-		latin: "Nil desperandum.",
-		english: "Never despair.",
-		description: "An encouragement to maintain hope even in the most difficult circumstances.",
-		category: "Resilience"
-	},
-	{
-		latin: "Aquila non capit muscas.",
-		english: "The eagle doesn't catch flies.",
-		description: "Great or important people don't concern themselves with trivial matters.",
-		category: "Focus"
-	},
-	{
-		latin: "In vino veritas.",
-		english: "In wine, there is truth.",
-		description: "People often reveal their true thoughts and feelings when under the influence of alcohol.",
-		category: "Truth"
-	},
-	{
-		latin: "Mens sana in corpore sano.",
-		english: "A healthy mind in a healthy body.",
-		description: "Physical and mental wellbeing are interconnected and equally important.",
-		category: "Health"
-	},
-	{
-		latin: "Sic parvis magna.",
-		english: "Greatness from small beginnings.",
-		description: "Significant achievements can arise from humble origins or modest starts.",
-		category: "Growth"
-	},
-	{
-		latin: "Vivamus, moriendum est.",
-		english: "Let us live, since we must die.",
-		description: "Life's finite nature should motivate us to live fully rather than cause despair.",
-		category: "Life"
-	},
-	{
-		latin: "Lux in tenebris.",
-		english: "Light in darkness.",
-		description: "Hope, guidance, or enlightenment can be found even in the darkest times.",
-		category: "Hope"
-	},
-	{
-		latin: "Si vis amari, ama.",
-		english: "If you wish to be loved, love.",
-		description: "To receive love, one must first give it; affection often reciprocates.",
-		category: "Love"
-	},
-	{
-		latin: "Ubi concordia, ibi victoria.",
-		english: "Where there is unity, there is victory.",
-		description: "Cooperation and harmony lead to success more readily than division.",
-		category: "Unity"
-	},
-	{
-		latin: "Legum servi sumus ut liberi esse possimus.",
-		english: "We are slaves of the laws in order that we may be free.",
-		description: "Structure and rules, while seemingly restrictive, create the conditions for true freedom.",
-		category: "Freedom"
 	}
 ];
 
@@ -281,6 +71,7 @@ const ContactForm = () => {
 	const [quoteIndex, setQuoteIndex] = useState(0);
 	const [animateQuote, setAnimateQuote] = useState(false);
 	const [showCopyTooltip, setShowCopyTooltip] = useState(false);
+	const [showCursor, setShowCursor] = useState(true);
 	const [formData, setFormData] = useState({
 		user_name: '',
 		user_email: '',
@@ -288,7 +79,15 @@ const ContactForm = () => {
 	});
 
 	const currentQuote = inspirationalQuotes[quoteIndex];
-	
+
+	// Cursor blink effect
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setShowCursor(prev => !prev);
+		}, 530);
+		return () => clearInterval(interval);
+	}, []);
+
 	const cycleQuote = () => {
 		setAnimateQuote(true);
 		setShowCopyTooltip(false);
@@ -347,61 +146,67 @@ const ContactForm = () => {
 	};
 
 	return (
-		<div className="section" id="contact">
-			<div className="container mx-auto px-4 sm:px-6">
-				<div className="space-y-12 sm:space-y-16">
-					{/* Contact Header */}
+		<div className="bg-terminal-black font-mono text-terminal-primary scroll-mt-32" id="contact">
+			<div className="container mx-auto px-4 py-8 max-w-6xl">
+				{}
+				<div className="bg-terminal-black border-l border-r border-terminal-muted p-8 space-y-8">
+
+					{}
 					<div className="text-center">
-						<span className="text-xs sm:text-sm font-mono text-gray-400 bg-gray-800 px-2 sm:px-3 py-1 rounded-full mb-4 inline-block">
-							Contact
-						</span>
-						<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
-							Let's work together
-						</h2>
-						<p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-4">
+						<div className="text-terminal-secondary text-4xl sm:text-5xl md:text-6xl font-bold mb-6 font-mono">
+							LET'S WORK TOGETHER
+						</div>
+						<div className="text-terminal-secondary mb-4">
+							<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/contact</span><span className="text-white">$ </span>cat invitation.txt
+						</div>
+						<p className="text-terminal-muted text-lg leading-relaxed max-w-4xl mx-auto">
 							Have a project in mind? Let's discuss how we can bring your ideas to life.
 						</p>
 					</div>
 
-					<div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
-						{/* Contact Form */}
+					<div className="grid lg:grid-cols-2 gap-8">
+						{}
 						<div className="order-2 lg:order-1">
-							<div className="card card-elevated p-4 sm:p-6 md:p-8 bg-gray-900">
-								<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-6">Send a message</h3>
-								
+							<div className="border border-terminal-dim p-6 rounded bg-terminal-darker">
+								<div className="text-terminal-secondary mb-4">
+									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/contact</span><span className="text-white">$ </span>vim message.txt
+								</div>
+
+								<h3 className="text-terminal-primary font-bold text-xl mb-6 flex items-center gap-3">
+									<span className="text-terminal-primary">[COMPOSE]</span>
+									SEND MESSAGE
+								</h3>
+
 								{submitted ? (
-									<div className="text-center py-6 sm:py-8">
-										<div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
-											<svg className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-											</svg>
+									<div className="text-center py-8">
+										<div className="text-terminal-primary text-2xl mb-4">
+											[SUCCESS] Message sent!
 										</div>
-										<h4 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">Message sent!</h4>
-										<p className="text-sm sm:text-base text-gray-300 mb-4 px-4">Thank you for reaching out. I'll get back to you soon.</p>
-										<button 
+										<p className="text-terminal-secondary mb-6">Thank you for reaching out. I'll get back to you soon.</p>
+										<button
 											onClick={() => setSubmitted(false)}
-											className="btn btn-secondary w-full sm:w-auto"
+											className="bg-terminal-dark border border-terminal-muted text-terminal-primary px-6 py-2 rounded hover:bg-terminal-darker transition-colors"
 										>
-											Send another message
+											[COMPOSE NEW]
 										</button>
 									</div>
 								) : (
-									<form ref={form} onSubmit={sendEmail} className="space-y-4 sm:space-y-6">
-										<div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+									<form ref={form} onSubmit={sendEmail} className="space-y-6">
+										<div className="grid md:grid-cols-2 gap-6">
 											<div>
-												<label className="form-label text-sm sm:text-base">Name</label>
+												<label className="text-terminal-secondary text-sm block mb-2">NAME:</label>
 												<input
 													type="text"
 													name="user_name"
 													value={formData.user_name}
 													onChange={handleInputChange}
 													required
-													placeholder="Your name"
-													className="form-input w-full text-sm sm:text-base"
+													placeholder="your_name"
+													className="w-full bg-terminal-black border border-terminal-dim text-terminal-primary px-4 py-2 rounded focus:border-terminal-muted outline-none font-mono"
 												/>
 											</div>
 											<div>
-												<label className="form-label text-sm sm:text-base">Email</label>
+												<label className="text-terminal-secondary text-sm block mb-2">EMAIL:</label>
 												<input
 													type="email"
 													name="user_email"
@@ -409,80 +214,90 @@ const ContactForm = () => {
 													onChange={handleInputChange}
 													required
 													placeholder="your@email.com"
-													className="form-input w-full text-sm sm:text-base"
+													className="w-full bg-terminal-black border border-terminal-dim text-terminal-primary px-4 py-2 rounded focus:border-terminal-muted outline-none font-mono"
 												/>
 											</div>
 										</div>
 										<div>
-											<label className="form-label text-sm sm:text-base">Message</label>
+											<label className="text-terminal-secondary text-sm block mb-2">MESSAGE:</label>
 											<textarea
 												name="message"
 												value={formData.message}
 												onChange={handleInputChange}
 												required
 												placeholder="Tell me about your project..."
-												className="form-input form-textarea w-full text-sm sm:text-base min-h-[120px] sm:min-h-[150px]"
+												className="w-full bg-terminal-black border border-terminal-dim text-terminal-primary px-4 py-2 rounded focus:border-terminal-muted outline-none font-mono min-h-[150px] resize-y"
 											/>
 										</div>
-										<button type="submit" className="btn btn-primary btn-lg w-full text-sm sm:text-base">
-											Send Message
+										<button
+											type="submit"
+											className="w-full bg-terminal-dark border border-terminal-muted text-terminal-primary px-6 py-3 rounded hover:bg-terminal-darker transition-colors font-mono"
+										>
+											[SEND MESSAGE]
 										</button>
 									</form>
 								)}
 							</div>
 						</div>
 
-						{/* Contact Info & Quote */}
-						<div className="order-1 lg:order-2 space-y-6 sm:space-y-8">
-							{/* Social Links */}
-							<div className="card p-4 sm:p-6 md:p-8 bg-gray-900">
-								<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-6">Connect with me</h3>
+						{}
+						<div className="order-1 lg:order-2 space-y-6">
+							{}
+							<div className="border border-terminal-dim p-6 rounded bg-terminal-darker">
+								<div className="text-terminal-secondary mb-4">
+									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/contact</span><span className="text-white">$ </span>ls social/
+								</div>
+								<h3 className="text-terminal-primary font-bold text-xl mb-6 flex items-center gap-3">
+									<span className="text-terminal-primary">[LINKS]</span>
+									CONNECT WITH ME
+								</h3>
 								<Socials />
 							</div>
 
-							{/* Quote of the Day */}
-							<div className="card p-4 sm:p-6 md:p-8 bg-gray-900">
-								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 mb-4 sm:mb-6">
-									<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">Daily Inspiration</h3>
-									<span className="text-xs sm:text-sm text-white bg-gray-800 px-2 sm:px-3 py-1 rounded-full self-start sm:self-auto">
+							{}
+							<div className="border border-terminal-dim p-6 rounded bg-terminal-darker">
+								<div className="text-terminal-secondary mb-4">
+									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/contact</span><span className="text-white">$ </span>fortune | cowsay
+								</div>
+
+								<div className="flex items-center justify-between mb-4">
+									<h3 className="text-terminal-primary font-bold text-xl flex items-center gap-3">
+										<span className="text-terminal-primary">[QUOTE]</span>
+										DAILY INSPIRATION
+									</h3>
+									<span className="text-xs bg-terminal-black text-terminal-muted px-2 py-1 rounded border border-terminal-dim">
 										{currentQuote.category}
 									</span>
 								</div>
-								
+
 								<div className={`transition-all duration-300 ${animateQuote ? 'opacity-0 translate-y-2' : 'opacity-100'}`}>
-									<div className="mb-4 sm:mb-6">
-										<blockquote className="text-base sm:text-lg md:text-xl text-gray-300 italic mb-2 sm:mb-3 leading-relaxed">
+									<div className="mb-6">
+										<blockquote className="text-terminal-secondary italic mb-3 leading-relaxed">
 											"{currentQuote.latin}"
 										</blockquote>
-										<p className="text-sm sm:text-base md:text-lg text-gray-400 mb-2 sm:mb-3">
+										<p className="text-terminal-muted mb-3">
 											{currentQuote.english}
 										</p>
-										<p className="text-xs sm:text-sm md:text-base text-gray-500 leading-relaxed">
+										<p className="text-terminal-dim text-sm leading-relaxed">
 											{currentQuote.description}
 										</p>
 									</div>
 								</div>
-								
-								<div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-									<button 
+
+								<div className="flex gap-3">
+									<button
 										onClick={cycleQuote}
-										className="btn btn-secondary btn-sm w-full sm:w-auto text-xs sm:text-sm"
+										className="bg-terminal-dark border border-terminal-dim text-terminal-secondary px-4 py-2 rounded hover:bg-terminal-black transition-colors text-sm"
 									>
-										<svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-										</svg>
-										New Quote
+										[REFRESH]
 									</button>
-									<button 
+									<button
 										onClick={copyQuote}
-										className="btn btn-ghost btn-sm relative w-full sm:w-auto text-xs sm:text-sm"
+										className="bg-terminal-dark border border-terminal-dim text-terminal-secondary px-4 py-2 rounded hover:bg-terminal-black transition-colors text-sm relative"
 									>
-										<svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-										</svg>
-										Copy
+										[COPY]
 										{showCopyTooltip && (
-											<span className="absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 px-2 sm:px-3 py-1 bg-black text-white text-xs rounded-lg whitespace-nowrap">
+											<span className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-terminal-primary text-terminal-black text-xs rounded">
 												Copied!
 											</span>
 										)}
@@ -490,47 +305,59 @@ const ContactForm = () => {
 								</div>
 							</div>
 
-							{/* Contact Info */}
-							<div className="card p-4 sm:p-6 md:p-8 bg-gray-900">
-								<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-6">Get in touch</h3>
-								<div className="space-y-3 sm:space-y-4">
-									<div className="flex items-start gap-3 sm:gap-4">
-										<div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0">
-											<svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-											</svg>
-										</div>
-										<div className="min-w-0">
-											<h4 className="font-semibold text-white text-sm sm:text-base">Email</h4>
-											<p className="text-xs sm:text-sm text-gray-400">Best way to reach me</p>
-										</div>
-									</div>
-									<div className="flex items-start gap-3 sm:gap-4">
-										<div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0">
-											<svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-											</svg>
-										</div>
-										<div className="min-w-0">
-											<h4 className="font-semibold text-white text-sm sm:text-base">Response Time</h4>
-											<p className="text-xs sm:text-sm text-gray-400">Usually within 24 hours</p>
+							{}
+							<div className="border border-terminal-dim p-6 rounded bg-terminal-darker">
+								<div className="text-terminal-secondary mb-4">
+									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/contact</span><span className="text-white">$ </span>cat info.txt
+								</div>
+								<h3 className="text-terminal-primary font-bold text-xl mb-6 flex items-center gap-3">
+									<span className="text-terminal-primary">[INFO]</span>
+									GET IN TOUCH
+								</h3>
+								<div className="space-y-4">
+									<div className="flex items-start gap-4">
+										<span className="text-terminal-primary">→</span>
+										<div>
+											<h4 className="text-terminal-secondary font-semibold">Email</h4>
+											<p className="text-terminal-muted text-sm">Best way to reach me</p>
 										</div>
 									</div>
-									<div className="flex items-start gap-3 sm:gap-4">
-										<div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0">
-											<svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6" />
-											</svg>
+									<div className="flex items-start gap-4">
+										<span className="text-terminal-primary">→</span>
+										<div>
+											<h4 className="text-terminal-secondary font-semibold">Response Time</h4>
+											<p className="text-terminal-muted text-sm">Usually within 24 hours</p>
 										</div>
-										<div className="min-w-0">
-											<h4 className="font-semibold text-white text-sm sm:text-base">Collaboration</h4>
-											<p className="text-xs sm:text-sm text-gray-400">Open to new opportunities</p>
+									</div>
+									<div className="flex items-start gap-4">
+										<span className="text-terminal-primary">→</span>
+										<div>
+											<h4 className="text-terminal-secondary font-semibold">Collaboration</h4>
+											<p className="text-terminal-muted text-sm">Open to new opportunities</p>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
+					{}
+					<div className="relative">
+						<div className="absolute inset-0 flex items-center" aria-hidden="true">
+							<div className="w-full border-t border-terminal-muted"></div>
+						</div>
+						<div className="relative flex justify-center">
+							<div className="bg-terminal-black px-4 py-2">
+								<div className="text-terminal-secondary text-sm mb-1">
+									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/contact</span><span className="text-white">$ </span>cd ../footer
+								</div>
+								<div className="text-terminal-dim text-xs text-center">
+									Entering directory 'footer'...
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>

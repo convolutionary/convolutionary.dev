@@ -67,7 +67,7 @@ redacted, but obviously this isn't hard to find again :P
 		<div className="min-h-screen pt-28 pb-16">
 			<div className="container mx-auto px-4">
 				<div className="max-w-4xl mx-auto">
-					{/* Back Button */}
+					{}
 					<Link 
 						to="/blog" 
 						className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8"
@@ -76,7 +76,7 @@ redacted, but obviously this isn't hard to find again :P
 						Back to blog
 					</Link>
 
-					{/* Hero Image */}
+					{}
 					<div className="relative h-96 rounded-lg overflow-hidden mb-8">
 						<img 
 							src={post.imageUrl}
@@ -86,7 +86,7 @@ redacted, but obviously this isn't hard to find again :P
 						<div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
 					</div>
 
-					{/* Article Header */}
+					{}
 					<div className="mb-12">
 						<div className="flex flex-wrap gap-2 mb-4">
 							{post.tags.map((tag) => (
@@ -116,7 +116,7 @@ redacted, but obviously this isn't hard to find again :P
 						</div>
 					</div>
 
-					{/* Article Content */}
+					{}
 					<article className="prose prose-lg max-w-none text-gray-200">
 						{post.content.split('\n\n').map((paragraph, index) => {
 							// Skip empty paragraphs
@@ -198,7 +198,7 @@ redacted, but obviously this isn't hard to find again :P
 						})}
 					</article>
 
-					{/* Article Footer */}
+					{}
 					<div className="mt-16 pt-8 border-t border-gray-800">
 						<div className="flex flex-col sm:flex-row items-center justify-between gap-4">
 							<div className="text-center sm:text-left">

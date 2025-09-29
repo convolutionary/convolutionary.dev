@@ -1,158 +1,184 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import pgp from "../pgp.txt";
 
 const Footer = () => {
+	const [showCursor, setShowCursor] = useState(true);
 	const currentYear = new Date().getFullYear();
 
+	// Cursor blink effect
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setShowCursor(prev => !prev);
+		}, 530);
+		return () => clearInterval(interval);
+	}, []);
+
 	return (
-		<footer className="bg-gradient-to-b from-black to-gray-950 border-t border-gray-800/50 mt-32 text-gray-300 pt-16 sm:pt-24 md:pt-32 pb-6 sm:pb-8">
-			<div className="container mx-auto px-4 sm:px-6">
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-8 sm:mb-12">
-					{/* Brand */}
-					<div className="text-center sm:text-left">
-						<h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">Aurora</h3>
-						<p className="text-sm sm:text-base text-gray-400 leading-relaxed">
-							Self-taught developer passionate about creating elegant solutions and contributing to open-source projects.
-						</p>
+		<footer className="bg-terminal-black font-mono">
+			{}
+			<div className="container mx-auto px-4 py-8 max-w-6xl">
+				<div className="bg-terminal-black border-l border-r border-terminal-muted px-8 py-12">
+					{}
+					<div className="text-terminal-secondary mb-8">
+						<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/footer</span><span className="text-white">$ </span>cat system-info.txt
 					</div>
 
-					{/* Navigation */}
-					<div className="text-center sm:text-left">
-						<h4 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4">Navigate</h4>
-						<ul className="space-y-2">
-							<li>
-								<button 
-									onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
-									className="footer-underline text-sm sm:text-base text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1"
-								>
-									Home
-								</button>
-							</li>
-							<li>
-								<button 
-									onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-									className="footer-underline text-sm sm:text-base text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1"
-								>
-									About
-								</button>
-							</li>
-							<li>
-								<Link 
-									to="/blog" 
-									className="footer-underline text-sm sm:text-base text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1"
-								>
-									Blog
-								</Link>
-							</li>
-							<li>
-								<button 
-									onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-									className="footer-underline text-sm sm:text-base text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1"
-								>
-									Contact
-								</button>
-							</li>
-						</ul>
-					</div>
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+						{}
+						<div>
+							<h3 className="text-terminal-primary font-bold text-xl mb-4 flex items-center gap-3">
+								<span className="text-terminal-primary">[BRAND]</span>
+								AURORA
+							</h3>
+							<p className="text-terminal-muted text-sm leading-relaxed">
+								Self-taught developer passionate about creating elegant solutions and contributing to open-source projects.
+							</p>
+						</div>
 
-					{/* Connect */}
-					<div className="text-center sm:text-left">
-						<h4 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4">Connect</h4>
-						<ul className="space-y-2">
-							<li>
-								<a 
-									href="https://github.com/convolutionary" 
-									target="_blank" 
-									rel="noopener noreferrer"
-									className="footer-underline text-sm sm:text-base text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1"
-								>
-									GitHub
-								</a>
-							</li>
-							<li>
-								<a 
-									href="https://twitter.com/convolutionary" 
-									target="_blank" 
-									rel="noopener noreferrer"
-									className="footer-underline text-sm sm:text-base text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1"
-								>
-									Twitter
-								</a>
-							</li>
-							<li>
-								<a 
-									href="https://discord.gg/your-server" 
-									target="_blank" 
-									rel="noopener noreferrer"
-									className="footer-underline text-sm sm:text-base text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1"
-								>
-									Discord
-								</a>
-							</li>
-							<li>
-								<a 
-									href="mailto:hello@example.com"
-									className="footer-underline text-sm sm:text-base text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1"
-								>
-									Email
-								</a>
-							</li>
-						</ul>
-					</div>
+						{}
+						<div>
+							<h4 className="text-terminal-primary font-bold text-lg mb-4 flex items-center gap-3">
+								<span className="text-terminal-primary">[NAV]</span>
+								NAVIGATE
+							</h4>
+							<ul className="space-y-2">
+								<li className="flex items-center gap-2">
+									<span className="text-terminal-primary">→</span>
+									<button
+										onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
+										className="text-terminal-secondary hover:text-terminal-primary transition-colors text-sm"
+									>
+										home.html
+									</button>
+								</li>
+								<li className="flex items-center gap-2">
+									<span className="text-terminal-primary">→</span>
+									<button
+										onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+										className="text-terminal-secondary hover:text-terminal-primary transition-colors text-sm"
+									>
+										about.md
+									</button>
+								</li>
+								<li className="flex items-center gap-2">
+									<span className="text-terminal-primary">→</span>
+									<Link
+										to="/blog"
+										className="text-terminal-secondary hover:text-terminal-primary transition-colors text-sm"
+									>
+										blog/
+									</Link>
+								</li>
+								<li className="flex items-center gap-2">
+									<span className="text-terminal-primary">→</span>
+									<button
+										onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+										className="text-terminal-secondary hover:text-terminal-primary transition-colors text-sm"
+									>
+										contact.php
+									</button>
+								</li>
+							</ul>
+						</div>
 
-					{/* Info */}
-					<div className="text-center sm:text-left">
-						<h4 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4">Status</h4>
-						<ul className="space-y-2">
-							<li className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3">
-								<div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-								<span className="text-sm sm:text-base text-gray-400">All systems operational</span>
-							</li>
-							<li className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3">
-								<div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-								<span className="text-sm sm:text-base text-gray-400">Open to opportunities</span>
-							</li>
-							<li className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3">
-								<div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-								<span className="text-sm sm:text-base text-gray-400">Building the future</span>
-							</li>
-						</ul>
-					</div>
-				</div>
+						{}
+						<div>
+							<h4 className="text-terminal-primary font-bold text-lg mb-4 flex items-center gap-3">
+								<span className="text-terminal-primary">[CONNECT]</span>
+								LINKS
+							</h4>
+							<ul className="space-y-2">
+								<li className="flex items-center gap-2">
+									<span className="text-terminal-primary">→</span>
+									<a
+										href="https://github.com/convolutionary"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-terminal-secondary hover:text-terminal-primary transition-colors text-sm"
+									>
+										github/convolutionary
+									</a>
+								</li>
+								<li className="flex items-center gap-2">
+									<span className="text-terminal-primary">→</span>
+									<a
+										href="mailto:hello@example.com"
+										className="text-terminal-secondary hover:text-terminal-primary transition-colors text-sm"
+									>
+										send-email.sh
+									</a>
+								</li>
+							</ul>
+						</div>
 
-				{/* Bottom Section */}
-				<div className="border-t border-gray-800/50 pt-6 sm:pt-8">
-					<div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
-						<p className="text-xs sm:text-sm text-gray-500 text-center sm:text-left">
-							© {currentYear} Aurora. Built with{" "}
-							<span className="text-red-500 animate-pulse">♥</span>{" "}
-							and lots of coffee.
-						</p>
-						<div className="flex items-center gap-4 sm:gap-6">
-							<Link 
-								to="/privacy" 
-								className="text-xs sm:text-sm text-gray-500 hover:text-gray-300 transition-colors"
-							>
-								Privacy
-							</Link>
-							<Link 
-								to="/terms" 
-								className="text-xs sm:text-sm text-gray-500 hover:text-gray-300 transition-colors"
-							>
-								Terms
-							</Link>
-							<a 
-								href={pgp} 
-								target="_blank" 
-								rel="noopener noreferrer"
-								className="text-xs sm:text-sm text-gray-500 hover:text-gray-300 transition-colors"
-							>
-								PGP Key
-							</a>
+						{}
+						<div>
+							<h4 className="text-terminal-primary font-bold text-lg mb-4 flex items-center gap-3">
+								<span className="text-terminal-primary">[STATUS]</span>
+								SYSTEM
+							</h4>
+							<ul className="space-y-2">
+								<li className="flex items-center gap-2">
+									<span className="text-green-400">●</span>
+									<span className="text-terminal-secondary text-sm">all systems operational</span>
+								</li>
+								<li className="flex items-center gap-2">
+									<span className="text-blue-400">●</span>
+									<span className="text-terminal-secondary text-sm">open to opportunities</span>
+								</li>
+								<li className="flex items-center gap-2">
+									<span className="text-terminal-primary">●</span>
+									<span className="text-terminal-secondary text-sm">building the future</span>
+								</li>
+							</ul>
 						</div>
 					</div>
+
+					{}
+					<div className="border-t border-terminal-dim pt-8">
+						<div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+							<div className="text-terminal-muted text-sm">
+								<span className="text-terminal-dim">© {currentYear} Aurora. Built with</span>
+								<span className="text-red-400 mx-2">♥</span>
+								<span className="text-terminal-dim">and lots of coffee.</span>
+							</div>
+							<div className="flex items-center gap-4">
+								<Link
+									to="/privacy"
+									className="text-terminal-dim hover:text-terminal-secondary transition-colors text-sm"
+								>
+									privacy.txt
+								</Link>
+								<Link
+									to="/terms"
+									className="text-terminal-dim hover:text-terminal-secondary transition-colors text-sm"
+								>
+									terms.txt
+								</Link>
+								<a
+									href={pgp}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="text-terminal-dim hover:text-terminal-secondary transition-colors text-sm"
+								>
+									pgp.key
+								</a>
+							</div>
+						</div>
+					</div>
+
+					{}
+					<div className="flex items-center mt-8 pt-4 border-t border-terminal-dim">
+						<span className="text-terminal-muted">aurora@portfolio</span>
+						<span className="text-white">:</span>
+						<span className="text-blue-400">~/footer</span>
+						<span className="text-white">$ </span>
+						<span className={`text-terminal-cursor ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`}>_</span>
+					</div>
 				</div>
+				{}
+				<div className="bg-terminal-black border-l border-r border-b border-terminal-muted rounded-b-lg h-4"></div>
 			</div>
 		</footer>
 	);
