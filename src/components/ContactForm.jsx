@@ -80,7 +80,7 @@ const ContactForm = () => {
 
 	const currentQuote = inspirationalQuotes[quoteIndex];
 
-	// Cursor blink effect
+	
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setShowCursor(prev => !prev);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { smoothScrollTo } from "../utils/smoothScroll";
 
 const Navbar = () => {
 	const [notification, setNotification] = useState({ show: false, message: "", animate: false });
@@ -20,7 +21,7 @@ const Navbar = () => {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	// Close mobile menu when clicking outside
+	
 	useEffect(() => {
 		const handleClickOutside = (event) => {
 			if (mobileMenuOpen && !event.target.closest('.mobile-menu-container')) {
@@ -32,7 +33,7 @@ const Navbar = () => {
 		return () => document.removeEventListener('click', handleClickOutside);
 	}, [mobileMenuOpen]);
 
-	// Close mobile menu on route change
+	
 	useEffect(() => {
 		setMobileMenuOpen(false);
 	}, [location]);
@@ -49,12 +50,9 @@ const Navbar = () => {
 	};
 
 	const handleNavClick = (item) => {
-		setMobileMenuOpen(false); // Close mobile menu
+		setMobileMenuOpen(false); 
 		if (isHomePage) {
-			const element = document.getElementById(item);
-			if (element) {
-				element.scrollIntoView({ behavior: 'smooth' });
-			}
+			smoothScrollTo(item, -80);
 		} else {
 			navigate('/', { state: { scrollTo: item } });
 		}

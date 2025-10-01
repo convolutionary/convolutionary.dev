@@ -6,25 +6,25 @@
 
 
 :root {
-	
-	--color-crt-black: #0c1115;
-	--color-crt-dark: #13191f;
-	--color-crt-darker: #1a2128;
 
-	
-	--color-text-primary: #00ffcc;
-	--color-text-secondary: #40e0d0;
-	--color-text-muted: #20b2aa;
-	--color-text-dim: #008b8b;
-	--color-cursor: #00ffcc;
-	--color-accent: #ffffff;
+	--color-crt-black: #0f0813;
+	--color-crt-dark: #1a0f1f;
+	--color-crt-darker: #241428;
+
+
+	--color-text-primary: #b794f6;
+	--color-text-secondary: #9f7aea;
+	--color-text-muted: #805ad5;
+	--color-text-dim: #6b46c1;
+	--color-cursor: #b794f6;
+	--color-accent: #e9d5ff;
 
 	
 	--font-terminal: 'Courier New', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
 
 	
 	--glow-subtle: 0 0 3px currentColor;
-	--shadow-terminal: 1px 1px 0px #008b8b;
+	--shadow-terminal: 1px 1px 0px #6b46c1;
 
 	
 	--char-width: 8px;
@@ -40,9 +40,11 @@
 }
 
 html {
-	scroll-behavior: smooth;
+	scroll-behavior: smooth !important;
 	background: var(--color-crt-black) !important;
 	color: var(--color-text-primary) !important;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -71,8 +73,8 @@ body::before {
 		0deg,
 		transparent,
 		transparent 2px,
-		rgba(0, 255, 204, 0.02) 2px,
-		rgba(0, 255, 204, 0.02) 3px
+		rgba(183, 148, 246, 0.02) 2px,
+		rgba(183, 148, 246, 0.02) 3px
 	);
 	pointer-events: none;
 	z-index: 999;

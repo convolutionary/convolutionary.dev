@@ -29,7 +29,7 @@ const About = () => {
 		fetchRepos();
 	}, []);
 
-	// Cursor blink effect
+	
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setShowCursor(prev => !prev);

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { smoothScrollTo } from "../utils/smoothScroll";
 
 const Home = () => {
 	const [currentText, setCurrentText] = useState("");
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [showCursor, setShowCursor] = useState(true);
+	const location = useLocation();
 
 	const texts = ["software developer", "problem solver", "open source contributor", "digital creator"];
 
@@ -32,13 +35,20 @@ const Home = () => {
 		return () => clearTimeout(timeout);
 	}, [currentText, currentIndex, isDeleting]);
 
-	// Cursor blink effect
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setShowCursor(prev => !prev);
 		}, 530);
 		return () => clearInterval(interval);
 	}, []);
+
+	useEffect(() => {
+		if (location.state?.scrollTo) {
+			setTimeout(() => {
+				smoothScrollTo(location.state.scrollTo, -80);
+			}, 100);
+		}
+	}, [location]);
 
 	const asciiArt = `
  █████╗ ██╗   ██╗██████╗  ██████╗ ██████╗  █████╗

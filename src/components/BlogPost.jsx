@@ -21,18 +21,18 @@ redacted, but obviously this isn't hard to find again :P
 	const post = posts.find(p => p.id === parseInt(id));
 
 	const processInlineMarkdown = (text) => {
-		// Bold text
+		
 		text = text.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-white">$1</strong>');
 		text = text.replace(/__(.*?)__/g, '<strong class="font-semibold text-white">$1</strong>');
 
-		// Italic text
+		
 		text = text.replace(/\*(.*?)\*/g, '<em class="italic text-gray-300">$1</em>');
 		text = text.replace(/_(.*?)_/g, '<em class="italic text-gray-300">$1</em>');
 
-		// Inline code
+		
 		text = text.replace(/`(.*?)`/g, '<code class="bg-gray-800 text-gray-300 px-2 py-1 rounded text-sm font-mono">$1</code>');
 		
-		// Links
+		
 		text = text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-white font-medium underline hover:text-gray-300 transition-colors" target="_blank" rel="noopener noreferrer">$1</a>');
 
 		return text;
@@ -119,10 +119,10 @@ redacted, but obviously this isn't hard to find again :P
 					{}
 					<article className="prose prose-lg max-w-none text-gray-200">
 						{post.content.split('\n\n').map((paragraph, index) => {
-							// Skip empty paragraphs
+							
 							if (!paragraph.trim()) return null;
 
-							// Code blocks
+							
 							if (paragraph.startsWith('```')) {
 								const [, , ...codeLines] = paragraph.split('\n');
 								const code = codeLines.slice(0, -1).join('\n');
@@ -135,7 +135,7 @@ redacted, but obviously this isn't hard to find again :P
 								);
 							}
 
-							// Headers
+							
 							if (paragraph.startsWith('# ')) {
 								return (
 									<h1 key={index} className="text-3xl font-bold text-white mt-12 mb-6 first:mt-0">
@@ -160,7 +160,7 @@ redacted, but obviously this isn't hard to find again :P
 								);
 							}
 
-							// Blockquotes
+							
 							if (paragraph.startsWith('> ')) {
 								return (
 									<blockquote key={index} className="border-l-4 border-white pl-6 my-6 italic text-gray-300 bg-gray-900 py-4">
@@ -171,7 +171,7 @@ redacted, but obviously this isn't hard to find again :P
 								);
 							}
 
-							// Unordered lists
+							
 							if (paragraph.includes('- **')) {
 								const items = paragraph.split('\n').filter(item => item.trim().startsWith('- '));
 								return (
@@ -187,7 +187,7 @@ redacted, but obviously this isn't hard to find again :P
 								);
 							}
 
-							// Regular paragraphs
+							
 							return (
 								<p key={index} className="text-gray-300 mb-6 leading-relaxed text-lg">
 									<span dangerouslySetInnerHTML={{ 

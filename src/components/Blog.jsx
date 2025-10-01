@@ -5,7 +5,7 @@ import { AiOutlineFieldTime, AiOutlineEye } from "react-icons/ai";
 const Blog = () => {
 	const [showCursor, setShowCursor] = useState(true);
 
-	// Cursor blink effect
+	
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setShowCursor(prev => !prev);
