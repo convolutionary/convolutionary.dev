@@ -1368,11 +1368,11 @@ footer {
 
 
 @media (hover: none) and (pointer: coarse) {
-	.hover\\:bg-terminal-muted\\/10:hover {
-		background-color: rgba(32, 178, 170, 0.1) !important;
+	.hover-bg-terminal-muted-10:hover {
+		background-color: rgba(128, 90, 213, 0.1) !important;
 	}
 
-	.hover\\:text-terminal-primary:hover {
+	.hover-text-terminal-primary:hover {
 		color: var(--color-text-primary) !important;
 	}
 
