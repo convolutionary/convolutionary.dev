@@ -6,7 +6,7 @@ const Footer = () => {
 	const [showCursor, setShowCursor] = useState(true);
 	const currentYear = new Date().getFullYear();
 
-	// Cursor blink effect
+	
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setShowCursor(prev => !prev);

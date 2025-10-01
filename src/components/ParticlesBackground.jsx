@@ -25,22 +25,28 @@ const ParticlesBackground = () => {
         fpsLimit: 30,
         particles: {
           number: {
-            value: 15,
+            value: 50,
             density: {
               enable: true,
-              value_area: 1200
+              value_area: 800
             }
           },
           color: {
-            value: ["#00ffcc", "#40e0d0", "#20b2aa"]
+            value: ["#9f7aea", "#805ad5", "#6b46c1"]
           },
           opacity: {
-            value: 0.4,
-            random: false
+            value: 0.8,
+            random: true,
+            animation: {
+              enable: false
+            }
           },
           size: {
-            value: 2,
-            random: false
+            value: 1.5,
+            random: true,
+            animation: {
+              enable: false
+            }
           },
           move: {
             enable: true,
@@ -53,12 +59,12 @@ const ParticlesBackground = () => {
           links: {
             enable: true,
             distance: 150,
-            color: "#008b8b",
-            opacity: 0.2,
-            width: 1
+            color: "#6b46c1",
+            opacity: 0.08,
+            width: 0.8
           },
           shape: {
-            type: "square"
+            type: "circle"
           }
         },
         interactivity: {
@@ -76,7 +82,8 @@ const ParticlesBackground = () => {
             grab: {
               distance: 100,
               links: {
-                opacity: 0.4
+                opacity: 0.15,
+                color: "#805ad5"
               }
             }
           }
@@ -93,7 +100,24 @@ const ParticlesBackground = () => {
             options: {
               particles: {
                 number: {
+                  value: 12
+                },
+                links: {
+                  distance: 120
+                }
+              }
+            }
+          },
+          {
+            maxWidth: 480,
+            options: {
+              particles: {
+                number: {
                   value: 8
+                },
+                links: {
+                  distance: 100,
+                  opacity: 0.05
                 }
               }
             }

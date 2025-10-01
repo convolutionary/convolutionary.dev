@@ -11,6 +11,18 @@ const Home = () => {
 
 	const texts = ["software developer", "problem solver", "open source contributor", "digital creator"];
 
+	
+	const [isMobile, setIsMobile] = useState(false);
+
+	useEffect(() => {
+		const checkMobile = () => {
+			setIsMobile(window.innerWidth < 640);
+		};
+		checkMobile();
+		window.addEventListener('resize', checkMobile);
+		return () => window.removeEventListener('resize', checkMobile);
+	}, []);
+
 	useEffect(() => {
 		const typeSpeed = isDeleting ? 100 : 150;
 		const pauseTime = isDeleting ? 1000 : 2000;
@@ -58,6 +70,10 @@ const Home = () => {
 ██║  ██║╚██████╔╝██║  ██║╚██████╔╝██║  ██║██║  ██║
 ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝`;
 
+	const mobileAsciiArt = `
+AURORA
+[DEV]`;
+
 	const bioCommands = [
 		{ icon: "[GIT]", label: "GitHub", command: "github/convolutionary", link: "https://github.com/convolutionary" }
 	];
@@ -79,12 +95,12 @@ const Home = () => {
 				</div>
 
 				{}
-				<div className="bg-terminal-black border-l border-r border-terminal-muted p-4 sm:p-6 md:p-8 min-h-[70vh] sm:min-h-[80vh]">
+				<div className="bg-terminal-black border-l border-r border-terminal-muted p-3 sm:p-6 md:p-8 min-h-[70vh] sm:min-h-[80vh] overflow-hidden">
 
 					{}
-					<div className="mb-6 sm:mb-8">
-						<pre className="text-terminal-primary text-xs xs:text-sm sm:text-lg md:text-xl lg:text-2xl leading-tight font-bold whitespace-pre overflow-x-auto scrollbar-hide">
-{asciiArt}
+					<div className="mb-4 sm:mb-6 md:mb-8 overflow-x-auto">
+						<pre className="text-terminal-primary text-2xl sm:text-sm md:text-lg lg:text-xl xl:text-2xl leading-tight font-bold whitespace-pre inline-block min-w-full text-center sm:text-left">
+{isMobile ? mobileAsciiArt : asciiArt}
 						</pre>
 					</div>
 
