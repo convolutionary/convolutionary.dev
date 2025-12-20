@@ -1,56 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { smoothScrollTo } from "../utils/smoothScroll";
+import { navItems } from "../data/navigation";
 
 const Navbar = () => {
 	const [notification, setNotification] = useState({ show: false, message: "", animate: false });
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-	const timeoutRef = React.useRef(null);
+	const timeoutRef = useRef(null);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const isHomePage = location.pathname === "/";
 
 	useEffect(() => {
-		const handleScroll = () => {
-			const scrollTop = window.scrollY;
-			setIsScrolled(scrollTop > 20);
+		const chronosTrackScroll = () => {
+			setIsScrolled(window.scrollY > 20);
 		};
-
-		window.addEventListener("scroll", handleScroll, { passive: true });
-		return () => window.removeEventListener("scroll", handleScroll);
+		window.addEventListener("scroll", chronosTrackScroll, { passive: true });
+		return () => window.removeEventListener("scroll", chronosTrackScroll);
 	}, []);
 
-	
+	// close mobile menu on outside click
 	useEffect(() => {
-		const handleClickOutside = (event) => {
-			if (mobileMenuOpen && !event.target.closest('.mobile-menu-container')) {
+		const erebusClickAway = (e) => {
+			if (mobileMenuOpen && !e.target.closest('.mobile-menu-container')) {
 				setMobileMenuOpen(false);
 			}
 		};
-
-		document.addEventListener('click', handleClickOutside);
-		return () => document.removeEventListener('click', handleClickOutside);
+		document.addEventListener('click', erebusClickAway);
+		return () => document.removeEventListener('click', erebusClickAway);
 	}, [mobileMenuOpen]);
 
-	
+	// close on route change
 	useEffect(() => {
 		setMobileMenuOpen(false);
 	}, [location]);
 
-	const handleNotification = (message) => {
+	// eslint-disable-next-line no-unused-vars
+	const hermesNotify = (message) => {
 		if (timeoutRef.current) clearTimeout(timeoutRef.current);
 		setNotification({ show: true, message, animate: true });
 		timeoutRef.current = setTimeout(() => {
 			setNotification((prev) => ({ ...prev, animate: false }));
-			setTimeout(() => {
-				setNotification({ show: false, message: "", animate: false });
-			}, 300);
+			setTimeout(() => setNotification({ show: false, message: "", animate: false }), 300);
 		}, 3000);
 	};
 
-	const handleNavClick = (item) => {
-		setMobileMenuOpen(false); 
+	const athenaNav = (item) => {
+		setMobileMenuOpen(false);
 		if (isHomePage) {
 			smoothScrollTo(item, -80);
 		} else {
@@ -58,52 +55,50 @@ const Navbar = () => {
 		}
 	};
 
-	const toggleMobileMenu = () => {
-		setMobileMenuOpen(!mobileMenuOpen);
-	};
-
 	return (
 		<>
-			{}
-			<div className="fixed top-0 left-0 right-0 z-50 bg-terminal-black/95 backdrop-blur-xl border-b border-terminal-muted font-mono">
-				<div className="container mx-auto px-4 py-1.5 sm:py-2">
-					<div className="flex items-center justify-between text-sm">
-						<div className="flex items-center gap-2">
-							<div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-							<span className="text-terminal-primary hidden sm:inline">all systems operational</span>
-							<span className="text-terminal-primary sm:hidden">online</span>
-						</div>
-						<div className="text-terminal-muted text-xs sm:text-sm">
-							{new Date().toLocaleDateString('en-US', {
-								month: 'short',
-								day: 'numeric',
-								year: window.innerWidth > 640 ? 'numeric' : '2-digit'
-							})}
+			{/* combined header - status bar + nav */}
+			<header className="fixed top-0 left-0 right-0 z-50 font-mono">
+				{/* status bar */}
+				<div className="bg-terminal-black/95 backdrop-blur-xl border-b border-terminal-dim/50">
+					<div className="container mx-auto px-4 py-1.5 sm:py-2">
+						<div className="flex items-center justify-between text-sm">
+							<div className="flex items-center gap-2">
+								<div className="w-2 h-2 bg-term-accent-green rounded-full animate-pulse"></div>
+								<span className="text-terminal-primary hidden sm:inline">all systems operational</span>
+								<span className="text-terminal-primary sm:hidden">online</span>
+							</div>
+							<div className="text-terminal-muted text-xs sm:text-sm">
+								{new Date().toLocaleDateString('en-US', {
+									month: 'short',
+									day: 'numeric',
+									year: 'numeric'
+								})}
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			{}
-			<nav className={`fixed top-5 left-0 right-0 z-40 transition-all duration-300 mobile-menu-container font-mono ${
-				isScrolled
-					? "bg-terminal-black/90 backdrop-blur-xl border-b border-terminal-muted/50"
-					: "bg-terminal-black/70 backdrop-blur-md border-b border-terminal-muted/30"
-			}`}>
+				{/* nav */}
+				<nav className={`mobile-menu-container transition-all duration-300 ${
+					isScrolled
+						? "bg-terminal-black/95 backdrop-blur-xl"
+						: "bg-terminal-black/80 backdrop-blur-md"
+				}`}>
 				<div className="container mx-auto px-4">
 					<div className="flex items-center justify-between h-14 sm:h-16">
-						{}
-						<Link to="/" className="text-xl sm:text-2xl font-bold text-terminal-primary hover:text-terminal-secondary transition-colors relative">
-							<span className="relative z-10">[AURORA]</span>
+						{/* logo */}
+						<Link to="/" className="text-xl sm:text-2xl font-bold text-terminal-primary hover:text-cyan-400 transition-colors relative group">
+							<span className="relative z-10 glitch-hover" data-text="[AURORA]">[AURORA]</span>
 						</Link>
 
-						{}
+						{/* desktop nav */}
 						<div className="hidden md:flex items-center space-x-1">
-							{["home", "about", "blog", "contact"].map((item) => (
+							{navItems.map((item) => (
 								<button
 									key={item}
-									onClick={() => handleNavClick(item)}
-									className="relative px-3 lg:px-4 py-2 text-terminal-secondary hover:text-terminal-primary transition-all duration-300 font-medium group text-sm lg:text-base"
+									onClick={() => athenaNav(item)}
+									className="relative px-3 lg:px-4 py-2 text-terminal-secondary hover:text-cyan-400 transition-all duration-300 font-medium group text-sm lg:text-base"
 								>
 									<span className="relative z-10">/{item}</span>
 									<div className="absolute inset-0 bg-terminal-muted/10 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -111,10 +106,10 @@ const Navbar = () => {
 							))}
 						</div>
 
-						{}
+						{/* mobile toggle */}
 						<button
-							onClick={toggleMobileMenu}
-							className="md:hidden p-2 rounded border border-terminal-muted hover:bg-terminal-muted/10 transition-colors"
+							onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+							className="md:hidden p-2 rounded border border-terminal-muted hover:border-cyan-400/50 hover:bg-terminal-muted/10 transition-colors"
 							aria-label="Toggle mobile menu"
 						>
 							<svg className={`w-5 h-5 text-terminal-secondary transition-transform duration-300 ${mobileMenuOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,16 +122,16 @@ const Navbar = () => {
 						</button>
 					</div>
 
-					{}
+					{/* mobile menu */}
 					<div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
 						mobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
 					}`}>
 						<div className="py-4 space-y-2 border-t border-terminal-muted/30 mt-2">
-							{["home", "about", "blog", "contact"].map((item) => (
+							{navItems.map((item) => (
 								<button
 									key={item}
-									onClick={() => handleNavClick(item)}
-									className="block w-full text-left px-4 py-3 text-terminal-secondary hover:text-terminal-primary hover:bg-terminal-muted/10 transition-all duration-300 font-medium rounded"
+									onClick={() => athenaNav(item)}
+									className="block w-full text-left px-4 py-3 text-terminal-secondary hover:text-cyan-400 hover:bg-terminal-muted/10 transition-all duration-300 font-medium rounded"
 								>
 									/{item}
 								</button>
@@ -144,17 +139,18 @@ const Navbar = () => {
 						</div>
 					</div>
 				</div>
-			</nav>
+				</nav>
+			</header>
 
-			{}
+			{/* notification toast */}
 			{notification.show && (
 				<div className={`fixed bottom-4 right-4 z-50 transition-all duration-300 max-w-xs sm:max-w-md font-mono ${
 					notification.animate ? "animate-fade-in" : "opacity-0 translate-y-2"
 				}`}>
-					<div className="bg-terminal-black/90 backdrop-blur-xl border border-terminal-muted rounded p-3 sm:p-4">
+					<div className="terminal-card border-term-accent-magenta/50 p-3 sm:p-4">
 						<div className="flex items-start justify-between">
 							<div className="flex-1 min-w-0">
-								<p className="font-medium text-terminal-primary text-sm sm:text-base">
+								<p className="font-medium text-term-accent-magenta text-sm sm:text-base">
 									[ERROR] {notification.message}
 								</p>
 								<p className="text-xs sm:text-sm text-terminal-muted mt-1">

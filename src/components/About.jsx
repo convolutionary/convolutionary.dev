@@ -1,199 +1,157 @@
 import React, { useState, useEffect } from "react";
 import { AiFillStar, AiOutlineGithub, AiOutlineLink } from "react-icons/ai";
 import images from "./images";
+import { aboutContent } from "../data/content";
+import { TerminalPrompt, TerminalCard, SectionDivider, TerminalCursor } from "./terminal";
 
 const About = () => {
 	const [repos, setRepos] = useState([]);
 	const [loading, setLoading] = useState(true);
-	const [showCursor, setShowCursor] = useState(true);
 
 	useEffect(() => {
-		const fetchRepos = async () => {
+		const hermesGrabRepos = async () => {
 			try {
-				const response = await fetch(
-					"https://api.github.com/users/convolutionary/repos"
-				);
-				if (!response.ok) {
-					throw new Error(`HTTP error! status: ${response.status}`);
-				}
+				const response = await fetch("https://api.github.com/users/convolutionary/repos");
+				if (!response.ok) throw new Error(`flatlined: ${response.status}`);
 				const data = await response.json();
 				setRepos(data || []);
-			} catch (error) {
-				console.error("Error fetching repos:", error);
+			} catch (err) {
+				console.error("repo fetch went sideways:", err);
 				setRepos([]);
 			} finally {
 				setLoading(false);
 			}
 		};
-
-		fetchRepos();
-	}, []);
-
-	
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setShowCursor(prev => !prev);
-		}, 530);
-		return () => clearInterval(interval);
+		hermesGrabRepos();
 	}, []);
 
 	return (
 		<div className="bg-terminal-black font-mono text-terminal-primary scroll-mt-32" id="about">
 			<div className="container mx-auto px-4 py-8 max-w-6xl">
-				{}
-				<div className="bg-terminal-black border-l border-r border-terminal-muted p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
+				<div className="terminal-window">
+					<div className="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
 
-					{}
+					{/* intro header */}
 					<div className="text-center">
-						<div className="text-terminal-secondary text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 font-mono">
+						<div className="text-terminal-secondary text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 font-mono glitch-hover" data-text="NICE TO MEET YOU">
 							NICE TO MEET YOU
 						</div>
-						<div className="text-terminal-secondary mb-4">
-							<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/about</span><span className="text-white">$ </span>cat introduction.txt
-						</div>
+						<TerminalPrompt path="~/about" command="cat introduction.txt" className="mb-4 justify-center" />
 						<p className="text-terminal-muted text-lg leading-relaxed max-w-4xl mx-auto">
-							I'm a passionate developer who loves building things and solving complex problems.
-							My journey started in 2017, and I've been exploring the ever-evolving world of technology ever since.
+							{aboutContent.intro}
 						</p>
 					</div>
 
-					{}
+					{/* bio grid */}
 					<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-start">
 						<div className="space-y-4 sm:space-y-6">
-							{}
-							<div className="border border-terminal-dim p-6 rounded">
-								<div className="text-terminal-secondary mb-4">
-									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/about</span><span className="text-white">$ </span>cat story.md
+							{/* story card */}
+							<TerminalCard
+								prompt={{ path: "~/about", command: "cat story.md" }}
+								tag="[STORY]"
+								title="MY STORY"
+							>
+								<div className="space-y-4 text-terminal-secondary leading-relaxed">
+									{aboutContent.story.map((para, i) => (
+										<p key={i}>{para}</p>
+									))}
 								</div>
-								<h3 className="text-terminal-primary font-bold text-xl mb-4">MY STORY</h3>
-								<p className="text-terminal-secondary leading-relaxed mb-4">
-									I'm just someone who's genuinely enthusiastic about learning new things and developing creative solutions.
-									I've been programming since 2017, constantly expanding my knowledge and skills over the past 5+ years.
-								</p>
-								<p className="text-terminal-secondary leading-relaxed">
-									The journey has been filled with curiosity, experimentation, and a fair share of schizo vibes.
-									I believe in clean code, elegant solutions, and the power of open-source collaboration.
-								</p>
-							</div>
+							</TerminalCard>
 
-							{}
-							<div className="border border-terminal-dim p-6 rounded">
-								<div className="text-terminal-secondary mb-4">
-									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/about</span><span className="text-white">$ </span>ls skills/
-								</div>
-								<h3 className="text-terminal-primary font-bold text-xl mb-4">WHAT I DO</h3>
+							{/* skills card */}
+							<TerminalCard
+								prompt={{ path: "~/about", command: "ls skills/" }}
+								tag="[SKILLS]"
+								title="WHAT I DO"
+							>
 								<div className="space-y-4">
-									<div className="flex items-start gap-4">
-										<span className="text-terminal-primary">→</span>
-										<div>
-											<h4 className="text-terminal-secondary font-semibold">Full-Stack Development</h4>
-											<p className="text-terminal-muted text-sm">Building modern web applications with clean architecture</p>
+									{aboutContent.skills.map((skill, i) => (
+										<div key={i} className="flex items-start gap-4">
+											<span className="text-cyan-400">→</span>
+											<div>
+												<h4 className="text-terminal-secondary font-semibold">{skill.title}</h4>
+												<p className="text-terminal-muted text-sm">{skill.desc}</p>
+											</div>
 										</div>
-									</div>
-									<div className="flex items-start gap-4">
-										<span className="text-terminal-primary">→</span>
-										<div>
-											<h4 className="text-terminal-secondary font-semibold">Problem Solving</h4>
-											<p className="text-terminal-muted text-sm">Tackling complex challenges with creative solutions</p>
-										</div>
-									</div>
-									<div className="flex items-start gap-4">
-										<span className="text-terminal-primary">→</span>
-										<div>
-											<h4 className="text-terminal-secondary font-semibold">Continuous Learning</h4>
-											<p className="text-terminal-muted text-sm">Always exploring new technologies and methodologies</p>
-										</div>
-									</div>
+									))}
 								</div>
-							</div>
+							</TerminalCard>
 						</div>
 
-						{}
+						{/* profile card */}
 						<div className="text-center">
-							<div className="border border-terminal-dim p-6 rounded">
-								<div className="text-terminal-secondary mb-4">
-									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/about</span><span className="text-white">$ </span>display profile.jpg
-								</div>
-								<div className="w-48 h-48 bg-terminal-darker rounded border border-terminal-dim flex items-center justify-center mx-auto mb-4">
-									<img src={require("../assets/discord/abjhfjljklks1.jpg")} alt="Aurora" className="w-full h-full object-cover rounded" />
+							<TerminalCard prompt={{ path: "~/about", command: "display profile.jpg" }}>
+								<div className="w-48 h-48 bg-terminal-darker rounded border border-terminal-dim flex items-center justify-center mx-auto mb-4 overflow-hidden">
+									<img
+										src={require("../assets/discord/abjhfjljklks1.jpg")}
+										alt="Aurora"
+										className="w-full h-full object-cover rounded"
+									/>
 								</div>
 								<p className="text-terminal-muted">Aurora • Developer</p>
-							</div>
+							</TerminalCard>
 						</div>
 					</div>
 
-					{}
+					{/* tech stack */}
 					<div>
-						<div className="text-terminal-secondary mb-6">
-							<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/about</span><span className="text-white">$ </span>cat tech-stack.json
-						</div>
-
+						<TerminalPrompt path="~/about" command="cat tech-stack.json" className="mb-6" />
 						<div className="grid md:grid-cols-2 gap-6">
-							<div className="border border-terminal-dim p-6 rounded">
-								<h4 className="text-terminal-primary font-bold text-lg mb-4 flex items-center gap-3">
-									<span className="text-terminal-primary">[LANG]</span>
-									LANGUAGES
-								</h4>
+							<TerminalCard tag="[LANG]" title="LANGUAGES">
 								<div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
-									{images.languages.map((item, index) => (
+									{images.languages.map((item, i) => (
 										<a
-											key={index}
+											key={i}
 											href={item.link}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="bg-terminal-darker hover:bg-terminal-dark border border-terminal-dim hover:border-terminal-muted rounded p-3 transition-all duration-300 flex items-center justify-center aspect-square"
+											className="bg-terminal-darker hover:bg-terminal-dark border border-terminal-dim hover:border-cyan-400/50 rounded p-3 transition-all duration-300 flex items-center justify-center aspect-square group"
 										>
 											<img
 												src={item.img}
-												alt={`Language ${index + 1}`}
-												className="w-6 h-6 object-contain"
+												alt={`Language ${i + 1}`}
+												className="w-6 h-6 object-contain group-hover:scale-110 transition-transform"
 											/>
 										</a>
 									))}
 								</div>
-							</div>
+							</TerminalCard>
 
-							<div className="border border-terminal-dim p-6 rounded">
-								<h4 className="text-terminal-primary font-bold text-lg mb-4 flex items-center gap-3">
-									<span className="text-terminal-primary">[TOOLS]</span>
-									FRAMEWORKS & TOOLS
-								</h4>
+							<TerminalCard tag="[TOOLS]" title="FRAMEWORKS & TOOLS">
 								<div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
-									{images.frameworks.map((item, index) => (
+									{images.frameworks.map((item, i) => (
 										<a
-											key={index}
+											key={i}
 											href={item.link}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="bg-terminal-darker hover:bg-terminal-dark border border-terminal-dim hover:border-terminal-muted rounded p-3 transition-all duration-300 flex items-center justify-center aspect-square"
+											className="bg-terminal-darker hover:bg-terminal-dark border border-terminal-dim hover:border-cyan-400/50 rounded p-3 transition-all duration-300 flex items-center justify-center aspect-square group"
 										>
 											<img
 												src={item.img}
-												alt={`Framework ${index + 1}`}
-												className="w-6 h-6 object-contain"
+												alt={`Framework ${i + 1}`}
+												className="w-6 h-6 object-contain group-hover:scale-110 transition-transform"
 											/>
 										</a>
 									))}
 								</div>
-							</div>
+							</TerminalCard>
 						</div>
 					</div>
 
-					{}
+					{/* repos */}
 					<div>
-						<div className="text-terminal-secondary mb-6">
-							<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/about</span><span className="text-white">$ </span>ls ~/projects/ -la
-						</div>
+						<TerminalPrompt path="~/about" command="ls ~/projects/ -la" className="mb-6" />
 
 						{loading ? (
 							<div className="text-center py-8">
 								<div className="text-terminal-primary">Loading repositories...</div>
-								<div className={`text-terminal-cursor ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`}>_</div>
+								<TerminalCursor />
 							</div>
 						) : repos.length > 0 ? (
 							<div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 								{repos.slice(0, 6).map((repo) => (
-									<div key={repo.id} className="border border-terminal-dim bg-terminal-darker p-4 rounded hover:border-terminal-muted transition-all duration-300">
+									<TerminalCard key={repo.id} hover={true} className="p-4">
 										<div className="flex items-center gap-3 mb-3">
 											<img
 												className="w-8 h-8 rounded-full flex-shrink-0"
@@ -208,7 +166,7 @@ const About = () => {
 													href={repo.html_url}
 													target="_blank"
 													rel="noopener noreferrer"
-													className="text-terminal-dim hover:text-terminal-primary transition-colors"
+													className="text-terminal-dim hover:text-cyan-400 transition-colors"
 												>
 													<AiOutlineGithub size={16} />
 												</a>
@@ -217,7 +175,7 @@ const About = () => {
 														href={repo.homepage}
 														target="_blank"
 														rel="noopener noreferrer"
-														className="text-terminal-dim hover:text-terminal-primary transition-colors"
+														className="text-terminal-dim hover:text-cyan-400 transition-colors"
 													>
 														<AiOutlineLink size={16} />
 													</a>
@@ -230,16 +188,14 @@ const About = () => {
 										</p>
 										<div className="flex items-center justify-between text-sm text-terminal-dim">
 											<div className="flex items-center gap-2">
-												<AiFillStar className="text-terminal-primary w-3 h-3" />
+												<AiFillStar className="text-term-accent-amber w-3 h-3" />
 												<span>{repo.stargazers_count}</span>
 											</div>
 											{repo.language && (
-												<span className="text-terminal-secondary truncate">
-													{repo.language}
-												</span>
+												<span className="text-terminal-secondary truncate">{repo.language}</span>
 											)}
 										</div>
-									</div>
+									</TerminalCard>
 								))}
 							</div>
 						) : (
@@ -250,23 +206,9 @@ const About = () => {
 						)}
 					</div>
 
-					{}
-					<div className="relative">
-						<div className="absolute inset-0 flex items-center" aria-hidden="true">
-							<div className="w-full border-t border-terminal-muted"></div>
-						</div>
-						<div className="relative flex justify-center">
-							<div className="bg-terminal-black px-4 py-2">
-								<div className="text-terminal-secondary text-sm mb-1">
-									<span className="text-terminal-muted">aurora@portfolio</span><span className="text-white">:</span><span className="text-blue-400">~/about</span><span className="text-white">$ </span>cd ../blog
-								</div>
-								<div className="text-terminal-dim text-xs text-center">
-									Entering directory 'blog'...
-								</div>
-							</div>
-						</div>
+					{/* section divider */}
+					<SectionDivider fromPath="~/about" toSection="blog" />
 					</div>
-
 				</div>
 			</div>
 		</div>

@@ -9,6 +9,7 @@ import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
 import ParticlesBackground from "./components/ParticlesBackground";
+import "./styles/terminal.css";
 
 const App = () => {
 	const router = createHashRouter(
