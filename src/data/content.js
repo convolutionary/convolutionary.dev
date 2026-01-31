@@ -20,13 +20,13 @@ export const heroContent = {
 	],
 	projects: [
 		{
-			tag: '[WEB]',
+			tag: 'Web',
 			title: 'Web Applications',
 			subtitle: 'Modern, responsive solutions',
 			description: 'Building scalable web applications with modern frameworks and clean architecture.'
 		},
 		{
-			tag: '[OSS]',
+			tag: 'OSS',
 			title: 'Open Source',
 			subtitle: 'Contributing to the community',
 			description: 'Actively contributing to open-source projects and sharing knowledge with the developer community.'
@@ -49,8 +49,8 @@ export const aboutContent = {
 
 export const blogContent = {
 	header: {
-		title: 'LATEST THOUGHTS',
-		subtitle: 'boom boom tung tung'
+		title: 'Latest Thoughts',
+		subtitle: 'Writing about code, life, and everything in between.'
 	},
 	featuredPost: {
 		id: 1,
@@ -69,7 +69,7 @@ export const blogContent = {
 
 export const contactContent = {
 	header: {
-		title: "LET'S WORK TOGETHER",
+		title: "Let's Work Together",
 		subtitle: "Have a project in mind? Let's discuss how we can bring your ideas to life."
 	},
 	info: [
@@ -81,12 +81,12 @@ export const contactContent = {
 
 export const footerContent = {
 	brand: {
-		name: 'AURORA',
+		name: 'aurora',
 		desc: 'Self-taught developer passionate about creating elegant solutions and contributing to open-source projects.'
 	},
 	status: [
-		{ color: 'text-term-accent-green', text: 'all systems operational' },
-		{ color: 'text-cyan-400', text: 'open to opportunities' },
-		{ color: 'text-terminal-primary', text: 'building the future' }
+		{ color: 'text-green-500', text: 'all systems operational' },
+		{ color: 'text-clay', text: 'open to opportunities' },
+		{ color: 'text-ink-primary', text: 'building the future' }
 	]
 };

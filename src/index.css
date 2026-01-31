@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   BENTO MINIMAL - clean japanese-inspired design system
+   BENTO MINIMAL DARK - shadcn-inspired design system
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -10,28 +10,30 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   CSS VARIABLES
+   CSS VARIABLES - dark mode
    ───────────────────────────────────────────────────────────────────────────── */
 
 :root {
-  --color-bg: #FAFAF9;
-  --color-surface: #FFFFFF;
-  --color-surface-alt: #F5F5F4;
+  --color-bg: #09090b;
+  --color-surface: #18181b;
+  --color-surface-alt: #27272a;
 
-  --color-ink-primary: #1C1917;
-  --color-ink-secondary: #44403C;
-  --color-ink-muted: #78716C;
-  --color-ink-subtle: #A8A29E;
+  --color-ink-primary: #fafafa;
+  --color-ink-secondary: #a1a1aa;
+  --color-ink-muted: #71717a;
+  --color-ink-subtle: #52525b;
 
-  --color-clay: #C2410C;
-  --color-clay-soft: #FB923C;
-  --color-clay-bg: #FFF7ED;
+  --color-clay: #f97316;
+  --color-clay-soft: #fb923c;
+  --color-clay-bg: rgba(249, 115, 22, 0.1);
 
-  --color-line: #E7E5E4;
-  --color-line-hover: #D6D3D1;
+  --color-line: #27272a;
+  --color-line-hover: #3f3f46;
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+
+  --radius: 0.75rem;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -64,6 +66,19 @@ body {
 #root {
   background: var(--color-bg);
   min-height: 100vh;
+  position: relative;
+}
+
+/* subtle aurora gradient - static, not animated */
+#root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -20%, rgba(139, 92, 246, 0.08), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 0%, rgba(249, 115, 22, 0.06), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -74,7 +89,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   font-weight: 600;
   color: var(--color-ink-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   line-height: 1.2;
 }
 
@@ -89,30 +104,31 @@ a {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   SCROLLBAR - subtle and clean
+   SCROLLBAR - dark and subtle
    ───────────────────────────────────────────────────────────────────────────── */
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--color-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-line);
-  border-radius: 4px;
+  background: var(--color-line-hover);
+  border-radius: 5px;
+  border: 2px solid var(--color-bg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-line-hover);
+  background: var(--color-ink-subtle);
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-line) transparent;
+  scrollbar-color: var(--color-line-hover) var(--color-bg);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -120,8 +136,8 @@ a {
    ───────────────────────────────────────────────────────────────────────────── */
 
 ::selection {
-  background: var(--color-clay-bg);
-  color: var(--color-clay);
+  background: var(--color-clay);
+  color: white;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -140,23 +156,25 @@ a {
 @layer components {
   .bento-input {
     @apply w-full px-4 py-3 rounded-bento border border-line bg-bento-surface
-           text-ink-secondary placeholder:text-ink-subtle
-           focus:outline-none focus:border-clay focus:ring-1 focus:ring-clay/20
-           transition-colors duration-200;
+           text-ink-primary placeholder:text-ink-subtle
+           focus:outline-none focus:border-clay focus:ring-2 focus:ring-clay/20
+           transition-all duration-200;
   }
 
   .bento-btn {
     @apply px-6 py-3 rounded-bento font-medium
-           bg-ink-primary text-bento-surface
-           hover:bg-ink-secondary
+           bg-ink-primary text-bento-bg
+           hover:bg-ink-secondary hover:text-bento-bg
            focus:outline-none focus:ring-2 focus:ring-ink-primary/20
+           active:scale-[0.98]
            transition-all duration-200;
   }
 
   .bento-btn-outline {
     @apply px-6 py-3 rounded-bento font-medium
            border border-line text-ink-secondary
-           hover:border-ink-muted hover:text-ink-primary
+           hover:border-line-hover hover:text-ink-primary hover:bg-bento-surface-alt
+           active:scale-[0.98]
            transition-all duration-200;
   }
 
@@ -164,8 +182,62 @@ a {
     @apply px-6 py-3 rounded-bento font-medium
            bg-clay text-white
            hover:bg-clay-soft
+           active:scale-[0.98]
            transition-all duration-200;
   }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CARD HOVER LIFT
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SHIMMER EFFECT - for loading states or accents
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.03),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   GRADIENT TEXT
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-ink-primary) 0%, var(--color-clay) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -193,6 +265,12 @@ img {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* vertical text for creative layouts */
+.writing-mode-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────

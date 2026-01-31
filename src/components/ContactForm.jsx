@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser";
 import Socials from "./Socials";
 import { inspirationalQuotes } from "../data/quotes";
 import { contactContent } from "../data/content";
-import { BentoCard } from "./bento";
+import { Magnet } from "./bits";
 
 const ContactForm = () => {
 	const form = useRef();
@@ -19,7 +19,6 @@ const ContactForm = () => {
 
 	const currentQuote = inspirationalQuotes[quoteIndex];
 
-	// random quote on mount
 	useEffect(() => {
 		setQuoteIndex(Math.floor(Math.random() * inspirationalQuotes.length));
 	}, []);
@@ -70,138 +69,134 @@ const ContactForm = () => {
 	};
 
 	return (
-		<section className="bg-bento-surface-alt py-16 scroll-mt-20" id="contact">
-			<div className="container mx-auto px-6 max-w-6xl">
+		<section className="bg-bento-bg py-20 scroll-mt-20" id="contact">
+			<div className="container mx-auto px-6 max-w-7xl">
+
 				{/* header */}
-				<div className="text-center mb-12">
-					<h2 className="text-3xl md:text-4xl font-semibold text-ink-primary mb-4">
+				<div className="mb-16">
+					<p className="text-clay font-mono text-sm mb-2">// contact</p>
+					<h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink-primary tracking-tight">
 						{contactContent.header.title}
 					</h2>
-					<p className="text-ink-muted text-lg max-w-2xl mx-auto">
+					<p className="text-ink-muted text-lg mt-4 max-w-xl">
 						{contactContent.header.subtitle}
 					</p>
 				</div>
 
-				<div className="grid lg:grid-cols-2 gap-6">
-					{/* form card */}
-					<BentoCard className="p-8">
-						{submitted ? (
-							<div className="text-center py-8">
-								<div className="w-16 h-16 rounded-full bg-clay-bg flex items-center justify-center mx-auto mb-4">
-									<svg className="w-8 h-8 text-clay" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-									</svg>
+				<div className="grid lg:grid-cols-12 gap-8">
+					{/* form - takes more space */}
+					<div className="lg:col-span-7">
+						<div className="bg-bento-surface rounded-2xl border border-line p-8">
+							{submitted ? (
+								<div className="text-center py-12">
+									<div className="w-16 h-16 rounded-full bg-clay/10 flex items-center justify-center mx-auto mb-4">
+										<svg className="w-8 h-8 text-clay" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+										</svg>
+									</div>
+									<h3 className="text-xl font-semibold text-ink-primary mb-2">Message sent!</h3>
+									<p className="text-ink-muted mb-6">I'll get back to you soon.</p>
+									<button onClick={() => setSubmitted(false)} className="bento-btn-outline">
+										Send another
+									</button>
 								</div>
-								<h3 className="text-xl font-semibold text-ink-primary mb-2">Message sent!</h3>
-								<p className="text-ink-muted mb-6">Thank you for reaching out. I'll get back to you soon.</p>
-								<button
-									onClick={() => setSubmitted(false)}
-									className="bento-btn-outline"
-								>
-									Send another message
-								</button>
-							</div>
-						) : (
-							<form ref={form} onSubmit={hermesSendMail} className="space-y-6">
-								<div className="grid sm:grid-cols-2 gap-4">
-									<div>
-										<label className="text-ink-muted text-sm block mb-2">Name</label>
-										<input
-											type="text"
-											name="user_name"
-											value={formData.user_name}
-											onChange={morpheusInputChange}
-											required
-											placeholder="Your name"
-											className="bento-input"
-										/>
+							) : (
+								<form ref={form} onSubmit={hermesSendMail} className="space-y-6">
+									<div className="grid sm:grid-cols-2 gap-4">
+										<div>
+											<label className="text-ink-muted text-sm block mb-2">Name</label>
+											<input
+												type="text"
+												name="user_name"
+												value={formData.user_name}
+												onChange={morpheusInputChange}
+												required
+												placeholder="Your name"
+												className="bento-input"
+											/>
+										</div>
+										<div>
+											<label className="text-ink-muted text-sm block mb-2">Email</label>
+											<input
+												type="email"
+												name="user_email"
+												value={formData.user_email}
+												onChange={morpheusInputChange}
+												required
+												placeholder="you@example.com"
+												className="bento-input"
+											/>
+										</div>
 									</div>
 									<div>
-										<label className="text-ink-muted text-sm block mb-2">Email</label>
-										<input
-											type="email"
-											name="user_email"
-											value={formData.user_email}
+										<label className="text-ink-muted text-sm block mb-2">Message</label>
+										<textarea
+											name="message"
+											value={formData.message}
 											onChange={morpheusInputChange}
 											required
-											placeholder="you@example.com"
-											className="bento-input"
+											placeholder="Tell me about your project..."
+											className="bento-input min-h-[180px] resize-y"
 										/>
 									</div>
-								</div>
-								<div>
-									<label className="text-ink-muted text-sm block mb-2">Message</label>
-									<textarea
-										name="message"
-										value={formData.message}
-										onChange={morpheusInputChange}
-										required
-										placeholder="Tell me about your project..."
-										className="bento-input min-h-[150px] resize-y"
-									/>
-								</div>
-								<button type="submit" className="bento-btn-accent w-full">
-									Send Message
-								</button>
-							</form>
-						)}
-					</BentoCard>
+									<Magnet padding={40} magnetStrength={4}>
+										<button type="submit" className="bento-btn-accent w-full">
+											Send Message
+										</button>
+									</Magnet>
+								</form>
+							)}
+						</div>
+					</div>
 
-					{/* info column */}
-					<div className="space-y-6">
+					{/* sidebar */}
+					<div className="lg:col-span-5 space-y-6">
 						{/* socials */}
-						<BentoCard>
-							<h3 className="text-lg font-semibold text-ink-primary mb-4">Connect with me</h3>
+						<div className="bg-bento-surface rounded-2xl border border-line p-6">
+							<h3 className="text-lg font-semibold text-ink-primary mb-5">Connect</h3>
 							<Socials />
-						</BentoCard>
+						</div>
 
-						{/* quote */}
-						<BentoCard>
+						{/* quote - smaller, more compact */}
+						<div className="bg-bento-surface rounded-2xl border border-line p-6">
 							<div className="flex items-center justify-between mb-4">
-								<h3 className="text-lg font-semibold text-ink-primary">Daily Inspiration</h3>
-								<span className="text-xs bg-bento-surface-alt text-ink-muted px-2 py-1 rounded-full">
-									{currentQuote.category}
-								</span>
+								<span className="text-clay text-xs font-mono">// inspiration</span>
+								<span className="text-xs text-ink-subtle">{currentQuote.category}</span>
 							</div>
 
-							<div className={`transition-all duration-300 ${animateQuote ? 'opacity-0 translate-y-2' : 'opacity-100'}`}>
-								<blockquote className="text-ink-secondary italic mb-3 leading-relaxed">
+							<div className={`transition-all duration-300 ${animateQuote ? 'opacity-0' : 'opacity-100'}`}>
+								<blockquote className="text-ink-secondary italic text-sm leading-relaxed">
 									"{currentQuote.latin}"
 								</blockquote>
-								<p className="text-ink-muted mb-2">{currentQuote.english}</p>
-								<p className="text-ink-subtle text-sm leading-relaxed">{currentQuote.description}</p>
+								<p className="text-ink-muted text-sm mt-2">{currentQuote.english}</p>
 							</div>
 
-							<div className="flex gap-3 mt-4">
-								<button onClick={circeCycleQuote} className="bento-btn-outline text-sm py-2">
+							<div className="flex gap-2 mt-4">
+								<button onClick={circeCycleQuote} className="text-xs text-ink-subtle hover:text-clay transition-colors">
 									Refresh
 								</button>
-								<button onClick={hermesCopyQuote} className="bento-btn-outline text-sm py-2 relative">
+								<span className="text-ink-subtle">·</span>
+								<button onClick={hermesCopyQuote} className="text-xs text-ink-subtle hover:text-clay transition-colors relative">
 									Copy
 									{showCopyTooltip && (
-										<span className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-clay text-white text-xs rounded">
+										<span className="absolute -top-6 left-1/2 -translate-x-1/2 px-2 py-1 bg-clay text-white text-xs rounded">
 											Copied!
 										</span>
 									)}
 								</button>
 							</div>
-						</BentoCard>
+						</div>
 
-						{/* contact info */}
-						<BentoCard>
-							<h3 className="text-lg font-semibold text-ink-primary mb-4">Get in touch</h3>
-							<div className="space-y-3">
-								{contactContent.info.map((item, i) => (
-									<div key={i} className="flex items-start gap-3">
-										<div className="w-2 h-2 rounded-full bg-clay mt-2"></div>
-										<div>
-											<h4 className="text-ink-primary font-medium">{item.title}</h4>
-											<p className="text-ink-muted text-sm">{item.desc}</p>
-										</div>
-									</div>
-								))}
-							</div>
-						</BentoCard>
+						{/* quick info */}
+						<div className="space-y-3">
+							{contactContent.info.map((item, i) => (
+								<div key={i} className="flex items-center gap-3 text-sm">
+									<div className="w-1.5 h-1.5 rounded-full bg-clay" />
+									<span className="text-ink-primary">{item.title}</span>
+									<span className="text-ink-muted">— {item.desc}</span>
+								</div>
+							))}
+						</div>
 					</div>
 				</div>
 			</div>

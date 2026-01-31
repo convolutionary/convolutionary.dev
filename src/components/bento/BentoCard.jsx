@@ -1,38 +1,57 @@
-// bento card - the core building block for the grid layout
-// cards can span different sizes for visual interest
+// bento card - shadcn/magicui inspired with glow effects
+import { cn } from "../../lib/utils";
 
 const BentoCard = ({
   children,
-  className = '',
+  className,
   span = 'default',
   hover = true,
   accent = false,
+  glow = false,
   onClick = null,
 }) => {
-  // grid span variants for the bento layout
   const spanClasses = {
     default: '',
-    wide: 'md:col-span-2',
-    tall: 'md:row-span-2',
+    wide: 'md:col-span-2 lg:col-span-2',
+    tall: 'md:row-span-2 flex flex-col',
     feature: 'md:col-span-2 md:row-span-2',
-    full: 'md:col-span-3',
+    full: 'md:col-span-2 lg:col-span-3',
   };
 
-  const baseClasses = `
-    bg-bento-surface
-    rounded-bento-lg
-    border border-line
-    p-6
-    ${hover ? 'hover:shadow-bento-md hover:border-line-hover hover:-translate-y-0.5 transition-all duration-200' : ''}
-    ${accent ? 'border-l-4 border-l-clay' : ''}
-    ${onClick ? 'cursor-pointer' : ''}
-    ${spanClasses[span]}
-    ${className}
-  `;
-
   return (
-    <div className={baseClasses} onClick={onClick}>
-      {children}
+    <div
+      className={cn(
+        // base styles
+        "relative bg-bento-surface rounded-bento-lg border border-line p-6",
+        "backdrop-blur-sm",
+        // hover effects
+        hover && [
+          "transition-all duration-300 ease-out",
+          "hover:border-line-hover",
+          "hover:-translate-y-1",
+          "hover:shadow-bento-lg",
+        ],
+        // glow effect on hover
+        glow && "hover:shadow-glow",
+        // accent left border
+        accent && "border-l-2 border-l-clay",
+        // clickable
+        onClick && "cursor-pointer",
+        // grid span
+        spanClasses[span],
+        className
+      )}
+      onClick={onClick}
+    >
+      {/* subtle gradient overlay on hover */}
+      {hover && (
+        <div className="absolute inset-0 rounded-bento-lg bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+      )}
+
+      {/* content */}
+      <div className="relative z-10">
+        {children}
+      </div>
     </div>
   );
 };
