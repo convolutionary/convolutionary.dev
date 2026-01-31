@@ -1,9 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   INDEX.CSS - Base Styles & Foundation
-   keeping this minimal, terminal.css handles the fancy stuff
+   BENTO MINIMAL - clean japanese-inspired design system
    ═══════════════════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -14,26 +14,24 @@
    ───────────────────────────────────────────────────────────────────────────── */
 
 :root {
-	/* terminal background shades */
-	--color-crt-black: #0a0510;
-	--color-crt-dark: #0f0813;
-	--color-crt-darker: #1a0f1f;
-	--color-crt-darkest: #241428;
+  --color-bg: #FAFAF9;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F5F5F4;
 
-	/* text colors */
-	--color-text-primary: #b794f6;
-	--color-text-secondary: #9f7aea;
-	--color-text-muted: #805ad5;
-	--color-text-dim: #6b46c1;
-	--color-cursor: #b794f6;
+  --color-ink-primary: #1C1917;
+  --color-ink-secondary: #44403C;
+  --color-ink-muted: #78716C;
+  --color-ink-subtle: #A8A29E;
 
-	/* accent colors */
-	--color-cyan: #00ffff;
-	--color-magenta: #ff00ff;
-	--color-green: #00ff88;
+  --color-clay: #C2410C;
+  --color-clay-soft: #FB923C;
+  --color-clay-bg: #FFF7ED;
 
-	/* typography */
-	--font-mono: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Courier New', monospace;
+  --color-line: #E7E5E4;
+  --color-line-hover: #D6D3D1;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -41,83 +39,31 @@
    ───────────────────────────────────────────────────────────────────────────── */
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-	scroll-behavior: smooth;
-	background: var(--color-crt-black);
-	color: var(--color-text-primary);
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-	font-family: var(--font-mono);
-	font-size: 14px;
-	line-height: 1.6;
-	background: var(--color-crt-black);
-	color: var(--color-text-primary);
-	overflow-x: hidden;
-	min-height: 100vh;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-ink-secondary);
+  background: var(--color-bg);
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 #root {
-	background: var(--color-crt-black);
-	min-height: 100vh;
-	position: relative;
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   CRT SCANLINE EFFECT
-   ───────────────────────────────────────────────────────────────────────────── */
-
-body::before {
-	content: '';
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: repeating-linear-gradient(
-		0deg,
-		transparent,
-		transparent 2px,
-		rgba(183, 148, 246, 0.015) 2px,
-		rgba(183, 148, 246, 0.015) 3px
-	);
-	pointer-events: none;
-	z-index: 9999;
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   SCROLLBAR
-   ───────────────────────────────────────────────────────────────────────────── */
-
-::-webkit-scrollbar {
-	width: 8px;
-	height: 8px;
-}
-
-::-webkit-scrollbar-track {
-	background: var(--color-crt-black);
-}
-
-::-webkit-scrollbar-thumb {
-	background: var(--color-text-dim);
-	border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background: var(--color-text-muted);
-}
-
-/* firefox */
-* {
-	scrollbar-width: thin;
-	scrollbar-color: var(--color-text-dim) var(--color-crt-black);
+  background: var(--color-bg);
+  min-height: 100vh;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -125,16 +71,48 @@ body::before {
    ───────────────────────────────────────────────────────────────────────────── */
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: var(--font-mono);
-	font-weight: 700;
-	line-height: 1.2;
-	letter-spacing: 0.5px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--color-ink-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; }
+
 a {
-	color: inherit;
-	text-decoration: none;
-	transition: color 0.2s ease;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SCROLLBAR - subtle and clean
+   ───────────────────────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-line-hover);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -142,13 +120,8 @@ a {
    ───────────────────────────────────────────────────────────────────────────── */
 
 ::selection {
-	background: var(--color-text-primary);
-	color: var(--color-crt-black);
-}
-
-::-moz-selection {
-	background: var(--color-text-primary);
-	color: var(--color-crt-black);
+  background: var(--color-clay-bg);
+  color: var(--color-clay);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -156,34 +129,43 @@ a {
    ───────────────────────────────────────────────────────────────────────────── */
 
 :focus-visible {
-	outline: 2px solid var(--color-cyan);
-	outline-offset: 2px;
+  outline: 2px solid var(--color-clay);
+  outline-offset: 2px;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   TERMINAL COLOR UTILITIES
+   BENTO COMPONENTS
    ───────────────────────────────────────────────────────────────────────────── */
 
-.bg-terminal-black { background-color: var(--color-crt-black) !important; }
-.bg-terminal-dark { background-color: var(--color-crt-dark) !important; }
-.bg-terminal-darker { background-color: var(--color-crt-darker) !important; }
+@layer components {
+  .bento-input {
+    @apply w-full px-4 py-3 rounded-bento border border-line bg-bento-surface
+           text-ink-secondary placeholder:text-ink-subtle
+           focus:outline-none focus:border-clay focus:ring-1 focus:ring-clay/20
+           transition-colors duration-200;
+  }
 
-.text-terminal-primary { color: var(--color-text-primary) !important; }
-.text-terminal-secondary { color: var(--color-text-secondary) !important; }
-.text-terminal-muted { color: var(--color-text-muted) !important; }
-.text-terminal-dim { color: var(--color-text-dim) !important; }
-.text-terminal-cursor { color: var(--color-cursor) !important; }
+  .bento-btn {
+    @apply px-6 py-3 rounded-bento font-medium
+           bg-ink-primary text-bento-surface
+           hover:bg-ink-secondary
+           focus:outline-none focus:ring-2 focus:ring-ink-primary/20
+           transition-all duration-200;
+  }
 
-.border-terminal-muted { border-color: var(--color-text-muted) !important; }
-.border-terminal-dim { border-color: var(--color-text-dim) !important; }
+  .bento-btn-outline {
+    @apply px-6 py-3 rounded-bento font-medium
+           border border-line text-ink-secondary
+           hover:border-ink-muted hover:text-ink-primary
+           transition-all duration-200;
+  }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Z-INDEX LAYERS
-   ───────────────────────────────────────────────────────────────────────────── */
-
-main, .navbar, footer {
-	position: relative;
-	z-index: 10;
+  .bento-btn-accent {
+    @apply px-6 py-3 rounded-bento font-medium
+           bg-clay text-white
+           hover:bg-clay-soft
+           transition-all duration-200;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -191,43 +173,48 @@ main, .navbar, footer {
    ───────────────────────────────────────────────────────────────────────────── */
 
 img {
-	max-width: 100%;
-	height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   LINE CLAMP UTILITY
+   UTILITIES
    ───────────────────────────────────────────────────────────────────────────── */
 
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .line-clamp-3 {
-	display: -webkit-box;
-	-webkit-line-clamp: 3;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   RESPONSIVE BASE
+   RESPONSIVE
    ───────────────────────────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
-	h1 { font-size: 1.75rem; }
-	h2 { font-size: 1.5rem; }
-	h3 { font-size: 1.25rem; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.125rem; }
 }
 
-/* touch device friendly targets */
 @media (hover: none) and (pointer: coarse) {
-	button, a, input, textarea {
-		min-height: 44px;
-	}
+  button, a, input, textarea {
+    min-height: 44px;
+  }
 }
 
-/* reduced motion */
 @media (prefers-reduced-motion: reduce) {
-	*, *::before, *::after {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-	}
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

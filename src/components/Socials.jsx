@@ -9,74 +9,71 @@ const Socials = () => {
 	const socialLinks = [
 		{
 			name: "GitHub",
-			icon: <FaGithub size={20} className="text-white" />,
+			icon: <FaGithub size={18} />,
 			username: "convolutionary",
 			url: "https://github.com/convolutionary",
-			color: "text-white"
 		},
 		{
 			name: "Email",
-			icon: <IoMdMail size={20} className="text-white" />,
+			icon: <IoMdMail size={18} />,
 			username: "cerfnet@anche.no",
 			url: "mailto:cerfnet@anche.no",
-			color: "text-white"
 		},
 		{
 			name: "X (Twitter)",
-			icon: <FaXTwitter size={20} className="text-white" />,
+			icon: <FaXTwitter size={18} />,
 			username: "Nocixa",
 			url: "https://x.com/Nocixa",
-			color: "text-white"
 		},
 		{
 			name: "Telegram",
-			icon: <FaTelegramPlane size={20} className="text-white" />,
+			icon: <FaTelegramPlane size={18} />,
 			username: "Contact me",
 			url: "https://t.me/",
-			color: "text-white"
 		},
 		{
 			name: "Codeberg",
-			icon: <SiCodeberg size={20} className="text-white" />,
+			icon: <SiCodeberg size={18} />,
 			username: "Dyslexic",
 			url: "https://codeberg.org/Dyslexic",
-			color: "text-white"
 		},
 		{
 			name: "PGP Key",
-			icon: <IoMdKey size={20} className="text-white" />,
+			icon: <IoMdKey size={18} />,
 			username: "288A F8FD 6457 B638",
 			url: Pgp,
-			color: "text-white"
 		}
 	];
 
 	return (
-		<div className="space-y-4">
+		<div className="space-y-3">
 			{socialLinks.map((link, index) => (
 				<a
 					key={index}
 					href={link.url}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="flex items-center gap-4 p-3 rounded-lg border border-gray-700 hover:border-gray-600 hover:bg-gray-800 transition-all group"
+					className="flex items-center gap-4 p-3 rounded-bento border border-line hover:border-clay hover:bg-clay-bg/30 transition-all duration-200 group"
 				>
-					<div className={`${link.color} group-hover:text-gray-200 transition-colors`}>
+					<div className="text-ink-muted group-hover:text-clay transition-colors">
 						{link.icon}
 					</div>
 					<div className="flex-1 min-w-0">
-						<p className="font-medium text-white group-hover:text-gray-200 transition-colors">
+						<p className="font-medium text-ink-primary group-hover:text-clay transition-colors">
 							{link.name}
 						</p>
-						<p className="text-sm text-gray-400 truncate">
+						<p className="text-sm text-ink-muted truncate">
 							{link.username}
 						</p>
 					</div>
-					<div className="text-gray-500 group-hover:text-gray-400 transition-colors">
-						<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-						</svg>
-					</div>
+					<svg
+						className="w-4 h-4 text-ink-subtle group-hover:text-clay group-hover:translate-x-0.5 transition-all"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+					</svg>
 				</a>
 			))}
 		</div>

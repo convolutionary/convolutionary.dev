@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { smoothScrollTo } from "../utils/smoothScroll";
-import useTypingEffect from "../hooks/useTypingEffect";
 import { heroContent } from "../data/content";
-import { TerminalPrompt, TerminalCard, SectionDivider, TerminalCursor, AsciiHero } from "./terminal";
+import { BentoCard, BentoGrid } from "./bento";
 
 const Home = () => {
 	const location = useLocation();
-	const currentText = useTypingEffect(heroContent.roles);
 
 	useEffect(() => {
 		if (location.state?.scrollTo) {
@@ -18,111 +16,91 @@ const Home = () => {
 	}, [location]);
 
 	return (
-		<section className="min-h-screen bg-terminal-black font-mono text-terminal-primary pt-24 sm:pt-28 md:pt-32" id="home">
-			<div className="container mx-auto px-4 py-8 max-w-6xl">
-				{/* terminal window */}
-				<div className="terminal-window">
-					{/* window header */}
-					<div className="terminal-header">
-						<div className="flex gap-2">
-							<div className="terminal-dot red" />
-							<div className="terminal-dot yellow" />
-							<div className="terminal-dot green" />
+		<section className="min-h-screen bg-bento-bg pt-24 pb-16" id="home">
+			<div className="container mx-auto px-6 max-w-6xl">
+				{/* hero header */}
+				<div className="text-center mb-12">
+					<h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-ink-primary mb-4">
+						aurora
+					</h1>
+					<p className="text-lg md:text-xl text-ink-muted max-w-xl mx-auto">
+						{heroContent.roles.join(' / ')}
+					</p>
+				</div>
+
+				{/* bento grid */}
+				<BentoGrid>
+					{/* profile card - tall */}
+					<BentoCard span="tall" className="flex flex-col">
+						<div className="w-20 h-20 rounded-full bg-bento-surface-alt border border-line overflow-hidden mb-4">
+							<img
+								src={require("../assets/discord/abjhfjljklks1.jpg")}
+								alt="Aurora"
+								className="w-full h-full object-cover"
+							/>
 						</div>
-						<div className="flex-1 text-center text-terminal-muted text-sm font-mono">
-							aurora@portfolio:~$
-						</div>
-					</div>
+						<h2 className="text-xl font-semibold text-ink-primary mb-2">About Me</h2>
+						<p className="text-ink-secondary leading-relaxed flex-1">
+							{heroContent.bio.short}
+						</p>
+						<p className="text-ink-muted text-sm mt-4">
+							{heroContent.bio.medium}
+						</p>
+					</BentoCard>
 
-					{/* terminal body */}
-					<div className="p-4 sm:p-6 md:p-8 space-y-8">
-						{/* ascii hero with glow */}
-						<AsciiHero className="mb-6" />
+					{/* github card */}
+					<BentoCard accent>
+						<span className="text-clay text-sm font-medium">GitHub</span>
+						<a
+							href="https://github.com/convolutionary"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="block mt-2 text-ink-primary hover:text-clay transition-colors font-medium"
+						>
+							@convolutionary
+						</a>
+						<p className="text-ink-muted text-sm mt-1">Check out my projects</p>
+					</BentoCard>
 
-						{/* bio grid */}
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-							{/* whoami */}
-							<div>
-								<TerminalPrompt path="~" command="whoami" className="mb-4" />
-								<div className="space-y-3">
-									<div className="flex items-center gap-3 flex-wrap">
-										<span className="text-cyan-400 font-mono">[GIT]</span>
-										<span className="text-terminal-secondary">GitHub</span>
-										<span className="text-terminal-muted">→</span>
-										<a
-											href="https://github.com/convolutionary"
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-terminal-primary hover:text-cyan-400 transition-colors underline decoration-terminal-dim hover:decoration-cyan-400"
-										>
-											github/convolutionary
-										</a>
-									</div>
-								</div>
-							</div>
+					{/* stats cards */}
+					{heroContent.stats.slice(0, 2).map((stat, index) => (
+						<BentoCard key={index}>
+							<span className="text-3xl font-semibold text-ink-primary">{stat.value}</span>
+							<span className="block text-ink-muted text-sm mt-1">{stat.label}</span>
+						</BentoCard>
+					))}
 
-							{/* about.txt */}
-							<div>
-								<TerminalPrompt path="~" command="cat about.txt" className="mb-4" />
-								<div className="text-terminal-muted leading-relaxed space-y-3">
-									<p>{heroContent.bio.short}</p>
-									<p>{heroContent.bio.medium}</p>
-									<p>
-										Currently working as a{" "}
-										<span className="text-terminal-primary">{currentText}</span>
-										<TerminalCursor />
-									</p>
-								</div>
-							</div>
-						</div>
+					{/* more stats */}
+					{heroContent.stats.slice(2).map((stat, index) => (
+						<BentoCard key={index + 2}>
+							<span className="text-3xl font-semibold text-ink-primary">{stat.value}</span>
+							<span className="block text-ink-muted text-sm mt-1">{stat.label}</span>
+						</BentoCard>
+					))}
 
-						{/* welcome message */}
-						<div className="py-4 border-y border-terminal-dim/30">
-							<p className="text-terminal-secondary text-center">
-								Welcome to my portfolio! - Type{" "}
-								<span className="text-cyan-400 font-bold">help</span>{" "}
-								for a list of supported commands.
-							</p>
-						</div>
-
-						{/* stats grid */}
-						<div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-							{heroContent.stats.map((stat, index) => (
+					{/* projects card - wide */}
+					<BentoCard span="wide">
+						<h3 className="text-lg font-semibold text-ink-primary mb-4">Featured Work</h3>
+						<div className="grid sm:grid-cols-2 gap-4">
+							{heroContent.projects.map((project, index) => (
 								<div
 									key={index}
-									className="text-center p-4 rounded-lg bg-terminal-darker/50 border border-terminal-dim/30 hover:border-terminal-muted/50 transition-all duration-300"
+									className="p-4 rounded-bento bg-bento-surface-alt border border-line"
 								>
-									<div className="text-terminal-primary font-bold text-xl sm:text-2xl mb-1 glitch-hover" data-text={stat.value}>
-										{stat.value}
-									</div>
-									<div className="text-terminal-muted text-xs sm:text-sm">
-										{stat.label}
-									</div>
+									<span className="text-clay text-xs font-medium">{project.tag}</span>
+									<h4 className="text-ink-primary font-medium mt-1">{project.title}</h4>
+									<p className="text-ink-muted text-sm mt-1">{project.subtitle}</p>
 								</div>
 							))}
 						</div>
+					</BentoCard>
+				</BentoGrid>
 
-						{/* projects */}
-						<div>
-							<TerminalPrompt path="~" command="ls projects/" className="mb-6" />
-							<div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-								{heroContent.projects.map((project, index) => (
-									<TerminalCard
-										key={index}
-										tag={project.tag}
-										title={project.title}
-										hover={true}
-									>
-										<p className="text-terminal-muted text-sm mb-2">{project.subtitle}</p>
-										<p className="text-terminal-secondary text-sm">{project.description}</p>
-									</TerminalCard>
-								))}
-							</div>
-						</div>
-
-						{/* section divider */}
-						<SectionDivider fromPath="~" toSection="about" />
-					</div>
+				{/* welcome message */}
+				<div className="text-center mt-12 py-6 border-t border-line">
+					<p className="text-ink-muted">
+						Welcome to my portfolio - scroll down to learn more about what I do.
+					</p>
 				</div>
 			</div>
 		</section>

@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser";
 import Socials from "./Socials";
 import { inspirationalQuotes } from "../data/quotes";
 import { contactContent } from "../data/content";
-import { TerminalPrompt, TerminalCard, SectionDivider } from "./terminal";
+import { BentoCard } from "./bento";
 
 const ContactForm = () => {
 	const form = useRef();
@@ -70,163 +70,142 @@ const ContactForm = () => {
 	};
 
 	return (
-		<div className="bg-terminal-black font-mono text-terminal-primary scroll-mt-32" id="contact">
-			<div className="container mx-auto px-4 py-8 max-w-6xl">
-				<div className="terminal-window">
-					<div className="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
+		<section className="bg-bento-surface-alt py-16 scroll-mt-20" id="contact">
+			<div className="container mx-auto px-6 max-w-6xl">
+				{/* header */}
+				<div className="text-center mb-12">
+					<h2 className="text-3xl md:text-4xl font-semibold text-ink-primary mb-4">
+						{contactContent.header.title}
+					</h2>
+					<p className="text-ink-muted text-lg max-w-2xl mx-auto">
+						{contactContent.header.subtitle}
+					</p>
+				</div>
 
-					{/* header */}
-					<div className="text-center">
-						<div className="text-terminal-secondary text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 font-mono glitch-hover" data-text={contactContent.header.title}>
-							{contactContent.header.title}
-						</div>
-						<TerminalPrompt path="~/contact" command="cat invitation.txt" className="mb-4 justify-center" />
-						<p className="text-terminal-muted text-lg leading-relaxed max-w-4xl mx-auto">
-							{contactContent.header.subtitle}
-						</p>
-					</div>
-
-					<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-						{/* form card */}
-						<div className="order-2 lg:order-1">
-							<TerminalCard
-								prompt={{ path: "~/contact", command: "vim message.txt" }}
-								tag="[COMPOSE]"
-								title="SEND MESSAGE"
-							>
-								{submitted ? (
-									<div className="text-center py-8">
-										<div className="text-cyan-400 text-2xl mb-4">[SUCCESS] Message sent!</div>
-										<p className="text-terminal-secondary mb-6">Thank you for reaching out. I'll get back to you soon.</p>
-										<button
-											onClick={() => setSubmitted(false)}
-											className="cyber-btn px-6 py-2"
-										>
-											[COMPOSE NEW]
-										</button>
+				<div className="grid lg:grid-cols-2 gap-6">
+					{/* form card */}
+					<BentoCard className="p-8">
+						{submitted ? (
+							<div className="text-center py-8">
+								<div className="w-16 h-16 rounded-full bg-clay-bg flex items-center justify-center mx-auto mb-4">
+									<svg className="w-8 h-8 text-clay" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+									</svg>
+								</div>
+								<h3 className="text-xl font-semibold text-ink-primary mb-2">Message sent!</h3>
+								<p className="text-ink-muted mb-6">Thank you for reaching out. I'll get back to you soon.</p>
+								<button
+									onClick={() => setSubmitted(false)}
+									className="bento-btn-outline"
+								>
+									Send another message
+								</button>
+							</div>
+						) : (
+							<form ref={form} onSubmit={hermesSendMail} className="space-y-6">
+								<div className="grid sm:grid-cols-2 gap-4">
+									<div>
+										<label className="text-ink-muted text-sm block mb-2">Name</label>
+										<input
+											type="text"
+											name="user_name"
+											value={formData.user_name}
+											onChange={morpheusInputChange}
+											required
+											placeholder="Your name"
+											className="bento-input"
+										/>
 									</div>
-								) : (
-									<form ref={form} onSubmit={hermesSendMail} className="space-y-6">
-										<div className="grid md:grid-cols-2 gap-6">
-											<div>
-												<label className="text-terminal-secondary text-sm block mb-2">NAME:</label>
-												<input
-													type="text"
-													name="user_name"
-													value={formData.user_name}
-													onChange={morpheusInputChange}
-													required
-													placeholder="your_name"
-													className="terminal-input w-full"
-												/>
-											</div>
-											<div>
-												<label className="text-terminal-secondary text-sm block mb-2">EMAIL:</label>
-												<input
-													type="email"
-													name="user_email"
-													value={formData.user_email}
-													onChange={morpheusInputChange}
-													required
-													placeholder="your@email.com"
-													className="terminal-input w-full"
-												/>
-											</div>
-										</div>
+									<div>
+										<label className="text-ink-muted text-sm block mb-2">Email</label>
+										<input
+											type="email"
+											name="user_email"
+											value={formData.user_email}
+											onChange={morpheusInputChange}
+											required
+											placeholder="you@example.com"
+											className="bento-input"
+										/>
+									</div>
+								</div>
+								<div>
+									<label className="text-ink-muted text-sm block mb-2">Message</label>
+									<textarea
+										name="message"
+										value={formData.message}
+										onChange={morpheusInputChange}
+										required
+										placeholder="Tell me about your project..."
+										className="bento-input min-h-[150px] resize-y"
+									/>
+								</div>
+								<button type="submit" className="bento-btn-accent w-full">
+									Send Message
+								</button>
+							</form>
+						)}
+					</BentoCard>
+
+					{/* info column */}
+					<div className="space-y-6">
+						{/* socials */}
+						<BentoCard>
+							<h3 className="text-lg font-semibold text-ink-primary mb-4">Connect with me</h3>
+							<Socials />
+						</BentoCard>
+
+						{/* quote */}
+						<BentoCard>
+							<div className="flex items-center justify-between mb-4">
+								<h3 className="text-lg font-semibold text-ink-primary">Daily Inspiration</h3>
+								<span className="text-xs bg-bento-surface-alt text-ink-muted px-2 py-1 rounded-full">
+									{currentQuote.category}
+								</span>
+							</div>
+
+							<div className={`transition-all duration-300 ${animateQuote ? 'opacity-0 translate-y-2' : 'opacity-100'}`}>
+								<blockquote className="text-ink-secondary italic mb-3 leading-relaxed">
+									"{currentQuote.latin}"
+								</blockquote>
+								<p className="text-ink-muted mb-2">{currentQuote.english}</p>
+								<p className="text-ink-subtle text-sm leading-relaxed">{currentQuote.description}</p>
+							</div>
+
+							<div className="flex gap-3 mt-4">
+								<button onClick={circeCycleQuote} className="bento-btn-outline text-sm py-2">
+									Refresh
+								</button>
+								<button onClick={hermesCopyQuote} className="bento-btn-outline text-sm py-2 relative">
+									Copy
+									{showCopyTooltip && (
+										<span className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-clay text-white text-xs rounded">
+											Copied!
+										</span>
+									)}
+								</button>
+							</div>
+						</BentoCard>
+
+						{/* contact info */}
+						<BentoCard>
+							<h3 className="text-lg font-semibold text-ink-primary mb-4">Get in touch</h3>
+							<div className="space-y-3">
+								{contactContent.info.map((item, i) => (
+									<div key={i} className="flex items-start gap-3">
+										<div className="w-2 h-2 rounded-full bg-clay mt-2"></div>
 										<div>
-											<label className="text-terminal-secondary text-sm block mb-2">MESSAGE:</label>
-											<textarea
-												name="message"
-												value={formData.message}
-												onChange={morpheusInputChange}
-												required
-												placeholder="Tell me about your project..."
-												className="terminal-input w-full min-h-[150px] resize-y"
-											/>
+											<h4 className="text-ink-primary font-medium">{item.title}</h4>
+											<p className="text-ink-muted text-sm">{item.desc}</p>
 										</div>
-										<button type="submit" className="cyber-btn w-full py-3">
-											[SEND MESSAGE]
-										</button>
-									</form>
-								)}
-							</TerminalCard>
-						</div>
-
-						{/* info column */}
-						<div className="order-1 lg:order-2 space-y-6">
-							{/* socials */}
-							<TerminalCard
-								prompt={{ path: "~/contact", command: "ls social/" }}
-								tag="[LINKS]"
-								title="CONNECT WITH ME"
-							>
-								<Socials />
-							</TerminalCard>
-
-							{/* quotes */}
-							<TerminalCard
-								prompt={{ path: "~/contact", command: "fortune | cowsay" }}
-								tag="[QUOTE]"
-								title="DAILY INSPIRATION"
-							>
-								<div className="flex items-center justify-between mb-4">
-									<span className="text-xs bg-terminal-black text-terminal-muted px-2 py-1 rounded border border-terminal-dim">
-										{currentQuote.category}
-									</span>
-								</div>
-
-								<div className={`transition-all duration-300 ${animateQuote ? 'opacity-0 translate-y-2' : 'opacity-100'}`}>
-									<div className="mb-6">
-										<blockquote className="text-terminal-secondary italic mb-3 leading-relaxed">
-											"{currentQuote.latin}"
-										</blockquote>
-										<p className="text-terminal-muted mb-3">{currentQuote.english}</p>
-										<p className="text-terminal-dim text-sm leading-relaxed">{currentQuote.description}</p>
 									</div>
-								</div>
-
-								<div className="flex gap-3">
-									<button onClick={circeCycleQuote} className="cyber-btn-outline px-4 py-2 text-sm">
-										[REFRESH]
-									</button>
-									<button onClick={hermesCopyQuote} className="cyber-btn-outline px-4 py-2 text-sm relative">
-										[COPY]
-										{showCopyTooltip && (
-											<span className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-cyan-400 text-terminal-black text-xs rounded">
-												Copied!
-											</span>
-										)}
-									</button>
-								</div>
-							</TerminalCard>
-
-							{/* contact info */}
-							<TerminalCard
-								prompt={{ path: "~/contact", command: "cat info.txt" }}
-								tag="[INFO]"
-								title="GET IN TOUCH"
-							>
-								<div className="space-y-4">
-									{contactContent.info.map((item, i) => (
-										<div key={i} className="flex items-start gap-4">
-											<span className="text-cyan-400">→</span>
-											<div>
-												<h4 className="text-terminal-secondary font-semibold">{item.title}</h4>
-												<p className="text-terminal-muted text-sm">{item.desc}</p>
-											</div>
-										</div>
-									))}
-								</div>
-							</TerminalCard>
-						</div>
-					</div>
-
-					{/* section divider */}
-					<SectionDivider fromPath="~/contact" toSection="footer" />
+								))}
+							</div>
+						</BentoCard>
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 };
 

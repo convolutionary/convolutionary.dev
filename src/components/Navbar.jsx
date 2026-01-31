@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { smoothScrollTo } from "../utils/smoothScroll";
 import { navItems } from "../data/navigation";
 
 const Navbar = () => {
-	const [notification, setNotification] = useState({ show: false, message: "", animate: false });
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-	const timeoutRef = useRef(null);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const isHomePage = location.pathname === "/";
@@ -36,16 +34,6 @@ const Navbar = () => {
 		setMobileMenuOpen(false);
 	}, [location]);
 
-	// eslint-disable-next-line no-unused-vars
-	const hermesNotify = (message) => {
-		if (timeoutRef.current) clearTimeout(timeoutRef.current);
-		setNotification({ show: true, message, animate: true });
-		timeoutRef.current = setTimeout(() => {
-			setNotification((prev) => ({ ...prev, animate: false }));
-			setTimeout(() => setNotification({ show: false, message: "", animate: false }), 300);
-		}, 3000);
-	};
-
 	const athenaNav = (item) => {
 		setMobileMenuOpen(false);
 		if (isHomePage) {
@@ -56,52 +44,31 @@ const Navbar = () => {
 	};
 
 	return (
-		<>
-			{/* combined header - status bar + nav */}
-			<header className="fixed top-0 left-0 right-0 z-50 font-mono">
-				{/* status bar */}
-				<div className="bg-terminal-black/95 backdrop-blur-xl border-b border-terminal-dim/50">
-					<div className="container mx-auto px-4 py-1.5 sm:py-2">
-						<div className="flex items-center justify-between text-sm">
-							<div className="flex items-center gap-2">
-								<div className="w-2 h-2 bg-term-accent-green rounded-full animate-pulse"></div>
-								<span className="text-terminal-primary hidden sm:inline">all systems operational</span>
-								<span className="text-terminal-primary sm:hidden">online</span>
-							</div>
-							<div className="text-terminal-muted text-xs sm:text-sm">
-								{new Date().toLocaleDateString('en-US', {
-									month: 'short',
-									day: 'numeric',
-									year: 'numeric'
-								})}
-							</div>
-						</div>
-					</div>
-				</div>
-
-				{/* nav */}
-				<nav className={`mobile-menu-container transition-all duration-300 ${
-					isScrolled
-						? "bg-terminal-black/95 backdrop-blur-xl"
-						: "bg-terminal-black/80 backdrop-blur-md"
-				}`}>
-				<div className="container mx-auto px-4">
-					<div className="flex items-center justify-between h-14 sm:h-16">
+		<header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+			isScrolled
+				? "bg-bento-surface/95 backdrop-blur-md shadow-bento-sm"
+				: "bg-bento-bg/80 backdrop-blur-sm"
+		}`}>
+			<nav className="mobile-menu-container">
+				<div className="container mx-auto px-6 max-w-6xl">
+					<div className="flex items-center justify-between h-16">
 						{/* logo */}
-						<Link to="/" className="text-xl sm:text-2xl font-bold text-terminal-primary hover:text-cyan-400 transition-colors relative group">
-							<span className="relative z-10 glitch-hover" data-text="[AURORA]">[AURORA]</span>
+						<Link
+							to="/"
+							className="text-xl font-semibold text-ink-primary hover:text-clay transition-colors"
+						>
+							aurora
 						</Link>
 
 						{/* desktop nav */}
-						<div className="hidden md:flex items-center space-x-1">
+						<div className="hidden md:flex items-center gap-1">
 							{navItems.map((item) => (
 								<button
 									key={item}
 									onClick={() => athenaNav(item)}
-									className="relative px-3 lg:px-4 py-2 text-terminal-secondary hover:text-cyan-400 transition-all duration-300 font-medium group text-sm lg:text-base"
+									className="px-4 py-2 text-ink-muted hover:text-ink-primary hover:bg-bento-surface-alt rounded-bento transition-all duration-200 font-medium capitalize"
 								>
-									<span className="relative z-10">/{item}</span>
-									<div className="absolute inset-0 bg-terminal-muted/10 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+									{item}
 								</button>
 							))}
 						</div>
@@ -109,10 +76,15 @@ const Navbar = () => {
 						{/* mobile toggle */}
 						<button
 							onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-							className="md:hidden p-2 rounded border border-terminal-muted hover:border-cyan-400/50 hover:bg-terminal-muted/10 transition-colors"
+							className="md:hidden p-2 rounded-bento border border-line hover:border-line-hover hover:bg-bento-surface-alt transition-colors"
 							aria-label="Toggle mobile menu"
 						>
-							<svg className={`w-5 h-5 text-terminal-secondary transition-transform duration-300 ${mobileMenuOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<svg
+								className={`w-5 h-5 text-ink-secondary transition-transform duration-300 ${mobileMenuOpen ? 'rotate-90' : ''}`}
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
 								{mobileMenuOpen ? (
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
 								) : (
@@ -126,50 +98,21 @@ const Navbar = () => {
 					<div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
 						mobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
 					}`}>
-						<div className="py-4 space-y-2 border-t border-terminal-muted/30 mt-2">
+						<div className="py-4 space-y-1 border-t border-line mt-2">
 							{navItems.map((item) => (
 								<button
 									key={item}
 									onClick={() => athenaNav(item)}
-									className="block w-full text-left px-4 py-3 text-terminal-secondary hover:text-cyan-400 hover:bg-terminal-muted/10 transition-all duration-300 font-medium rounded"
+									className="block w-full text-left px-4 py-3 text-ink-secondary hover:text-ink-primary hover:bg-bento-surface-alt transition-all duration-200 font-medium rounded-bento capitalize"
 								>
-									/{item}
+									{item}
 								</button>
 							))}
 						</div>
 					</div>
 				</div>
-				</nav>
-			</header>
-
-			{/* notification toast */}
-			{notification.show && (
-				<div className={`fixed bottom-4 right-4 z-50 transition-all duration-300 max-w-xs sm:max-w-md font-mono ${
-					notification.animate ? "animate-fade-in" : "opacity-0 translate-y-2"
-				}`}>
-					<div className="terminal-card border-term-accent-magenta/50 p-3 sm:p-4">
-						<div className="flex items-start justify-between">
-							<div className="flex-1 min-w-0">
-								<p className="font-medium text-term-accent-magenta text-sm sm:text-base">
-									[ERROR] {notification.message}
-								</p>
-								<p className="text-xs sm:text-sm text-terminal-muted mt-1">
-									Please try again later
-								</p>
-							</div>
-							<button
-								onClick={() => setNotification(prev => ({ ...prev, animate: false }))}
-								className="ml-2 sm:ml-4 text-terminal-dim hover:text-terminal-secondary transition-colors p-1 rounded hover:bg-terminal-muted/10 flex-shrink-0"
-							>
-								<svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-								</svg>
-							</button>
-						</div>
-					</div>
-				</div>
-			)}
-		</>
+			</nav>
+		</header>
 	);
 };
 
