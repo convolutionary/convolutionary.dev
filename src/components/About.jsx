@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { AiFillStar, AiOutlineGithub, AiOutlineLink } from "react-icons/ai";
+import { motion } from "motion/react";
+import { AiFillStar, AiOutlineGithub } from "react-icons/ai";
 import images from "./images";
 import { aboutContent } from "../data/content";
 
@@ -25,135 +26,161 @@ const About = () => {
 	}, []);
 
 	return (
-		<section className="bg-bento-bg py-20 scroll-mt-20" id="about">
-			<div className="container mx-auto px-6 max-w-7xl">
+		<section className="py-32" id="about">
+			<div className="container mx-auto px-6 max-w-6xl">
 
-				{/* header - left aligned, bold */}
-				<div className="flex items-end justify-between mb-16">
-					<div>
-						<p className="text-clay font-mono text-sm mb-2">// about</p>
-						<h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink-primary tracking-tight">
-							Nice to meet you
-						</h2>
-					</div>
-					<div className="hidden md:block w-32 h-32 rounded-2xl overflow-hidden border border-line">
-						<img
-							src={require("../assets/discord/abjhfjljklks1.jpg")}
-							alt="Aurora"
-							className="w-full h-full object-cover"
-						/>
-					</div>
+				{/* header */}
+				<div className="mb-20">
+					<motion.span
+						initial={{ opacity: 0 }}
+						whileInView={{ opacity: 1 }}
+						viewport={{ once: true }}
+						className="text-clay font-mono text-sm"
+					>
+						{"// about"}
+					</motion.span>
+					<motion.h2
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						className="text-5xl md:text-6xl font-bold text-ink-primary tracking-tight mt-2"
+					>
+						Nice to meet you<span className="text-clay">.</span>
+					</motion.h2>
 				</div>
 
-				{/* story section - offset layout */}
-				<div className="grid lg:grid-cols-12 gap-8 mb-20">
-					<div className="lg:col-span-7">
-						<div className="bg-bento-surface rounded-2xl border border-line p-8">
-							<h3 className="text-xl font-semibold text-ink-primary mb-6">My Story</h3>
-							<div className="space-y-4 text-ink-secondary leading-relaxed">
-								{aboutContent.story.map((para, i) => (
-									<p key={i}>{para}</p>
-								))}
-							</div>
+				{/* story + skills */}
+				<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
+					{/* story */}
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						className="bg-bento-bg/95 border border-line p-8 backdrop-blur-sm"
+					>
+						<h3 className="text-lg font-bold text-ink-primary mb-6 flex items-center gap-3">
+							<span className="w-8 h-px bg-clay" />
+							My Story
+						</h3>
+						<div className="space-y-4 text-ink-secondary leading-relaxed">
+							{aboutContent.story.map((para, i) => (
+								<p key={i}>{para}</p>
+							))}
 						</div>
-					</div>
+					</motion.div>
 
-					{/* skills - stacked on right */}
-					<div className="lg:col-span-5 space-y-4">
+					{/* skills */}
+					<div className="space-y-4">
 						{aboutContent.skills.map((skill, i) => (
-							<div
+							<motion.div
 								key={i}
-								className="bg-bento-surface rounded-xl border border-line p-5 hover:border-clay/30 transition-colors group"
+								initial={{ opacity: 0, x: 20 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								viewport={{ once: true }}
+								transition={{ delay: i * 0.1 }}
+								className="bg-bento-bg/95 border border-line p-6 backdrop-blur-sm group hover:border-line-hover transition-colors"
 							>
 								<div className="flex items-start gap-4">
-									<span className="text-3xl font-bold text-clay/30 group-hover:text-clay transition-colors">
-										0{i + 1}
+									<span className="text-2xl font-bold text-ink-subtle group-hover:text-clay transition-colors font-mono">
+										{String(i + 1).padStart(2, '0')}
 									</span>
 									<div>
 										<h4 className="text-ink-primary font-semibold">{skill.title}</h4>
 										<p className="text-ink-muted text-sm mt-1">{skill.desc}</p>
 									</div>
 								</div>
-							</div>
+							</motion.div>
 						))}
 					</div>
 				</div>
 
-				{/* tech stack - horizontal scroll feel */}
-				<div className="mb-20">
-					<div className="flex items-center gap-4 mb-6">
-						<h3 className="text-lg font-semibold text-ink-primary">Languages</h3>
+				{/* tech stack */}
+				<div className="mb-24">
+					<div className="flex items-center gap-4 mb-8">
+						<h3 className="text-lg font-bold text-ink-primary">Languages</h3>
 						<div className="flex-1 h-px bg-line" />
 					</div>
 					<div className="flex flex-wrap gap-3">
 						{images.languages.map((item, i) => (
-							<a
+							<motion.a
 								key={i}
 								href={item.link}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="w-14 h-14 rounded-xl bg-bento-surface border border-line hover:border-clay hover:scale-105 transition-all flex items-center justify-center"
+								initial={{ opacity: 0 }}
+								whileInView={{ opacity: 1 }}
+								viewport={{ once: true }}
+								transition={{ delay: i * 0.03 }}
+								className="w-14 h-14 bg-bento-surface border border-line flex items-center justify-center hover:border-clay transition-colors"
 							>
 								<img src={item.img} alt="" className="w-7 h-7 object-contain" />
-							</a>
+							</motion.a>
 						))}
 					</div>
 				</div>
 
-				<div className="mb-20">
-					<div className="flex items-center gap-4 mb-6">
-						<h3 className="text-lg font-semibold text-ink-primary">Frameworks & Tools</h3>
+				<div className="mb-24">
+					<div className="flex items-center gap-4 mb-8">
+						<h3 className="text-lg font-bold text-ink-primary">Frameworks & Tools</h3>
 						<div className="flex-1 h-px bg-line" />
 					</div>
 					<div className="flex flex-wrap gap-3">
 						{images.frameworks.map((item, i) => (
-							<a
+							<motion.a
 								key={i}
 								href={item.link}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="w-14 h-14 rounded-xl bg-bento-surface border border-line hover:border-clay hover:scale-105 transition-all flex items-center justify-center"
+								initial={{ opacity: 0 }}
+								whileInView={{ opacity: 1 }}
+								viewport={{ once: true }}
+								transition={{ delay: i * 0.03 }}
+								className="w-14 h-14 bg-bento-surface border border-line flex items-center justify-center hover:border-clay transition-colors"
 							>
 								<img src={item.img} alt="" className="w-7 h-7 object-contain" />
-							</a>
+							</motion.a>
 						))}
 					</div>
 				</div>
 
-				{/* repos - masonry-ish grid */}
+				{/* repos */}
 				<div>
-					<div className="flex items-center gap-4 mb-6">
-						<h3 className="text-lg font-semibold text-ink-primary">Recent Projects</h3>
-						<div className="flex-1 h-px bg-line" />
+					<div className="flex items-center justify-between gap-4 mb-8">
+						<div className="flex items-center gap-4">
+							<h3 className="text-lg font-bold text-ink-primary">Recent Projects</h3>
+							<div className="hidden sm:block w-16 h-px bg-line" />
+						</div>
 						<a
 							href="https://github.com/convolutionary"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="text-clay text-sm hover:underline"
+							className="text-clay text-sm hover:underline font-mono"
 						>
-							View all →
+							view all →
 						</a>
 					</div>
 
 					{loading ? (
-						<div className="text-center py-12 text-ink-muted">Loading...</div>
+						<div className="text-center py-16 text-ink-muted font-mono">loading...</div>
 					) : repos.length > 0 ? (
-						<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 							{repos.slice(0, 6).map((repo, i) => (
-								<a
+								<motion.a
 									key={repo.id}
+									initial={{ opacity: 0, y: 20 }}
+									whileInView={{ opacity: 1, y: 0 }}
+									viewport={{ once: true }}
+									transition={{ delay: i * 0.05 }}
 									href={repo.html_url}
 									target="_blank"
 									rel="noopener noreferrer"
-									className={`group bg-bento-surface rounded-xl border border-line p-5 hover:border-clay/50 transition-all ${
-										i === 0 ? 'sm:col-span-2 lg:col-span-1' : ''
-									}`}
+									className="bg-bento-bg/95 border border-line p-6 backdrop-blur-sm group hover:border-line-hover transition-colors"
 								>
 									<div className="flex items-center justify-between mb-3">
-										<span className="text-ink-muted text-sm font-mono">{repo.owner.login}</span>
+										<span className="text-ink-muted text-xs font-mono">{repo.owner.login}</span>
 										<AiOutlineGithub className="w-4 h-4 text-ink-subtle group-hover:text-clay transition-colors" />
 									</div>
-									<h4 className="text-ink-primary font-semibold mb-2 group-hover:text-clay transition-colors">
+									<h4 className="text-ink-primary font-semibold mb-2 group-hover:text-clay transition-colors truncate">
 										{repo.name}
 									</h4>
 									<p className="text-ink-muted text-sm line-clamp-2 mb-4">
@@ -161,20 +188,20 @@ const About = () => {
 									</p>
 									<div className="flex items-center gap-4 text-xs text-ink-subtle">
 										<span className="flex items-center gap-1">
-											<AiFillStar className="text-clay-soft" />
+											<AiFillStar className="text-clay" />
 											{repo.stargazers_count}
 										</span>
 										{repo.language && (
-											<span className="px-2 py-0.5 rounded-full bg-bento-surface-alt">
+											<span className="px-2 py-0.5 border border-line text-ink-muted font-mono">
 												{repo.language}
 											</span>
 										)}
 									</div>
-								</a>
+								</motion.a>
 							))}
 						</div>
 					) : (
-						<div className="text-center py-12 text-ink-muted">No repos found</div>
+						<div className="text-center py-16 text-ink-muted font-mono">no repos found</div>
 					)}
 				</div>
 			</div>

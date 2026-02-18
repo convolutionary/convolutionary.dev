@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
 import pgp from "../pgp.txt";
 import { footerContent } from "../data/content";
 import { footerLinks } from "../data/navigation";
@@ -12,23 +13,35 @@ const Footer = () => {
 	};
 
 	return (
-		<footer className="bg-bento-bg border-t border-line">
-			<div className="container mx-auto px-6 py-12 max-w-6xl">
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+		<footer className="border-t border-line">
+			<div className="container mx-auto px-6 py-16 max-w-6xl">
+
+				{/* top section */}
+				<div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-16">
 					{/* brand */}
-					<div>
-						<h3 className="text-xl font-semibold text-ink-primary mb-3">
-							aurora
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						className="lg:col-span-2"
+					>
+						<h3 className="text-3xl font-bold text-ink-primary tracking-tight mb-4">
+							aurora<span className="text-clay">.</span>
 						</h3>
-						<p className="text-ink-muted text-sm leading-relaxed">
+						<p className="text-ink-muted max-w-sm leading-relaxed">
 							{footerContent.brand.desc}
 						</p>
-					</div>
+					</motion.div>
 
 					{/* nav */}
-					<div>
-						<h4 className="font-semibold text-ink-primary mb-3">Navigate</h4>
-						<ul className="space-y-2">
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						transition={{ delay: 0.1 }}
+					>
+						<h4 className="font-mono text-ink-primary text-sm mb-4">navigate</h4>
+						<ul className="space-y-3">
 							{footerLinks.nav.map((item, i) => (
 								<li key={i}>
 									{item.scroll ? (
@@ -49,12 +62,17 @@ const Footer = () => {
 								</li>
 							))}
 						</ul>
-					</div>
+					</motion.div>
 
-					{/* links */}
-					<div>
-						<h4 className="font-semibold text-ink-primary mb-3">Connect</h4>
-						<ul className="space-y-2">
+					{/* connect */}
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						transition={{ delay: 0.2 }}
+					>
+						<h4 className="font-mono text-ink-primary text-sm mb-4">connect</h4>
+						<ul className="space-y-3">
 							{footerLinks.social.map((item, i) => (
 								<li key={i}>
 									<a
@@ -68,34 +86,48 @@ const Footer = () => {
 								</li>
 							))}
 						</ul>
-					</div>
 
-					{/* status */}
-					<div>
-						<h4 className="font-semibold text-ink-primary mb-3">Status</h4>
-						<div className="flex items-center gap-2 mb-2">
-							<div className="w-2 h-2 rounded-full bg-green-500"></div>
-							<span className="text-ink-muted text-sm">Available for work</span>
+						{/* status */}
+						<div className="mt-6 pt-6 border-t border-line">
+							<div className="flex items-center gap-2">
+								<div className="w-2 h-2 bg-green-500 animate-pulse" />
+								<span className="text-ink-muted text-sm">available for work</span>
+							</div>
 						</div>
-						<p className="text-ink-subtle text-sm">Open to new opportunities</p>
-					</div>
+					</motion.div>
 				</div>
 
 				{/* bottom bar */}
-				<div className="pt-8 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-4">
-					<p className="text-ink-subtle text-sm">
-						© {currentYear} Aurora. Built with care.
-					</p>
-					<div className="flex items-center gap-6">
-						<Link to="/privacy" className="text-ink-subtle hover:text-ink-muted transition-colors text-sm">
-							Privacy
-						</Link>
-						<Link to="/terms" className="text-ink-subtle hover:text-ink-muted transition-colors text-sm">
-							Terms
-						</Link>
-						<a href={pgp} target="_blank" rel="noopener noreferrer" className="text-ink-subtle hover:text-ink-muted transition-colors text-sm">
-							PGP Key
-						</a>
+				<div className="pt-8 border-t border-line">
+					<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+						<motion.p
+							initial={{ opacity: 0 }}
+							whileInView={{ opacity: 1 }}
+							viewport={{ once: true }}
+							className="text-ink-subtle text-sm font-mono"
+						>
+							© {currentYear} aurora
+						</motion.p>
+
+						<motion.div
+							initial={{ opacity: 0 }}
+							whileInView={{ opacity: 1 }}
+							viewport={{ once: true }}
+							transition={{ delay: 0.1 }}
+							className="flex items-center gap-6"
+						>
+							<Link to="/privacy" className="text-ink-subtle hover:text-ink-muted transition-colors text-sm">
+								privacy
+							</Link>
+							<span className="text-ink-subtle/30">·</span>
+							<Link to="/terms" className="text-ink-subtle hover:text-ink-muted transition-colors text-sm">
+								terms
+							</Link>
+							<span className="text-ink-subtle/30">·</span>
+							<a href={pgp} target="_blank" rel="noopener noreferrer" className="text-ink-subtle hover:text-ink-muted transition-colors text-sm">
+								pgp
+							</a>
+						</motion.div>
 					</div>
 				</div>
 			</div>

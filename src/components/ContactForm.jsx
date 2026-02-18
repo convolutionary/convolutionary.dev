@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { motion } from "motion/react";
 import emailjs from "@emailjs/browser";
 import Socials from "./Socials";
 import { inspirationalQuotes } from "../data/quotes";
@@ -69,54 +70,86 @@ const ContactForm = () => {
 	};
 
 	return (
-		<section className="bg-bento-bg py-20 scroll-mt-20" id="contact">
-			<div className="container mx-auto px-6 max-w-7xl">
+		<section className="py-32" id="contact">
+			<div className="container mx-auto px-6 max-w-6xl">
 
 				{/* header */}
-				<div className="mb-16">
-					<p className="text-clay font-mono text-sm mb-2">// contact</p>
-					<h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink-primary tracking-tight">
-						{contactContent.header.title}
-					</h2>
-					<p className="text-ink-muted text-lg mt-4 max-w-xl">
+				<div className="mb-20">
+					<motion.span
+						initial={{ opacity: 0 }}
+						whileInView={{ opacity: 1 }}
+						viewport={{ once: true }}
+						className="text-clay font-mono text-sm"
+					>
+						{"// contact"}
+					</motion.span>
+					<motion.h2
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						className="text-5xl md:text-6xl font-bold text-ink-primary tracking-tight mt-2"
+					>
+						Let's talk<span className="text-clay">.</span>
+					</motion.h2>
+					<motion.p
+						initial={{ opacity: 0 }}
+						whileInView={{ opacity: 1 }}
+						viewport={{ once: true }}
+						transition={{ delay: 0.1 }}
+						className="text-ink-muted text-lg mt-4 max-w-lg"
+					>
 						{contactContent.header.subtitle}
-					</p>
+					</motion.p>
 				</div>
 
-				<div className="grid lg:grid-cols-12 gap-8">
-					{/* form - takes more space */}
-					<div className="lg:col-span-7">
-						<div className="bg-bento-surface rounded-2xl border border-line p-8">
+				{/* main grid */}
+				<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+					{/* form */}
+					<motion.div
+						initial={{ opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						className="lg:col-span-2"
+					>
+						<div className="bg-bento-bg/95 border border-line p-8 backdrop-blur-sm">
 							{submitted ? (
-								<div className="text-center py-12">
-									<div className="w-16 h-16 rounded-full bg-clay/10 flex items-center justify-center mx-auto mb-4">
+								<motion.div
+									initial={{ opacity: 0, scale: 0.95 }}
+									animate={{ opacity: 1, scale: 1 }}
+									className="text-center py-16"
+								>
+									<div className="w-16 h-16 border border-clay flex items-center justify-center mx-auto mb-6">
 										<svg className="w-8 h-8 text-clay" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
 										</svg>
 									</div>
-									<h3 className="text-xl font-semibold text-ink-primary mb-2">Message sent!</h3>
-									<p className="text-ink-muted mb-6">I'll get back to you soon.</p>
-									<button onClick={() => setSubmitted(false)} className="bento-btn-outline">
-										Send another
+									<h3 className="text-xl font-bold text-ink-primary mb-2">Message sent<span className="text-clay">.</span></h3>
+									<p className="text-ink-muted mb-8">I'll get back to you soon.</p>
+									<button
+										onClick={() => setSubmitted(false)}
+										className="px-6 py-3 border border-line text-ink-secondary hover:border-clay hover:text-clay transition-colors font-mono text-sm"
+									>
+										send another
 									</button>
-								</div>
+								</motion.div>
 							) : (
 								<form ref={form} onSubmit={hermesSendMail} className="space-y-6">
-									<div className="grid sm:grid-cols-2 gap-4">
+									<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 										<div>
-											<label className="text-ink-muted text-sm block mb-2">Name</label>
+											<label className="text-ink-muted text-sm block mb-2 font-mono">name</label>
 											<input
 												type="text"
 												name="user_name"
 												value={formData.user_name}
 												onChange={morpheusInputChange}
 												required
-												placeholder="Your name"
-												className="bento-input"
+												placeholder="your name"
+												className="w-full px-4 py-3 bg-bento-surface border border-line text-ink-primary placeholder:text-ink-subtle focus:outline-none focus:border-clay transition-colors"
 											/>
 										</div>
 										<div>
-											<label className="text-ink-muted text-sm block mb-2">Email</label>
+											<label className="text-ink-muted text-sm block mb-2 font-mono">email</label>
 											<input
 												type="email"
 												name="user_email"
@@ -124,79 +157,107 @@ const ContactForm = () => {
 												onChange={morpheusInputChange}
 												required
 												placeholder="you@example.com"
-												className="bento-input"
+												className="w-full px-4 py-3 bg-bento-surface border border-line text-ink-primary placeholder:text-ink-subtle focus:outline-none focus:border-clay transition-colors"
 											/>
 										</div>
 									</div>
 									<div>
-										<label className="text-ink-muted text-sm block mb-2">Message</label>
+										<label className="text-ink-muted text-sm block mb-2 font-mono">message</label>
 										<textarea
 											name="message"
 											value={formData.message}
 											onChange={morpheusInputChange}
 											required
-											placeholder="Tell me about your project..."
-											className="bento-input min-h-[180px] resize-y"
+											placeholder="tell me about your project..."
+											className="w-full px-4 py-3 bg-bento-surface border border-line text-ink-primary placeholder:text-ink-subtle focus:outline-none focus:border-clay transition-colors min-h-[180px] resize-y"
 										/>
 									</div>
-									<Magnet padding={40} magnetStrength={4}>
-										<button type="submit" className="bento-btn-accent w-full">
+									<Magnet padding={50} magnetStrength={3}>
+										<button
+											type="submit"
+											className="px-8 py-3 bg-clay text-white font-medium hover:bg-clay-soft transition-colors"
+										>
 											Send Message
 										</button>
 									</Magnet>
 								</form>
 							)}
 						</div>
-					</div>
+					</motion.div>
 
 					{/* sidebar */}
-					<div className="lg:col-span-5 space-y-6">
+					<div className="space-y-6">
 						{/* socials */}
-						<div className="bg-bento-surface rounded-2xl border border-line p-6">
-							<h3 className="text-lg font-semibold text-ink-primary mb-5">Connect</h3>
+						<motion.div
+							initial={{ opacity: 0, x: 20 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							viewport={{ once: true }}
+							transition={{ delay: 0.1 }}
+							className="bg-bento-bg/95 border border-line p-6 backdrop-blur-sm"
+						>
+							<h3 className="text-sm font-bold text-ink-primary mb-4 font-mono flex items-center gap-2">
+								<span className="w-4 h-px bg-clay" />
+								connect
+							</h3>
 							<Socials />
-						</div>
+						</motion.div>
 
-						{/* quote - smaller, more compact */}
-						<div className="bg-bento-surface rounded-2xl border border-line p-6">
+						{/* quote */}
+						<motion.div
+							initial={{ opacity: 0, x: 20 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							viewport={{ once: true }}
+							transition={{ delay: 0.2 }}
+							className="bg-bento-bg/95 border border-line p-6 backdrop-blur-sm"
+						>
 							<div className="flex items-center justify-between mb-4">
-								<span className="text-clay text-xs font-mono">// inspiration</span>
-								<span className="text-xs text-ink-subtle">{currentQuote.category}</span>
+								<span className="text-clay text-xs font-mono">{"// inspiration"}</span>
+								<span className="text-xs text-ink-subtle font-mono">{currentQuote.category}</span>
 							</div>
 
-							<div className={`transition-all duration-300 ${animateQuote ? 'opacity-0' : 'opacity-100'}`}>
-								<blockquote className="text-ink-secondary italic text-sm leading-relaxed">
+							<div className={`transition-all duration-300 ${animateQuote ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
+								<blockquote className="text-ink-secondary italic leading-relaxed text-sm">
 									"{currentQuote.latin}"
 								</blockquote>
-								<p className="text-ink-muted text-sm mt-2">{currentQuote.english}</p>
+								<p className="text-ink-muted text-xs mt-3">{currentQuote.english}</p>
 							</div>
 
-							<div className="flex gap-2 mt-4">
-								<button onClick={circeCycleQuote} className="text-xs text-ink-subtle hover:text-clay transition-colors">
-									Refresh
+							<div className="flex gap-4 mt-5 pt-4 border-t border-line">
+								<button onClick={circeCycleQuote} className="text-xs text-ink-subtle hover:text-clay transition-colors font-mono">
+									refresh
 								</button>
-								<span className="text-ink-subtle">·</span>
-								<button onClick={hermesCopyQuote} className="text-xs text-ink-subtle hover:text-clay transition-colors relative">
-									Copy
+								<span className="text-ink-subtle/30">|</span>
+								<button onClick={hermesCopyQuote} className="text-xs text-ink-subtle hover:text-clay transition-colors font-mono relative">
+									copy
 									{showCopyTooltip && (
-										<span className="absolute -top-6 left-1/2 -translate-x-1/2 px-2 py-1 bg-clay text-white text-xs rounded">
-											Copied!
-										</span>
+										<motion.span
+											initial={{ opacity: 0, y: 4 }}
+											animate={{ opacity: 1, y: 0 }}
+											className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-clay text-white text-xs whitespace-nowrap"
+										>
+											copied!
+										</motion.span>
 									)}
 								</button>
 							</div>
-						</div>
+						</motion.div>
 
-						{/* quick info */}
-						<div className="space-y-3">
+						{/* info */}
+						<motion.div
+							initial={{ opacity: 0, x: 20 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							viewport={{ once: true }}
+							transition={{ delay: 0.3 }}
+							className="space-y-3"
+						>
 							{contactContent.info.map((item, i) => (
-								<div key={i} className="flex items-center gap-3 text-sm">
-									<div className="w-1.5 h-1.5 rounded-full bg-clay" />
-									<span className="text-ink-primary">{item.title}</span>
-									<span className="text-ink-muted">— {item.desc}</span>
+								<div key={i} className="flex items-center gap-3 p-4 bg-bento-bg/95 border border-line backdrop-blur-sm">
+									<div className="w-1.5 h-1.5 bg-clay" />
+									<span className="text-ink-primary text-sm font-medium">{item.title}</span>
+									<span className="text-ink-muted text-sm">— {item.desc}</span>
 								</div>
 							))}
-						</div>
+						</motion.div>
 					</div>
 				</div>
 			</div>

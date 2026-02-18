@@ -9,71 +9,64 @@ const Socials = () => {
 	const socialLinks = [
 		{
 			name: "GitHub",
-			icon: <FaGithub size={18} />,
+			icon: <FaGithub size={16} />,
 			username: "convolutionary",
 			url: "https://github.com/convolutionary",
 		},
 		{
 			name: "Email",
-			icon: <IoMdMail size={18} />,
+			icon: <IoMdMail size={16} />,
 			username: "cerfnet@anche.no",
 			url: "mailto:cerfnet@anche.no",
 		},
 		{
 			name: "X (Twitter)",
-			icon: <FaXTwitter size={18} />,
+			icon: <FaXTwitter size={16} />,
 			username: "Nocixa",
 			url: "https://x.com/Nocixa",
 		},
 		{
 			name: "Telegram",
-			icon: <FaTelegramPlane size={18} />,
+			icon: <FaTelegramPlane size={16} />,
 			username: "Contact me",
 			url: "https://t.me/",
 		},
 		{
 			name: "Codeberg",
-			icon: <SiCodeberg size={18} />,
+			icon: <SiCodeberg size={16} />,
 			username: "Dyslexic",
 			url: "https://codeberg.org/Dyslexic",
 		},
 		{
 			name: "PGP Key",
-			icon: <IoMdKey size={18} />,
+			icon: <IoMdKey size={16} />,
 			username: "288A F8FD 6457 B638",
 			url: Pgp,
 		}
 	];
 
 	return (
-		<div className="space-y-3">
+		<div className="space-y-2">
 			{socialLinks.map((link, index) => (
 				<a
 					key={index}
 					href={link.url}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="flex items-center gap-4 p-3 rounded-bento border border-line hover:border-clay hover:bg-clay-bg/30 transition-all duration-200 group"
+					className="flex items-center gap-3 p-3 border border-line hover:border-clay transition-colors group"
 				>
 					<div className="text-ink-muted group-hover:text-clay transition-colors">
 						{link.icon}
 					</div>
 					<div className="flex-1 min-w-0">
-						<p className="font-medium text-ink-primary group-hover:text-clay transition-colors">
+						<p className="font-medium text-ink-primary text-sm group-hover:text-clay transition-colors">
 							{link.name}
 						</p>
-						<p className="text-sm text-ink-muted truncate">
+						<p className="text-xs text-ink-muted truncate font-mono">
 							{link.username}
 						</p>
 					</div>
-					<svg
-						className="w-4 h-4 text-ink-subtle group-hover:text-clay group-hover:translate-x-0.5 transition-all"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-					</svg>
+					<span className="text-ink-subtle group-hover:text-clay transition-colors">→</span>
 				</a>
 			))}
 		</div>

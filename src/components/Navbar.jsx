@@ -46,8 +46,8 @@ const Navbar = () => {
 	return (
 		<header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
 			isScrolled
-				? "bg-bento-surface/95 backdrop-blur-md shadow-bento-sm"
-				: "bg-bento-bg/80 backdrop-blur-sm"
+				? "bg-bento-bg/95 backdrop-blur-md border-b border-line"
+				: "bg-transparent"
 		}`}>
 			<nav className="mobile-menu-container">
 				<div className="container mx-auto px-6 max-w-6xl">
@@ -55,9 +55,9 @@ const Navbar = () => {
 						{/* logo */}
 						<Link
 							to="/"
-							className="text-xl font-semibold text-ink-primary hover:text-clay transition-colors"
+							className="text-xl font-bold text-ink-primary hover:text-clay transition-colors font-mono"
 						>
-							aurora
+							aurora<span className="text-clay">.</span>
 						</Link>
 
 						{/* desktop nav */}
@@ -66,7 +66,7 @@ const Navbar = () => {
 								<button
 									key={item}
 									onClick={() => athenaNav(item)}
-									className="px-4 py-2 text-ink-muted hover:text-ink-primary hover:bg-bento-surface-alt rounded-bento transition-all duration-200 font-medium capitalize"
+									className="px-4 py-2 text-ink-muted hover:text-ink-primary transition-colors font-mono text-sm capitalize"
 								>
 									{item}
 								</button>
@@ -76,7 +76,7 @@ const Navbar = () => {
 						{/* mobile toggle */}
 						<button
 							onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-							className="md:hidden p-2 rounded-bento border border-line hover:border-line-hover hover:bg-bento-surface-alt transition-colors"
+							className="md:hidden p-2 border border-line hover:border-clay transition-colors"
 							aria-label="Toggle mobile menu"
 						>
 							<svg
@@ -103,7 +103,7 @@ const Navbar = () => {
 								<button
 									key={item}
 									onClick={() => athenaNav(item)}
-									className="block w-full text-left px-4 py-3 text-ink-secondary hover:text-ink-primary hover:bg-bento-surface-alt transition-all duration-200 font-medium rounded-bento capitalize"
+									className="block w-full text-left px-4 py-3 text-ink-secondary hover:text-ink-primary hover:bg-bento-surface transition-all duration-200 font-mono text-sm capitalize"
 								>
 									{item}
 								</button>

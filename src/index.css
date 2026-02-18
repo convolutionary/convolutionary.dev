@@ -69,15 +69,10 @@ body {
   position: relative;
 }
 
-/* subtle aurora gradient - static, not animated */
-#root::before {
-  content: '';
-  position: fixed;
+/* dither canvas container */
+.dither-canvas {
+  position: absolute !important;
   inset: 0;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% -20%, rgba(139, 92, 246, 0.08), transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 0%, rgba(249, 115, 22, 0.06), transparent 50%);
-  pointer-events: none;
   z-index: 0;
 }
 
@@ -188,6 +183,99 @@ a {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   RETRO COMPONENTS - matches dither aesthetic
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.retro-card {
+  background: rgba(9, 9, 11, 0.95);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease;
+}
+
+.retro-card:hover {
+  border-color: var(--color-line-hover);
+}
+
+.retro-tag {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background: rgba(9, 9, 11, 0.9);
+  border: 1px solid var(--color-line);
+  font-size: 0.875rem;
+  color: var(--color-ink-muted);
+  font-family: var(--font-mono);
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+}
+
+.retro-tag:hover {
+  border-color: var(--color-clay);
+  color: var(--color-clay);
+}
+
+.retro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--color-line);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  font-family: var(--font-mono);
+  backdrop-filter: blur(4px);
+}
+
+.retro-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(9, 9, 11, 0.95);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink-primary);
+  font-family: var(--font-sans);
+  backdrop-filter: blur(4px);
+  transition: border-color 0.2s ease;
+}
+
+.retro-input::placeholder {
+  color: var(--color-ink-subtle);
+}
+
+.retro-input:focus {
+  outline: none;
+  border-color: var(--color-clay);
+}
+
+.retro-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-clay);
+  border: none;
+  color: white;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.retro-btn:hover {
+  background: var(--color-clay-soft);
+}
+
+.retro-btn:active {
+  transform: scale(0.98);
+}
+
+/* section divider */
+.retro-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-line), transparent);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
    CARD HOVER LIFT
    ───────────────────────────────────────────────────────────────────────────── */
 
@@ -238,6 +326,46 @@ a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   HERO TITLE - massive impact
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.hero-title {
+  position: relative;
+}
+
+.hero-title span {
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.hero-title:hover span {
+  color: var(--color-clay);
+}
+
+.hero-title span:hover {
+  transform: translateY(-8px) scale(1.05);
+}
+
+/* glow effect on hover */
+.hero-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to right, var(--color-clay), transparent);
+  opacity: 0;
+  filter: blur(20px);
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.hero-title:hover::after {
+  opacity: 0.3;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
