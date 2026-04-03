@@ -1,26 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BentoCard } from "./bento";
+import Window from "./Window";
 
 const NotFound = () => (
-	<div className="min-h-screen flex items-center justify-center bg-bento-bg px-6 pt-20">
-		<BentoCard className="max-w-md w-full text-center py-12">
-			<div className="text-6xl md:text-7xl font-semibold text-ink-primary mb-4">
-				404
+	<div className="flex items-center justify-center min-h-screen p-4">
+		<Window title="Error" style={{ width: 300 }}>
+			<div style={{ textAlign: 'center', padding: '12px 0' }}>
+				<p style={{ fontSize: 36, marginBottom: 8 }}>⚠</p>
+				<p style={{ fontWeight: 'bold', marginBottom: 4 }}>Page not found.</p>
+				<p style={{ fontSize: 11, color: '#666', marginBottom: 12 }}>
+					The requested page does not exist.
+				</p>
+				<Link to="/" className="btn">OK</Link>
 			</div>
-			<h1 className="text-2xl font-semibold text-ink-primary mb-2">
-				Page Not Found
-			</h1>
-			<p className="text-ink-muted mb-8">
-				Sorry, the page you're looking for doesn't exist or has been moved.
-			</p>
-			<Link
-				to="/"
-				className="bento-btn inline-block"
-			>
-				Back to Home
-			</Link>
-		</BentoCard>
+		</Window>
 	</div>
 );
 

@@ -86,7 +86,7 @@ export const footerContent = {
 	},
 	status: [
 		{ color: 'text-green-500', text: 'all systems operational' },
-		{ color: 'text-clay', text: 'open to opportunities' },
-		{ color: 'text-ink-primary', text: 'building the future' }
+		{ color: 'text-accent', text: 'open to opportunities' },
+		{ color: 'text-tx', text: 'building the future' }
 	]
 };

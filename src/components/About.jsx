@@ -1,209 +1,101 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "motion/react";
-import { AiFillStar, AiOutlineGithub } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
 import images from "./images";
 import { aboutContent } from "../data/content";
+import Window from "./Window";
 
 const About = () => {
 	const [repos, setRepos] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const hermesGrabRepos = async () => {
+		(async () => {
 			try {
-				const response = await fetch("https://api.github.com/users/convolutionary/repos");
-				if (!response.ok) throw new Error(`flatlined: ${response.status}`);
-				const data = await response.json();
-				setRepos(data || []);
-			} catch (err) {
-				console.error("repo fetch went sideways:", err);
-				setRepos([]);
-			} finally {
-				setLoading(false);
-			}
-		};
-		hermesGrabRepos();
+				const r = await fetch("https://api.github.com/users/convolutionary/repos");
+				if (!r.ok) throw new Error(`${r.status}`);
+				setRepos(await r.json() || []);
+			} catch { setRepos([]); }
+			finally { setLoading(false); }
+		})();
 	}, []);
 
+	// triple so there's always enough content to fill the viewport during scroll
+	const langItems = [...images.languages, ...images.languages, ...images.languages];
+	const fwItems = [...images.frameworks, ...images.frameworks, ...images.frameworks];
+
 	return (
-		<section className="py-32" id="about">
-			<div className="container mx-auto px-6 max-w-6xl">
+		<section id="about" className="px-4 md:px-8 pt-4">
+			<div className="max-w-5xl mx-auto space-y-4">
 
-				{/* header */}
-				<div className="mb-20">
-					<motion.span
-						initial={{ opacity: 0 }}
-						whileInView={{ opacity: 1 }}
-						viewport={{ once: true }}
-						className="text-clay font-mono text-sm"
-					>
-						{"// about"}
-					</motion.span>
-					<motion.h2
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true }}
-						className="text-5xl md:text-6xl font-bold text-ink-primary tracking-tight mt-2"
-					>
-						Nice to meet you<span className="text-clay">.</span>
-					</motion.h2>
-				</div>
+				{/* about window */}
+				<Window title="About Me">
+					{aboutContent.story.map((para, i) => (
+						<p key={i} style={{ marginBottom: 8 }}>{para}</p>
+					))}
+					<div className="os-hr" />
+					<p style={{ fontSize: 11, color: '#666' }}>
+						<b>Skills:</b> {aboutContent.skills.map(s => s.title).join(', ')}
+					</p>
+				</Window>
 
-				{/* story + skills */}
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
-					{/* story */}
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true }}
-						className="bg-bento-bg/95 border border-line p-8 backdrop-blur-sm"
-					>
-						<h3 className="text-lg font-bold text-ink-primary mb-6 flex items-center gap-3">
-							<span className="w-8 h-px bg-clay" />
-							My Story
-						</h3>
-						<div className="space-y-4 text-ink-secondary leading-relaxed">
-							{aboutContent.story.map((para, i) => (
-								<p key={i}>{para}</p>
-							))}
-						</div>
-					</motion.div>
-
-					{/* skills */}
-					<div className="space-y-4">
-						{aboutContent.skills.map((skill, i) => (
-							<motion.div
-								key={i}
-								initial={{ opacity: 0, x: 20 }}
-								whileInView={{ opacity: 1, x: 0 }}
-								viewport={{ once: true }}
-								transition={{ delay: i * 0.1 }}
-								className="bg-bento-bg/95 border border-line p-6 backdrop-blur-sm group hover:border-line-hover transition-colors"
-							>
-								<div className="flex items-start gap-4">
-									<span className="text-2xl font-bold text-ink-subtle group-hover:text-clay transition-colors font-mono">
-										{String(i + 1).padStart(2, '0')}
-									</span>
-									<div>
-										<h4 className="text-ink-primary font-semibold">{skill.title}</h4>
-										<p className="text-ink-muted text-sm mt-1">{skill.desc}</p>
-									</div>
+				{/* tech stack window — marquee inside */}
+				<Window title="Extensions Manager">
+					{[
+						{ label: 'Languages', items: langItems, dur: '20s', dir: 'normal' },
+						{ label: 'Frameworks', items: fwItems, dur: '40s', dir: 'reverse' },
+					].map(({ label, items, dur, dir }) => (
+						<div key={label} style={{ marginBottom: 8 }}>
+							<p style={{ fontSize: 11, fontWeight: 'bold', marginBottom: 4 }}>{label}</p>
+							<div style={{ overflow: 'hidden', position: 'relative', background: '#f5f5f5', border: '1px inset #999', padding: '4px 0' }}>
+								<div className="marquee-track" style={{ animationDuration: dur, animationDirection: dir }}>
+									{items.map((item, i) => (
+										<a key={i} href={item.link} target="_blank" rel="noopener noreferrer"
+											style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 10px', whiteSpace: 'nowrap', fontSize: 11, textDecoration: 'none', color: '#000' }}>
+											<img src={item.img} alt="" style={{ width: 14, height: 14, objectFit: 'contain' }} />
+											{item.name}
+										</a>
+									))}
 								</div>
-							</motion.div>
-						))}
-					</div>
-				</div>
-
-				{/* tech stack */}
-				<div className="mb-24">
-					<div className="flex items-center gap-4 mb-8">
-						<h3 className="text-lg font-bold text-ink-primary">Languages</h3>
-						<div className="flex-1 h-px bg-line" />
-					</div>
-					<div className="flex flex-wrap gap-3">
-						{images.languages.map((item, i) => (
-							<motion.a
-								key={i}
-								href={item.link}
-								target="_blank"
-								rel="noopener noreferrer"
-								initial={{ opacity: 0 }}
-								whileInView={{ opacity: 1 }}
-								viewport={{ once: true }}
-								transition={{ delay: i * 0.03 }}
-								className="w-14 h-14 bg-bento-surface border border-line flex items-center justify-center hover:border-clay transition-colors"
-							>
-								<img src={item.img} alt="" className="w-7 h-7 object-contain" />
-							</motion.a>
-						))}
-					</div>
-				</div>
-
-				<div className="mb-24">
-					<div className="flex items-center gap-4 mb-8">
-						<h3 className="text-lg font-bold text-ink-primary">Frameworks & Tools</h3>
-						<div className="flex-1 h-px bg-line" />
-					</div>
-					<div className="flex flex-wrap gap-3">
-						{images.frameworks.map((item, i) => (
-							<motion.a
-								key={i}
-								href={item.link}
-								target="_blank"
-								rel="noopener noreferrer"
-								initial={{ opacity: 0 }}
-								whileInView={{ opacity: 1 }}
-								viewport={{ once: true }}
-								transition={{ delay: i * 0.03 }}
-								className="w-14 h-14 bg-bento-surface border border-line flex items-center justify-center hover:border-clay transition-colors"
-							>
-								<img src={item.img} alt="" className="w-7 h-7 object-contain" />
-							</motion.a>
-						))}
-					</div>
-				</div>
-
-				{/* repos */}
-				<div>
-					<div className="flex items-center justify-between gap-4 mb-8">
-						<div className="flex items-center gap-4">
-							<h3 className="text-lg font-bold text-ink-primary">Recent Projects</h3>
-							<div className="hidden sm:block w-16 h-px bg-line" />
+							</div>
 						</div>
-						<a
-							href="https://github.com/convolutionary"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-clay text-sm hover:underline font-mono"
-						>
-							view all →
-						</a>
-					</div>
+					))}
+				</Window>
 
+				{/* projects window — list view like a finder window */}
+				<Window title="Projects">
 					{loading ? (
-						<div className="text-center py-16 text-ink-muted font-mono">loading...</div>
+						<p style={{ color: '#666' }}>Loading...</p>
 					) : repos.length > 0 ? (
-						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-							{repos.slice(0, 6).map((repo, i) => (
-								<motion.a
-									key={repo.id}
-									initial={{ opacity: 0, y: 20 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									viewport={{ once: true }}
-									transition={{ delay: i * 0.05 }}
-									href={repo.html_url}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="bg-bento-bg/95 border border-line p-6 backdrop-blur-sm group hover:border-line-hover transition-colors"
+						<div>
+							{/* header row */}
+							<div style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 4px', borderBottom: '1px solid #999', fontSize: 11, fontWeight: 'bold', background: '#eee' }}>
+								<span style={{ flex: 2 }}>Name</span>
+								<span style={{ flex: 3, display: 'none' }} className="hidden sm:block">Description</span>
+								<span style={{ width: 70, textAlign: 'right' }}>Language</span>
+								<span style={{ width: 30, textAlign: 'right' }}>★</span>
+							</div>
+							{repos.slice(0, 8).map((repo) => (
+								<a key={repo.id} href={repo.html_url} target="_blank" rel="noopener noreferrer"
+									style={{ display: 'flex', justifyContent: 'space-between', padding: '3px 4px', borderBottom: '1px solid #ddd', fontSize: 11, textDecoration: 'none', color: '#000' }}
+									onMouseEnter={(e) => { e.currentTarget.style.background = '#3366cc'; e.currentTarget.style.color = '#fff'; }}
+									onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#000'; }}
 								>
-									<div className="flex items-center justify-between mb-3">
-										<span className="text-ink-muted text-xs font-mono">{repo.owner.login}</span>
-										<AiOutlineGithub className="w-4 h-4 text-ink-subtle group-hover:text-clay transition-colors" />
-									</div>
-									<h4 className="text-ink-primary font-semibold mb-2 group-hover:text-clay transition-colors truncate">
-										{repo.name}
-									</h4>
-									<p className="text-ink-muted text-sm line-clamp-2 mb-4">
-										{repo.description || "No description"}
-									</p>
-									<div className="flex items-center gap-4 text-xs text-ink-subtle">
-										<span className="flex items-center gap-1">
-											<AiFillStar className="text-clay" />
-											{repo.stargazers_count}
-										</span>
-										{repo.language && (
-											<span className="px-2 py-0.5 border border-line text-ink-muted font-mono">
-												{repo.language}
-											</span>
-										)}
-									</div>
-								</motion.a>
+									<span style={{ flex: 2, fontWeight: 'bold' }}>{repo.name}</span>
+									<span style={{ flex: 3, color: 'inherit', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'none' }} className="hidden sm:block">
+										{repo.description || '—'}
+									</span>
+									<span style={{ width: 70, textAlign: 'right', fontSize: 10 }}>{repo.language || '—'}</span>
+									<span style={{ width: 30, textAlign: 'right' }}>{repo.stargazers_count}</span>
+								</a>
 							))}
+							<div style={{ padding: '4px', fontSize: 10, color: '#666' }}>
+								{repos.length} items — <a href="https://github.com/convolutionary" target="_blank" rel="noopener noreferrer">View all</a>
+							</div>
 						</div>
 					) : (
-						<div className="text-center py-16 text-ink-muted font-mono">no repos found</div>
+						<p style={{ color: '#666' }}>No repos found.</p>
 					)}
-				</div>
+				</Window>
 			</div>
 		</section>
 	);

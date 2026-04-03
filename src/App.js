@@ -10,68 +10,45 @@ import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
 import { Dither } from "./components/bits";
 
-// dither config - visible but not overwhelming
+// dither as desktop texture — subtle, like a tiled pattern
 const ditherConfig = {
-	waveSpeed: 0.02,
-	waveFrequency: 1.5,
-	waveAmplitude: 0.22,
-	waveColor: [0.3, 0.15, 0.04],
+	waveSpeed: 0.008,
+	waveFrequency: 0.6,
+	waveAmplitude: 0.1,
+	waveColor: [0.15, 0.2, 0.3],  // desaturated blue to match os8 desktop
 	colorNum: 4,
-	pixelSize: 3,
+	pixelSize: 2,
 	enableMouseInteraction: true,
-	mouseRadius: 0.25,
+	mouseRadius: 0.2,
 };
+
+const Layout = ({ children }) => (
+	<div className="min-h-screen relative">
+		<div className="fixed inset-0 z-0">
+			<Dither {...ditherConfig} />
+		</div>
+		<div className="desktop">
+			<Navbar />
+			<main>{children}</main>
+			<Footer />
+		</div>
+	</div>
+);
 
 const App = () => {
 	const router = createHashRouter(
 		createRoutesFromElements(
 			<>
 				<Route path="/" element={
-					<div className="min-h-screen relative">
-						{/* fixed dither background for entire site */}
-						<div className="fixed inset-0 z-0">
-							<Dither {...ditherConfig} />
-						</div>
-						<div className="relative z-10">
-							<Navbar />
-							<main>
-								<Home />
-								<About />
-								<Blog />
-								<ContactForm />
-							</main>
-							<Footer />
-						</div>
-					</div>
+					<Layout>
+						<Home />
+						<About />
+						<Blog />
+						<ContactForm />
+					</Layout>
 				} />
-				<Route path="/blog/:id" element={
-					<div className="min-h-screen relative">
-						<div className="fixed inset-0 z-0">
-							<Dither {...ditherConfig} />
-						</div>
-						<div className="relative z-10">
-							<Navbar />
-							<main>
-								<BlogPost />
-							</main>
-							<Footer />
-						</div>
-					</div>
-				} />
-				<Route path="*" element={
-					<div className="min-h-screen relative">
-						<div className="fixed inset-0 z-0">
-							<Dither {...ditherConfig} />
-						</div>
-						<div className="relative z-10">
-							<Navbar />
-							<main>
-								<NotFound />
-							</main>
-							<Footer />
-						</div>
-					</div>
-				} />
+				<Route path="/blog/:id" element={<Layout><BlogPost /></Layout>} />
+				<Route path="*" element={<Layout><NotFound /></Layout>} />
 			</>
 		)
 	);
