@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useLayoutEffect, useRef } from "react";
+import React, { createContext, useContext, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { zoomRect } from "../../utils/zoomRect";
@@ -12,7 +12,9 @@ export const SceneIcon = ({ id, x, y, label, icon = "folder" }) => {
 	const show = useContext(Ctx);
 	const ref = useRef(null);
 
-	useEffect(() => { if (show) show.registerIcon(id, ref.current); }, [show, id]);
+	// useLayoutEffect so parents see registrations before their own effect
+	// runs — otherwise icons.current is empty during buildShow()
+	useLayoutEffect(() => { if (show) show.registerIcon(id, ref.current); }, [show, id]);
 
 	return (
 		<div ref={ref} className="show-icon" style={{ "--x": `${x}%`, "--y": `${y}%` }}>
@@ -26,7 +28,7 @@ export const Pane = ({ id, x, y, width, title, children, bodyStyle = {} }) => {
 	const show = useContext(Ctx);
 	const ref = useRef(null);
 
-	useEffect(() => { if (show) show.registerWindow(id, ref.current); }, [show, id]);
+	useLayoutEffect(() => { if (show) show.registerWindow(id, ref.current); }, [show, id]);
 
 	const w = typeof width === "number" ? `${width}px` : width;
 	return (
@@ -79,7 +81,7 @@ const edgePoint = (edge, rand) => {
 const buildShow = ({ section, stage, ghost, icons, windows, sequence, height, id }) => {
 	sequence.forEach(([, wid]) => {
 		const w = windows[wid];
-		if (w) gsap.set(w, { opacity: 0, scale: 0.96, transformOrigin: "0% 0%" });
+		if (w) gsap.set(w, { xPercent: -50, yPercent: -50, opacity: 0, scale: 0.96, transformOrigin: "0% 0%" });
 	});
 
 	const sceneSeed = hashSeed(id || "scene");
@@ -139,13 +141,17 @@ const buildShow = ({ section, stage, ghost, icons, windows, sequence, height, id
 		scrollTrigger: {
 			trigger: section,
 			start: "top top",
-			end: `+=${height}%`,
+			// ends when the section's bottom reaches the viewport bottom — so
+			// the pin's active range is exactly the section's explicit height
+			// minus one viewport. the section sets its own height via inline
+			// style (100 + height)vh, meaning no pinSpacing math is needed
+			// and no race between adjacent pins can happen.
+			end: "bottom bottom",
 			pin: stage,
-			pinSpacing: true,
+			pinSpacing: false,
 			scrub: 0.4,
 			anticipatePin: 1,
 			invalidateOnRefresh: true,
-			fastScrollEnd: true,
 		},
 	});
 
@@ -178,7 +184,7 @@ const buildShow = ({ section, stage, ghost, icons, windows, sequence, height, id
 			},
 			onReverseComplete: () => {
 				icon.classList.remove("clicked");
-				gsap.set(win, { opacity: 0, scale: 0.96 });
+				gsap.set(win, { opacity: 0, scale: 0.96, xPercent: -50, yPercent: -50, transformOrigin: "0% 0%" });
 			},
 		});
 
@@ -190,7 +196,10 @@ const buildShow = ({ section, stage, ghost, icons, windows, sequence, height, id
 			onReverseComplete: () => { icon.classList.add("clicked"); },
 		});
 
-		tl.to(win, { opacity: 1, scale: 1, duration: 0.2, ease: "steps(4)" });
+		tl.fromTo(win,
+			{ opacity: 0, scale: 0.96, xPercent: -50, yPercent: -50 },
+			{ opacity: 1, scale: 1, xPercent: -50, yPercent: -50, duration: 0.2, ease: "steps(4)", immediateRender: false }
+		);
 		tl.to({}, { duration: 0.45 + i * 0.08 });
 	});
 
@@ -241,20 +250,10 @@ const ShowScene = ({ id, title, subtitle, sequence, height = 320, children, clas
 			});
 		}, section);
 
-		// debounced refresh on orientation change / resize so positions
-		// and pin distances recompute cleanly
-		let resizeTimer = 0;
-		const onResize = () => {
-			clearTimeout(resizeTimer);
-			resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 160);
-		};
-		window.addEventListener("resize", onResize);
-		window.addEventListener("orientationchange", onResize);
-
+		// ScrollTrigger auto-refreshes on resize/orientationchange via its
+		// default autoRefreshEvents — no custom listener needed, and multiple
+		// per-scene listeners caused duplicate refreshes that desynced pins.
 		return () => {
-			window.removeEventListener("resize", onResize);
-			window.removeEventListener("orientationchange", onResize);
-			clearTimeout(resizeTimer);
 			root.revert();
 			mm.revert();
 		};
@@ -262,7 +261,12 @@ const ShowScene = ({ id, title, subtitle, sequence, height = 320, children, clas
 
 	return (
 		<Ctx.Provider value={{ registerIcon, registerWindow }}>
-			<section id={id} ref={section} className={`show-scene ${className}`}>
+			<section
+				id={id}
+				ref={section}
+				className={`show-scene ${className}`}
+				style={{ height: `${100 + height}vh` }}
+			>
 				<div ref={stage} className="show-stage">
 					<div className="show-title-wrap">
 						<h1 className="scene-title">

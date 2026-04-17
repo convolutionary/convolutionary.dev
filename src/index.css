@@ -457,6 +457,9 @@ img { max-width: 100%; height: auto; }
 .show-scene {
   position: relative;
   width: 100%;
+  /* height is set inline per-scene (see ShowScene.jsx) so each section's
+     scroll length is explicit and deterministic — no pinSpacer cascade,
+     no race between adjacent pins settling their positions. */
 }
 
 .show-stage {
@@ -531,18 +534,22 @@ img { max-width: 100%; height: auto; }
 
 .show-icon.clicked svg { filter: invert(1); }
 
-/* window sitting on the scene — position + width via css vars */
+/* window sitting on the scene — position + width via css vars.
+   starts hidden + offset so production builds don't flash all panes
+   before GSAP's setup pass runs (dev is slow enough to hide this).
+   GSAP drives opacity and scale via xPercent/yPercent (not the css
+   translate) so its tweens don't clobber the centring transform. */
 .show-pane {
   position: absolute;
   left: var(--x);
   top: var(--y);
   width: var(--w);
   max-width: calc(100vw - 32px);
-  transform: translate(-50%, -50%);
   z-index: 10;
   max-height: 72vh;
   display: flex;
   flex-direction: column;
+  opacity: 0;
 }
 
 .show-pane .win-body {
@@ -552,6 +559,8 @@ img { max-width: 100%; height: auto; }
 
 @media (max-width: 900px) {
   .show-scene {
+    /* override the inline height — mobile flows naturally, no pin */
+    height: auto !important;
     min-height: auto !important;
   }
   .show-stage {

@@ -82,7 +82,17 @@ const Layout = ({ children, withSections = false }) => {
 				onToggle: (self) => { if (self.isActive) setActiveSection(id); },
 			})
 		);
-		return () => triggers.forEach((t) => t.kill());
+		// sort + refresh once all child ShowScenes have registered their pins.
+		// without this, pin-spacers stack up in creation order instead of DOM
+		// order, causing adjacent scenes to pin simultaneously.
+		const sortTimer = setTimeout(() => {
+			ScrollTrigger.sort();
+			ScrollTrigger.refresh();
+		}, 0);
+		return () => {
+			clearTimeout(sortTimer);
+			triggers.forEach((t) => t.kill());
+		};
 	}, [withSections]);
 
 	return (
