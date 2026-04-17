@@ -6,9 +6,10 @@ import { Desktop, DesktopIcon, DesktopWindow } from "./desktop/Desktop";
 import TechMarquee from "./TechMarquee";
 import images from "./images";
 
-const EMAILJS_SERVICE = "service_0nr257k";
-const EMAILJS_TEMPLATE = "template_5yicj0g";
-const EMAILJS_PUBLIC = "FKZV57u7hDgVcKrVm";
+// web3forms access key — public by design; spam is filtered by their
+// honeypot (botcheck field) + our rate limit + domain restriction set
+// on web3forms.com
+const WEB3FORMS_KEY = "5f42e464-8296-475b-8331-8786d860fb15";
 const COOLDOWN_MS = 60_000;
 const COOLDOWN_KEY = "aurora:lastMail";
 
@@ -46,30 +47,33 @@ const Home = () => {
 		}
 
 		setSending(true);
-		import("@emailjs/browser").then(({ default: emailjs }) => {
-			emailjs.send(
-				EMAILJS_SERVICE,
-				EMAILJS_TEMPLATE,
-				{
-					name: formData.name.trim(),
-					email: formData.email.trim(),
-					message: msg,
-					title: `message from ${formData.name.trim()}`,
-					time: new Date().toLocaleString(),
-				},
-				{ publicKey: EMAILJS_PUBLIC },
-			).then(
-				() => {
-					localStorage.setItem(COOLDOWN_KEY, String(Date.now()));
-					setSubmitted(true);
-					setFormData({ name: "", email: "", message: "", website: "" });
-				},
-				(err) => setError(err?.text || "send failed — try again"),
-			).finally(() => setSending(false));
-		}).catch(() => {
-			setSending(false);
-			setError("couldn't load the mailer — check your connection");
-		});
+		(async () => {
+			try {
+				const res = await fetch("https://api.web3forms.com/submit", {
+					method: "POST",
+					headers: { "Content-Type": "application/json", Accept: "application/json" },
+					body: JSON.stringify({
+						access_key: WEB3FORMS_KEY,
+						subject: `aurora.dev — message from ${formData.name.trim()}`,
+						from_name: "aurora.dev contact",
+						name: formData.name.trim(),
+						email: formData.email.trim(),
+						message: msg,
+						// web3forms' own botcheck — bots fill it, their API drops the req
+						botcheck: formData.website,
+					}),
+				});
+				const data = await res.json();
+				if (!data.success) throw new Error(data.message || "send failed");
+				localStorage.setItem(COOLDOWN_KEY, String(Date.now()));
+				setSubmitted(true);
+				setFormData({ name: "", email: "", message: "", website: "" });
+			} catch (err) {
+				setError(err?.message || "send failed — try again");
+			} finally {
+				setSending(false);
+			}
+		})();
 	};
 
 	useEffect(() => {
