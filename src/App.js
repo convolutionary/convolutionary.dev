@@ -11,6 +11,7 @@ import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
 import ScrollBar from "./components/ScrollBar";
+import ScrollHint from "./components/ScrollHint";
 import BootSequence from "./components/BootSequence";
 import { Dither } from "./components/bits";
 import { setActiveSection } from "./hooks/useActiveSection";
@@ -104,6 +105,7 @@ const Layout = ({ children, withSections = false }) => {
 				<main>{children}</main>
 				<Footer />
 			</div>
+			{withSections && showAtlas && <ScrollHint />}
 		</div>
 	);
 };
