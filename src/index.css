@@ -42,7 +42,13 @@ html, body {
   background: var(--os-bg);
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
-  /* intentionally no antialiasing — pixel font should look crisp */
+  /* the whole site is a single fixed viewport — it's a desktop, not a page */
+  overflow: hidden;
+}
+
+@media (max-width: 700px) {
+  /* on narrow screens windows stack vertically and need to scroll */
+  html, body { overflow: auto; height: auto; }
 }
 
 #root {
@@ -264,8 +270,8 @@ img { max-width: 100%; height: auto; }
   position: relative;
   z-index: 10;
   min-height: 100vh;
-  /* menubar 22px + gauge 6px = 28px clearance, add a little breathing room */
-  padding: 34px 0 16px;
+  /* menubar is 22px tall and fixed, add breathing room below it */
+  padding: 28px 0 16px;
 }
 
 /* menu bar at top — always visible */
@@ -304,46 +310,6 @@ img { max-width: 100%; height: auto; }
 
 .menubar-item.bold {
   font-weight: bold;
-}
-
-/* active nav item — classic inverse highlight, only wider */
-.menubar-item.active {
-  background: var(--os-black);
-  color: var(--os-white);
-}
-
-/* ─── HELIOS GAUGE — scroll progress, styled like a mac progress bar ── */
-
-.helios-gauge {
-  position: fixed;
-  top: 22px;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: var(--os-light);
-  border-bottom: 1px solid var(--os-black);
-  box-shadow: inset 1px 1px 0 var(--os-gray);
-  z-index: 99;
-  overflow: hidden;
-}
-
-.helios-gauge-fill {
-  height: 100%;
-  width: 100%;
-  background-color: var(--os-highlight);
-  /* diagonal-stripe animation — reads as "working" even when idle */
-  background-image: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 255, 255, 0.35) 0 3px,
-    transparent 3px 6px
-  );
-  animation: helios-stripe 1.2s linear infinite;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-
-@keyframes helios-stripe {
-  from { background-position: 0 0; }
-  to { background-position: 8.5px 0; }
 }
 
 /* ─── BOOTROM — the mac boot sequence ────────────────────────────────── */
@@ -452,283 +418,143 @@ img { max-width: 100%; height: auto; }
   .boot-exts { bottom: 16px; gap: 4px; }
 }
 
-/* ─── SCROLL HINT — fixed, fades once the user starts scrolling ─────── */
+/* ─── DESKTOP — the single finder-style scene ────────────────────────── */
 
-.scroll-hint {
-  position: fixed;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 80;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  color: var(--os-white);
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
-  pointer-events: none;
-  font-size: 11px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  opacity: 0.9;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  animation: scroll-hint-bob 1.8s ease-in-out infinite;
-}
-
-.scroll-hint.gone {
-  opacity: 0;
-  transform: translate(-50%, 12px);
-  pointer-events: none;
-}
-
-.scroll-hint-mouse {
-  width: 20px;
-  height: 30px;
-  border: 2px solid var(--os-white);
-  border-radius: 10px;
-  position: relative;
-  filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.6));
-}
-
-.scroll-hint-wheel {
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  margin-left: -1.5px;
-  width: 3px;
-  height: 6px;
-  border-radius: 2px;
-  background: var(--os-white);
-  animation: scroll-hint-wheel 1.4s ease-in-out infinite;
-}
-
-@keyframes scroll-hint-wheel {
-  0%   { transform: translateY(0);   opacity: 1; }
-  60%  { transform: translateY(10px); opacity: 0; }
-  100% { transform: translateY(0);   opacity: 0; }
-}
-
-@keyframes scroll-hint-bob {
-  0%, 100% { transform: translate(-50%, 0); }
-  50%      { transform: translate(-50%, 3px); }
-}
-
-@media (max-width: 900px) {
-  /* mobile already scrolls naturally — no hint needed */
-  .scroll-hint { display: none; }
-}
-
-/* ─── SHOW SCENE — cinematic pinned scene with ghost cursor ──────────── */
-
-.show-scene {
+.desktop-surface {
   position: relative;
   width: 100%;
-  /* height is set inline per-scene (see ShowScene.jsx) so each section's
-     scroll length is explicit and deterministic — no pinSpacer cascade,
-     no race between adjacent pins settling their positions. */
+  min-height: calc(100vh - 60px);
+  padding: 16px max(16px, 2vw);
 }
 
-.show-stage {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  padding: 80px max(24px, 4vw) 40px;
-}
-
-.show-title-wrap {
+/* vertical column of icons along the left edge, classic mac finder desktop */
+.desk-icons {
   position: absolute;
-  top: 60px;
-  left: max(24px, 4vw);
-  right: max(24px, 4vw);
+  top: 20px;
+  left: max(16px, 2vw);
+  display: grid;
+  grid-template-columns: auto;
+  gap: 18px;
   z-index: 2;
-  pointer-events: none;
 }
 
-.show-title-wrap .scene-title { margin: 0; }
-
-/* ghost arrow — performs across the scene, positioned relative to viewport
-   since ShowScene uses getBoundingClientRect to place it in viewport coords */
-.show-ghost {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 70;
-  pointer-events: none;
-  will-change: transform;
-  filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.35));
-}
-
-.show-ghost svg { image-rendering: pixelated; }
-
-/* folder icon placed on the scene — position via --x / --y css vars set inline */
-.show-icon {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  transform: translate(-50%, -50%);
+.desk-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  z-index: 4;
+  padding: 2px;
+  border: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+  font-family: var(--os-font);
+  color: inherit;
   user-select: none;
-  pointer-events: none;
+  outline: none;
 }
 
-.show-icon svg { image-rendering: pixelated; }
+.desk-icon svg { image-rendering: pixelated; }
 
-.show-icon-label {
+.desk-icon-label {
   font-size: 11px;
   color: var(--os-white);
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.65);
   padding: 1px 6px;
-  background: rgba(0, 0, 0, 0.22);
+  background: rgba(0, 0, 0, 0.25);
   border: 1px solid transparent;
-  max-width: 140px;
+  max-width: 120px;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.show-icon.clicked .show-icon-label {
+/* momentary selected state — only while held down or keyboard-focused.
+   real mac icons don't stay highlighted just because their window is open. */
+.desk-icon:active .desk-icon-label,
+.desk-icon:focus-visible .desk-icon-label {
   background: var(--os-highlight);
   color: var(--os-white);
   border-color: var(--os-black);
 }
 
-.show-icon.clicked svg { filter: invert(1); }
+.desk-icon:active svg,
+.desk-icon:focus-visible svg { filter: invert(1); }
 
-/* window sitting on the scene — position + width via css vars.
-   starts hidden + offset so production builds don't flash all panes
-   before GSAP's setup pass runs (dev is slow enough to hide this).
-   GSAP drives opacity and scale via xPercent/yPercent (not the css
-   translate) so its tweens don't clobber the centring transform. */
-.show-pane {
+.desk-icon:focus-visible { outline: none; }
+
+/* windows float on the desktop, positioned near the centre of the viewport */
+.desk-window {
   position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: var(--w);
+  top: 80px;
+  left: 50%;
+  margin-left: -240px;
   max-width: calc(100vw - 32px);
-  z-index: 10;
-  max-height: 72vh;
+  max-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
-  opacity: 0;
 }
 
-.show-pane .win-body {
+.desk-window .win-body {
   overflow: auto;
-  max-height: calc(72vh - 28px);
+  max-height: calc(100vh - 160px);
 }
 
-@media (max-width: 900px) {
-  .show-scene {
-    /* override the inline height — mobile flows naturally, no pin */
-    height: auto !important;
-    min-height: auto !important;
-  }
-  .show-stage {
-    height: auto;
-    overflow: visible;
-    padding: 40px 12px;
-  }
-  .show-title-wrap {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    margin-bottom: 24px;
-  }
-  .show-icon { display: none; }
-  .show-pane {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: 100%;
-    max-width: 100%;
-    transform: none;
-    max-height: none;
-    margin-bottom: 16px;
-  }
-  .show-pane .win-body { max-height: none; }
-  .show-ghost { display: none; }
-}
-
-/* ─── SCENE — full-bleed section layout ─────────────────────────────── */
-
-.scene {
-  position: relative;
-  width: 100%;
-  padding: 80px max(24px, 4vw);
-  min-height: 100vh;
+/* window close box is a real button, match the static look */
+.desk-window .win-close {
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  border: 1px solid var(--os-black);
+  width: 11px;
+  height: 11px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.scene-inner {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+.desk-window .win-close:hover .win-close-inner {
+  background: var(--os-black);
 }
 
-.scene-hero {
-  padding-top: 40px;
+/* finder-style list row */
+.finder-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 8px;
+  font-size: 11px;
+  text-decoration: none;
+  color: #000;
+  border-bottom: 1px solid #ddd;
 }
 
-/* 12-col grid — each window spans a custom column range for asymmetric layouts */
-.grid-12 {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 16px;
+.finder-row:hover {
+  background: var(--os-highlight);
+  color: #fff;
 }
 
-.col-span-3  { grid-column: span 3; }
-.col-span-4  { grid-column: span 4; }
-.col-span-5  { grid-column: span 5; }
-.col-span-6  { grid-column: span 6; }
-.col-span-7  { grid-column: span 7; }
-.col-span-8  { grid-column: span 8; }
-.col-span-9  { grid-column: span 9; }
-.col-span-12 { grid-column: span 12; }
-
-.row-span-2 { grid-row: span 2; }
-
-@media (max-width: 900px) {
-  .scene { padding: 60px 16px; min-height: unset; }
-  .grid-12 { grid-template-columns: 1fr; }
-  .col-span-3, .col-span-4, .col-span-5, .col-span-6,
-  .col-span-7, .col-span-8, .col-span-9, .col-span-12 { grid-column: span 1; }
-  .row-span-2 { grid-row: auto; }
+@media (max-width: 700px) {
+  .desktop-surface { padding: 16px 12px; }
+  .desk-icons {
+    position: relative;
+    top: auto;
+    left: auto;
+    grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .desk-window {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-left: 0;
+    width: 100% !important;
+    max-height: none;
+    margin-bottom: 12px;
+    transform: none !important;
+  }
+  .desk-window .win-body { max-height: none; }
 }
-
-/* scene title — the big chicago headline that anchors each section */
-.scene-title {
-  font-family: var(--os-font);
-  font-size: clamp(44px, 7vw, 96px);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--os-white);
-  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
-  margin: 0 0 32px;
-  -webkit-font-smoothing: antialiased;
-}
-
-.scene-title small {
-  display: block;
-  font-size: 0.22em;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--os-light);
-  opacity: 0.75;
-  margin-top: 12px;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
-}
-
-/* window on a scene — fills its grid cell, so widths track the column span */
-.scene-win { width: 100%; height: 100%; display: flex; flex-direction: column; }
-.scene-win .win-body { flex: 1; }
 
 /* ─── TECH MARQUEE — rAF-driven, immune to scrolltrigger pin refreshes ── */
 
@@ -789,7 +615,7 @@ img { max-width: 100%; height: auto; }
 /* ─── RESPONSIVE — windows stack on mobile ───────────────────────────── */
 
 @media (max-width: 768px) {
-  .desktop { padding: 34px 8px 16px; }
+  .desktop { padding: 28px 8px 16px; }
   .win { margin-bottom: 8px; }
 }
 

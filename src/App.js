@@ -4,20 +4,13 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
-import About from "./components/About";
-import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
-import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
-import ScrollBar from "./components/ScrollBar";
-import ScrollHint from "./components/ScrollHint";
 import BootSequence from "./components/BootSequence";
 import { Dither } from "./components/bits";
-import { setActiveSection } from "./hooks/useActiveSection";
 
 gsap.registerPlugin(ScrollTrigger);
-ScrollTrigger.config({ ignoreMobileResize: true });
 
 const ditherConfig = {
 	waveSpeed: 0.008,
@@ -44,68 +37,23 @@ const useBootDone = () => {
 
 const Atlas = () => {
 	const ref = useRef(null);
-
-	useEffect(() => {
-		const el = ref.current;
-		if (!el) return;
-		const ctx = gsap.context(() => {
-			gsap.to(el, {
-				y: -60,
-				ease: "none",
-				scrollTrigger: {
-					trigger: document.body,
-					start: "top top",
-					end: "bottom bottom",
-					scrub: 0.4,
-				},
-			});
-		}, el);
-		return () => ctx.revert();
-	}, []);
-
 	return (
-		<div ref={ref} className="fixed inset-0 z-0" style={{ willChange: "transform" }}>
+		<div ref={ref} className="fixed inset-0 z-0">
 			<Dither {...ditherConfig} />
 		</div>
 	);
 };
 
-const Layout = ({ children, withSections = false }) => {
+const Layout = ({ children }) => {
 	const showAtlas = useBootDone();
-	useEffect(() => {
-		if (!withSections) return;
-		const ids = ["home", "about", "blog", "contact"];
-		const triggers = ids.map((id) =>
-			ScrollTrigger.create({
-				trigger: `#${id}`,
-				start: "top 40%",
-				end: "bottom 40%",
-				onToggle: (self) => { if (self.isActive) setActiveSection(id); },
-			})
-		);
-		// sort + refresh once all child ShowScenes have registered their pins.
-		// without this, pin-spacers stack up in creation order instead of DOM
-		// order, causing adjacent scenes to pin simultaneously.
-		const sortTimer = setTimeout(() => {
-			ScrollTrigger.sort();
-			ScrollTrigger.refresh();
-		}, 0);
-		return () => {
-			clearTimeout(sortTimer);
-			triggers.forEach((t) => t.kill());
-		};
-	}, [withSections]);
-
 	return (
 		<div className="min-h-screen relative">
 			{showAtlas && <Atlas />}
 			<div className="desktop">
 				<Navbar />
-				<ScrollBar />
 				<main>{children}</main>
 				<Footer />
 			</div>
-			{withSections && showAtlas && <ScrollHint />}
 		</div>
 	);
 };
@@ -113,14 +61,7 @@ const Layout = ({ children, withSections = false }) => {
 const router = createHashRouter(
 	createRoutesFromElements(
 		<>
-			<Route path="/" element={
-				<Layout withSections>
-					<Home />
-					<About />
-					<Blog />
-					<ContactForm />
-				</Layout>
-			} />
+			<Route path="/" element={<Layout><Home /></Layout>} />
 			<Route path="/blog/:id" element={<Layout><BlogPost /></Layout>} />
 			<Route path="*" element={<Layout><NotFound /></Layout>} />
 		</>
