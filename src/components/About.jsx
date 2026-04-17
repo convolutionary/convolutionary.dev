@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { AiFillStar } from "react-icons/ai";
 import images from "./images";
 import { aboutContent } from "../data/content";
-import Window from "./Window";
+import ShowScene, { SceneIcon, Pane } from "./show/ShowScene";
+import TechMarquee from "./TechMarquee";
 
 const About = () => {
 	const [repos, setRepos] = useState([]);
@@ -19,85 +19,84 @@ const About = () => {
 		})();
 	}, []);
 
-	// triple so there's always enough content to fill the viewport during scroll
-	const langItems = [...images.languages, ...images.languages, ...images.languages];
-	const fwItems = [...images.frameworks, ...images.frameworks, ...images.frameworks];
+	const sequence = [
+		["readme-icon", "readme-pane"],
+		["ext-icon", "ext-pane"],
+		["projects-icon", "projects-pane"],
+	];
 
 	return (
-		<section id="about" className="px-4 md:px-8 pt-4">
-			<div className="max-w-5xl mx-auto space-y-4">
+		<ShowScene
+			id="about"
+			title="about/"
+			subtitle="readme · extensions · projects"
+			sequence={sequence}
+			height={360}
+		>
+			<SceneIcon id="readme-icon"   x={8}  y={36} label="readme.md"   icon="document" />
+			<SceneIcon id="ext-icon"      x={8}  y={58} label="extensions" icon="puzzle" />
+			<SceneIcon id="projects-icon" x={8}  y={80} label="projects"   icon="hd" />
 
-				{/* about window */}
-				<Window title="About Me">
-					{aboutContent.story.map((para, i) => (
-						<p key={i} style={{ marginBottom: 8 }}>{para}</p>
-					))}
-					<div className="os-hr" />
-					<p style={{ fontSize: 11, color: '#666' }}>
-						<b>Skills:</b> {aboutContent.skills.map(s => s.title).join(', ')}
-					</p>
-				</Window>
-
-				{/* tech stack window — marquee inside */}
-				<Window title="Extensions Manager">
-					{[
-						{ label: 'Languages', items: langItems, dur: '20s', dir: 'normal' },
-						{ label: 'Frameworks', items: fwItems, dur: '40s', dir: 'reverse' },
-					].map(({ label, items, dur, dir }) => (
-						<div key={label} style={{ marginBottom: 8 }}>
-							<p style={{ fontSize: 11, fontWeight: 'bold', marginBottom: 4 }}>{label}</p>
-							<div style={{ overflow: 'hidden', position: 'relative', background: '#f5f5f5', border: '1px inset #999', padding: '4px 0' }}>
-								<div className="marquee-track" style={{ animationDuration: dur, animationDirection: dir }}>
-									{items.map((item, i) => (
-										<a key={i} href={item.link} target="_blank" rel="noopener noreferrer"
-											style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 10px', whiteSpace: 'nowrap', fontSize: 11, textDecoration: 'none', color: '#000' }}>
-											<img src={item.img} alt="" style={{ width: 14, height: 14, objectFit: 'contain' }} />
-											{item.name}
-										</a>
-									))}
-								</div>
-							</div>
+			<Pane id="readme-pane" x={40} y={42} width={480} title="readme.md">
+				{aboutContent.story.map((para, i) => (
+					<p key={i} style={{ marginBottom: 8, fontSize: 12, lineHeight: 1.55 }}>{para}</p>
+				))}
+				<div className="os-hr" />
+				<div style={{ display: 'grid', gap: 5 }}>
+					{aboutContent.skills.map((s, i) => (
+						<div key={i} style={{ fontSize: 11 }}>
+							<b>▸ {s.title}</b><br />
+							<span style={{ color: '#666', marginLeft: 12 }}>{s.desc}</span>
 						</div>
 					))}
-				</Window>
+				</div>
+			</Pane>
 
-				{/* projects window — list view like a finder window */}
-				<Window title="Projects">
-					{loading ? (
-						<p style={{ color: '#666' }}>Loading...</p>
-					) : repos.length > 0 ? (
-						<div>
-							{/* header row */}
-							<div style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 4px', borderBottom: '1px solid #999', fontSize: 11, fontWeight: 'bold', background: '#eee' }}>
-								<span style={{ flex: 2 }}>Name</span>
-								<span style={{ flex: 3, display: 'none' }} className="hidden sm:block">Description</span>
-								<span style={{ width: 70, textAlign: 'right' }}>Language</span>
-								<span style={{ width: 30, textAlign: 'right' }}>★</span>
-							</div>
-							{repos.slice(0, 8).map((repo) => (
-								<a key={repo.id} href={repo.html_url} target="_blank" rel="noopener noreferrer"
-									style={{ display: 'flex', justifyContent: 'space-between', padding: '3px 4px', borderBottom: '1px solid #ddd', fontSize: 11, textDecoration: 'none', color: '#000' }}
-									onMouseEnter={(e) => { e.currentTarget.style.background = '#3366cc'; e.currentTarget.style.color = '#fff'; }}
-									onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#000'; }}
-								>
-									<span style={{ flex: 2, fontWeight: 'bold' }}>{repo.name}</span>
-									<span style={{ flex: 3, color: 'inherit', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'none' }} className="hidden sm:block">
-										{repo.description || '—'}
-									</span>
-									<span style={{ width: 70, textAlign: 'right', fontSize: 10 }}>{repo.language || '—'}</span>
-									<span style={{ width: 30, textAlign: 'right' }}>{repo.stargazers_count}</span>
-								</a>
-							))}
-							<div style={{ padding: '4px', fontSize: 10, color: '#666' }}>
-								{repos.length} items — <a href="https://github.com/convolutionary" target="_blank" rel="noopener noreferrer">View all</a>
-							</div>
+			<Pane id="ext-pane" x={70} y={40} width={460} title="Extensions Manager">
+				<div style={{ marginBottom: 10 }}>
+					<p style={{ fontSize: 10, fontWeight: 'bold', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Languages</p>
+					<TechMarquee items={images.languages} speed={45} />
+				</div>
+				<div>
+					<p style={{ fontSize: 10, fontWeight: 'bold', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Frameworks</p>
+					<TechMarquee items={images.frameworks} speed={30} reverse />
+				</div>
+			</Pane>
+
+			<Pane id="projects-pane" x={55} y={76} width={720} title="Projects — Finder">
+				{loading ? (
+					<p style={{ color: '#666' }}>Loading...</p>
+				) : repos.length > 0 ? (
+					<div>
+						<div style={{ display: 'flex', justifyContent: 'space-between', padding: '3px 8px', borderBottom: '1px solid #999', fontSize: 11, fontWeight: 'bold', background: '#eee' }}>
+							<span style={{ flex: 2 }}>Name</span>
+							<span style={{ flex: 4 }}>Description</span>
+							<span style={{ width: 90, textAlign: 'right' }}>Language</span>
+							<span style={{ width: 36, textAlign: 'right' }}>★</span>
 						</div>
-					) : (
-						<p style={{ color: '#666' }}>No repos found.</p>
-					)}
-				</Window>
-			</div>
-		</section>
+						{repos.slice(0, 6).map((repo) => (
+							<a key={repo.id} href={repo.html_url} target="_blank" rel="noopener noreferrer"
+								style={{ display: 'flex', justifyContent: 'space-between', padding: '3px 8px', borderBottom: '1px solid #ddd', fontSize: 11, textDecoration: 'none', color: '#000' }}
+								onMouseEnter={(e) => { e.currentTarget.style.background = '#3366cc'; e.currentTarget.style.color = '#fff'; }}
+								onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#000'; }}
+							>
+								<span style={{ flex: 2, fontWeight: 'bold' }}>{repo.name}</span>
+								<span style={{ flex: 4, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 12 }}>
+									{repo.description || '—'}
+								</span>
+								<span style={{ width: 90, textAlign: 'right', fontSize: 10 }}>{repo.language || '—'}</span>
+								<span style={{ width: 36, textAlign: 'right' }}>{repo.stargazers_count}</span>
+							</a>
+						))}
+						<div style={{ padding: '4px 8px', fontSize: 10, color: '#666' }}>
+							{repos.length} items — <a href="https://github.com/convolutionary" target="_blank" rel="noopener noreferrer">View all on GitHub</a>
+						</div>
+					</div>
+				) : (
+					<p style={{ color: '#666' }}>No repos found.</p>
+				)}
+			</Pane>
+		</ShowScene>
 	);
 };
 

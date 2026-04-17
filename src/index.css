@@ -264,7 +264,8 @@ img { max-width: 100%; height: auto; }
   position: relative;
   z-index: 10;
   min-height: 100vh;
-  padding: 28px 0 16px;
+  /* menubar 22px + gauge 6px = 28px clearance, add a little breathing room */
+  padding: 34px 0 16px;
 }
 
 /* menu bar at top — always visible */
@@ -305,25 +306,422 @@ img { max-width: 100%; height: auto; }
   font-weight: bold;
 }
 
-/* ─── MARQUEE ─────────────────────────────────────────────────────────── */
-
-.marquee-track {
-  display: flex;
-  gap: 0;
-  animation: mq 25s linear infinite;
-  width: max-content;
+/* active nav item — classic inverse highlight, only wider */
+.menubar-item.active {
+  background: var(--os-black);
+  color: var(--os-white);
 }
-.marquee-track:hover { animation-play-state: paused; }
-@keyframes mq {
-  from { transform: translateX(0); }
-  to { transform: translateX(-33.333%); }
+
+/* ─── HELIOS GAUGE — scroll progress, styled like a mac progress bar ── */
+
+.helios-gauge {
+  position: fixed;
+  top: 22px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--os-light);
+  border-bottom: 1px solid var(--os-black);
+  box-shadow: inset 1px 1px 0 var(--os-gray);
+  z-index: 99;
+  overflow: hidden;
+}
+
+.helios-gauge-fill {
+  height: 100%;
+  width: 100%;
+  background-color: var(--os-highlight);
+  /* diagonal-stripe animation — reads as "working" even when idle */
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.35) 0 3px,
+    transparent 3px 6px
+  );
+  animation: helios-stripe 1.2s linear infinite;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+@keyframes helios-stripe {
+  from { background-position: 0 0; }
+  to { background-position: 8.5px 0; }
+}
+
+/* ─── BOOTROM — the mac boot sequence ────────────────────────────────── */
+
+.boot-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* 50% gray dither — real mac startup screen. NOT solid gray. */
+.boot-screen {
+  position: absolute;
+  inset: 0;
+  background-color: #aaa;
+  background-image:
+    linear-gradient(45deg, #000 25%, transparent 25%),
+    linear-gradient(-45deg, #000 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #000 75%),
+    linear-gradient(-45deg, transparent 75%, #000 75%);
+  background-size: 2px 2px;
+  background-position: 0 0, 0 1px, 1px -1px, -1px 0;
+  image-rendering: pixelated;
+}
+
+.boot-happy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 40px));
+  image-rendering: pixelated;
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.2));
+  animation: happy-in 180ms steps(3) both;
+}
+
+@keyframes happy-in {
+  from { opacity: 0; transform: translate(-50%, calc(-50% - 40px)) scale(0.6); }
+  to   { opacity: 1; transform: translate(-50%, calc(-50% - 40px)) scale(1); }
+}
+
+/* welcome dialog — double-border, chicago 12pt, shadow */
+.boot-welcome {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% + 40px));
+  background: #fff;
+  border: 1px solid #000;
+  padding: 2px;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+  animation: welcome-in 120ms steps(2) both;
+}
+
+.boot-welcome-inner {
+  border: 1px solid #000;
+  padding: 14px 36px;
+  min-width: 240px;
+}
+
+@keyframes welcome-in {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 40px)) scale(0.94); }
+  to   { opacity: 1; transform: translate(-50%, calc(-50% + 40px)) scale(1); }
+}
+
+/* extension parade — row of icons along the bottom, wraps on narrow screens */
+.boot-exts {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px;
+  max-width: calc(100vw - 24px);
+}
+
+.boot-ext {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  image-rendering: pixelated;
+  animation: ext-pop 120ms steps(2) both;
+}
+
+.boot-ext svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes ext-pop {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .boot-happy svg { width: 48px; height: 48px; }
+  .boot-welcome-inner { padding: 10px 20px; min-width: 180px; }
+  .boot-welcome-inner > div:first-child { font-size: 11px !important; }
+  .boot-welcome-inner > div:last-child { font-size: 9px !important; }
+  .boot-ext { width: 24px; height: 24px; }
+  .boot-exts { bottom: 16px; gap: 4px; }
+}
+
+/* ─── SHOW SCENE — cinematic pinned scene with ghost cursor ──────────── */
+
+.show-scene {
+  position: relative;
+  width: 100%;
+}
+
+.show-stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  padding: 80px max(24px, 4vw) 40px;
+}
+
+.show-title-wrap {
+  position: absolute;
+  top: 60px;
+  left: max(24px, 4vw);
+  right: max(24px, 4vw);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.show-title-wrap .scene-title { margin: 0; }
+
+/* ghost arrow — performs across the scene, positioned relative to viewport
+   since ShowScene uses getBoundingClientRect to place it in viewport coords */
+.show-ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 70;
+  pointer-events: none;
+  will-change: transform;
+  filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.35));
+}
+
+.show-ghost svg { image-rendering: pixelated; }
+
+/* folder icon placed on the scene — position via --x / --y css vars set inline */
+.show-icon {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 4;
+  user-select: none;
+  pointer-events: none;
+}
+
+.show-icon svg { image-rendering: pixelated; }
+
+.show-icon-label {
+  font-size: 11px;
+  color: var(--os-white);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.65);
+  padding: 1px 6px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid transparent;
+  max-width: 140px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.show-icon.clicked .show-icon-label {
+  background: var(--os-highlight);
+  color: var(--os-white);
+  border-color: var(--os-black);
+}
+
+.show-icon.clicked svg { filter: invert(1); }
+
+/* window sitting on the scene — position + width via css vars */
+.show-pane {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  max-width: calc(100vw - 32px);
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  max-height: 72vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.show-pane .win-body {
+  overflow: auto;
+  max-height: calc(72vh - 28px);
+}
+
+@media (max-width: 900px) {
+  .show-scene {
+    min-height: auto !important;
+  }
+  .show-stage {
+    height: auto;
+    overflow: visible;
+    padding: 40px 12px;
+  }
+  .show-title-wrap {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin-bottom: 24px;
+  }
+  .show-icon { display: none; }
+  .show-pane {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 100%;
+    transform: none;
+    max-height: none;
+    margin-bottom: 16px;
+  }
+  .show-pane .win-body { max-height: none; }
+  .show-ghost { display: none; }
+}
+
+/* ─── SCENE — full-bleed section layout ─────────────────────────────── */
+
+.scene {
+  position: relative;
+  width: 100%;
+  padding: 80px max(24px, 4vw);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.scene-inner {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.scene-hero {
+  padding-top: 40px;
+}
+
+/* 12-col grid — each window spans a custom column range for asymmetric layouts */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+
+.col-span-3  { grid-column: span 3; }
+.col-span-4  { grid-column: span 4; }
+.col-span-5  { grid-column: span 5; }
+.col-span-6  { grid-column: span 6; }
+.col-span-7  { grid-column: span 7; }
+.col-span-8  { grid-column: span 8; }
+.col-span-9  { grid-column: span 9; }
+.col-span-12 { grid-column: span 12; }
+
+.row-span-2 { grid-row: span 2; }
+
+@media (max-width: 900px) {
+  .scene { padding: 60px 16px; min-height: unset; }
+  .grid-12 { grid-template-columns: 1fr; }
+  .col-span-3, .col-span-4, .col-span-5, .col-span-6,
+  .col-span-7, .col-span-8, .col-span-9, .col-span-12 { grid-column: span 1; }
+  .row-span-2 { grid-row: auto; }
+}
+
+/* scene title — the big chicago headline that anchors each section */
+.scene-title {
+  font-family: var(--os-font);
+  font-size: clamp(44px, 7vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--os-white);
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
+  margin: 0 0 32px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.scene-title small {
+  display: block;
+  font-size: 0.22em;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--os-light);
+  opacity: 0.75;
+  margin-top: 12px;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* window on a scene — fills its grid cell, so widths track the column span */
+.scene-win { width: 100%; height: 100%; display: flex; flex-direction: column; }
+.scene-win .win-body { flex: 1; }
+
+/* ─── TECH MARQUEE — rAF-driven, immune to scrolltrigger pin refreshes ── */
+
+.tech-marquee-mask {
+  overflow: hidden;
+  position: relative;
+  background: #f5f5f5;
+  border: 1px inset #999;
+  padding: 4px 0;
+}
+
+.tech-marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.tech-marquee-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 12px;
+  white-space: nowrap;
+  font-size: 11px;
+  text-decoration: none;
+  color: #000;
+}
+
+.tech-marquee-chip:hover { color: var(--os-highlight); }
+
+.tech-marquee-chip img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+/* ─── MEDIA ROW — side-by-side image + text, stacks on narrow screens ── */
+
+.media-row {
+  display: flex;
+  gap: 16px;
+}
+
+.media-row-fig {
+  flex: 0 0 200px;
+}
+
+.media-row-body {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  .media-row { flex-direction: column; }
+  .media-row-fig { flex: 0 0 auto; max-width: 100%; }
 }
 
 /* ─── RESPONSIVE — windows stack on mobile ───────────────────────────── */
 
 @media (max-width: 768px) {
-  .desktop { padding: 28px 8px 16px; }
+  .desktop { padding: 34px 8px 16px; }
   .win { margin-bottom: 8px; }
+}
+
+@media (max-width: 500px) {
+  /* tighten menubar on very small screens */
+  .menubar { gap: 8px; padding: 0 6px; }
+  .menubar-item { font-size: 11px; padding: 0 4px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -2,7 +2,7 @@
 // dither background from react-bits
 // https://reactbits.dev/backgrounds/dither
 
-import { useRef, useEffect, forwardRef } from 'react';
+import { useRef, useEffect, useState, forwardRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { EffectComposer, wrapEffect } from '@react-three/postprocessing';
 import { Effect } from 'postprocessing';
@@ -204,11 +204,20 @@ function DitheredWaves({
   }, [size, gl]);
 
   const prevColor = useRef([...waveColor]);
-  useFrame(({ clock }) => {
+  // cap shader to ~30fps — the dither is noisy & slow-moving, nobody can
+  // tell 30 from 60. halves fragment work vs letting it run at monitor hz.
+  const lastFrameT = useRef(0);
+  const FRAME_STRIDE = 1 / 30;
+
+  useFrame(({ clock, invalidate }) => {
+    const now = clock.getElapsedTime();
+    if (now - lastFrameT.current < FRAME_STRIDE) return;
+    lastFrameT.current = now;
+
     const u = waveUniformsRef.current;
 
     if (!disableAnimation) {
-      u.time.value = clock.getElapsedTime();
+      u.time.value = now;
     }
 
     if (u.waveSpeed.value !== waveSpeed) u.waveSpeed.value = waveSpeed;
@@ -274,12 +283,21 @@ export default function Dither({
   enableMouseInteraction = true,
   mouseRadius = 1
 }) {
+  // pause the shader when the tab is hidden — no frames, no gpu burn
+  const [visible, setVisible] = useState(typeof document === "undefined" ? true : !document.hidden);
+  useEffect(() => {
+    const onVis = () => setVisible(!document.hidden);
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
+
   return (
     <Canvas
       className="dither-canvas"
       camera={{ position: [0, 0, 6] }}
-      dpr={1}
-      gl={{ antialias: true, preserveDrawingBuffer: true }}
+      dpr={[1, 1.25]}
+      frameloop={visible ? "always" : "never"}
+      gl={{ antialias: false, preserveDrawingBuffer: false, powerPreference: "high-performance" }}
       style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
     >
       <DitheredWaves

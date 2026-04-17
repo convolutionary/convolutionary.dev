@@ -1,7 +1,5 @@
 import React from "react";
 
-// no footer — the menu bar IS the navigation
-// just a tiny credit at the bottom
 const Footer = () => (
 	<div style={{
 		textAlign: 'center',
