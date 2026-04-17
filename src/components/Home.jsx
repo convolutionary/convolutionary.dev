@@ -6,25 +6,69 @@ import { Desktop, DesktopIcon, DesktopWindow } from "./desktop/Desktop";
 import TechMarquee from "./TechMarquee";
 import images from "./images";
 
+const EMAILJS_SERVICE = "service_0nr257k";
+const EMAILJS_TEMPLATE = "template_5yicj0g";
+const EMAILJS_PUBLIC = "FKZV57u7hDgVcKrVm";
+const COOLDOWN_MS = 60_000;
+const COOLDOWN_KEY = "aurora:lastMail";
+
+const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Home = () => {
 	const [repos, setRepos] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [submitted, setSubmitted] = useState(false);
-	const [formData, setFormData] = useState({ user_name: "", user_email: "", message: "" });
+	const [sending, setSending] = useState(false);
+	const [error, setError] = useState("");
+	const [formData, setFormData] = useState({ name: "", email: "", message: "", website: "" });
 	const upd = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const sendMail = (e) => {
 		e.preventDefault();
+		setError("");
+
+		// honeypot: real users can't see this field; bots fill every input
+		if (formData.website) return;
+
+		// validation
+		if (formData.name.trim().length < 2) return setError("name is too short");
+		if (!emailRe.test(formData.email)) return setError("that email doesn't look right");
+		const msg = formData.message.trim();
+		if (msg.length < 10) return setError("message is too short");
+		if (msg.length > 2000) return setError("message is too long (max 2000 chars)");
+
+		// rate limit — 60s between submissions per browser
+		const last = Number(localStorage.getItem(COOLDOWN_KEY) || 0);
+		const since = Date.now() - last;
+		if (since < COOLDOWN_MS) {
+			const wait = Math.ceil((COOLDOWN_MS - since) / 1000);
+			return setError(`slow down — try again in ${wait}s`);
+		}
+
+		setSending(true);
 		import("@emailjs/browser").then(({ default: emailjs }) => {
 			emailjs.send(
-				"service_k578uaf",
-				"template_nyxk2ot",
-				formData,
-				{ publicKey: "gdht2zNte7kkHEw_x" }
+				EMAILJS_SERVICE,
+				EMAILJS_TEMPLATE,
+				{
+					name: formData.name.trim(),
+					email: formData.email.trim(),
+					message: msg,
+					title: `message from ${formData.name.trim()}`,
+					time: new Date().toLocaleString(),
+				},
+				{ publicKey: EMAILJS_PUBLIC },
 			).then(
-				() => { setSubmitted(true); setFormData({ user_name: "", user_email: "", message: "" }); },
-				(err) => console.log("flatlined:", err?.text),
-			);
+				() => {
+					localStorage.setItem(COOLDOWN_KEY, String(Date.now()));
+					setSubmitted(true);
+					setFormData({ name: "", email: "", message: "", website: "" });
+				},
+				(err) => setError(err?.text || "send failed — try again"),
+			).finally(() => setSending(false));
+		}).catch(() => {
+			setSending(false);
+			setError("couldn't load the mailer — check your connection");
 		});
 	};
 
@@ -254,19 +298,47 @@ const Home = () => {
 						<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
 							<div>
 								<label className="os-label">Name:</label>
-								<input type="text" name="user_name" value={formData.user_name} onChange={upd} required placeholder="Your name" className="os-input" />
+								<input type="text" name="name" value={formData.name} onChange={upd} required placeholder="Your name" className="os-input" disabled={sending} />
 							</div>
 							<div>
 								<label className="os-label">Email:</label>
-								<input type="email" name="user_email" value={formData.user_email} onChange={upd} required placeholder="you@example.com" className="os-input" />
+								<input type="email" name="email" value={formData.email} onChange={upd} required placeholder="you@example.com" className="os-input" disabled={sending} />
 							</div>
 						</div>
 						<div style={{ marginBottom: 10 }}>
 							<label className="os-label">Message:</label>
-							<textarea name="message" value={formData.message} onChange={upd} required rows={5} placeholder="What's on your mind?" className="os-textarea" />
+							<textarea name="message" value={formData.message} onChange={upd} required rows={5} placeholder="What's on your mind?" className="os-textarea" disabled={sending} maxLength={2000} />
 						</div>
-						<div style={{ textAlign: "right" }}>
-							<button type="submit" className="btn btn-primary">Send</button>
+
+						{/* honeypot — hidden from real users but scraped by bots.
+						    if it arrives filled we silently reject the submission. */}
+						<div style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }} aria-hidden>
+							<label>
+								Website (leave blank)
+								<input
+									type="text"
+									name="website"
+									tabIndex={-1}
+									autoComplete="off"
+									value={formData.website}
+									onChange={upd}
+								/>
+							</label>
+						</div>
+
+						{error && (
+							<div style={{ fontSize: 11, color: "#a00", marginBottom: 8 }}>
+								⚠ {error}
+							</div>
+						)}
+
+						<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+							<span style={{ fontSize: 10, color: "#999" }}>
+								{formData.message.length}/2000
+							</span>
+							<button type="submit" className="btn btn-primary" disabled={sending}>
+								{sending ? "Sending…" : "Send"}
+							</button>
 						</div>
 					</form>
 				)}
