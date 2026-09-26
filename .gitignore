@@ -23,3 +23,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .claude
+# impeccable scratch (decision pages, review captures)
+/.impeccable

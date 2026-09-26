@@ -31,7 +31,7 @@
   --os-font-size: 12px;
 }
 
-html, body {
+html.os, html.os body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -48,12 +48,22 @@ html, body {
 
 @media (max-width: 700px) {
   /* on narrow screens windows stack vertically and need to scroll */
-  html, body { overflow: auto; height: auto; }
+  html.os, html.os body { overflow: auto; height: auto; }
 }
+
+html, body { margin: 0; padding: 0; }
 
 #root {
   min-height: 100vh;
   position: relative;
+}
+
+/* mac zoom rects — used by desktop windows and the manual's start-up figure */
+.zoom-rect-layer { position: fixed; inset: 0; z-index: 10000; pointer-events: none; }
+.zoom-rect {
+  position: fixed;
+  border: 1px solid #000;
+  box-shadow: 0 0 0 1px #fff;
 }
 
 /* dither replaces the tiled desktop pattern */
@@ -63,104 +73,21 @@ html, body {
   z-index: 0;
 }
 
-a { color: var(--os-highlight); text-decoration: underline; }
-a:hover { color: var(--os-black); }
-::selection { background: var(--os-highlight); color: var(--os-highlight-text); }
-:focus-visible { outline: 2px solid var(--os-black); outline-offset: 1px; }
+html.os :where(a) { color: var(--os-highlight); text-decoration: underline; }
+html.os :where(a):hover { color: var(--os-black); }
+html.os ::selection { background: var(--os-highlight); color: var(--os-highlight-text); }
+html.os :focus-visible { outline: 2px solid var(--os-black); outline-offset: 1px; }
 
 img { max-width: 100%; height: auto; }
 
 /* scrollbar — system style */
-::-webkit-scrollbar { width: 16px; background: var(--os-light); }
-::-webkit-scrollbar-thumb {
+html.os ::-webkit-scrollbar { width: 16px; background: var(--os-light); }
+html.os ::-webkit-scrollbar-thumb {
   background: var(--os-mid);
   border: 1px solid var(--os-black);
   border-radius: 0;
 }
-::-webkit-scrollbar-track { border-left: 1px solid var(--os-black); }
-
-/* ─── WINDOW — the core UI element ──────────────────────────────────────── */
-
-.win {
-  background: var(--os-mid);
-  border: 1px solid var(--os-black);
-  box-shadow:
-    1px 2px 0 var(--os-black),
-    inset 1px 1px 0 var(--os-white),
-    inset -1px -1px 0 var(--os-gray);
-  position: relative;
-}
-
-.win-title {
-  background: var(--os-mid);
-  text-align: center;
-  padding: 3px 24px;
-  font-size: 12px;
-  font-weight: normal;
-  border-bottom: 1px solid var(--os-black);
-  cursor: default;
-  user-select: none;
-  position: relative;
-  /* striped title bar pattern */
-  background-image: repeating-linear-gradient(
-    180deg,
-    transparent 0px,
-    transparent 1px,
-    var(--os-white) 1px,
-    var(--os-white) 2px,
-    transparent 2px,
-    transparent 3px
-  );
-}
-
-.win-title span {
-  background: var(--os-mid);
-  padding: 0 8px;
-  position: relative;
-  z-index: 1;
-}
-
-/* close button — outer dark frame + inner beveled box */
-.win-close {
-  position: absolute;
-  left: 6px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 15px;
-  height: 15px;
-  padding: 1px;
-  background: var(--os-black);
-  cursor: pointer;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.win-close-inner {
-  width: 11px;
-  height: 11px;
-  background: var(--os-mid);
-  border: 1px solid var(--os-black);
-  box-shadow:
-    inset 1px 1px 0 var(--os-white),
-    inset -1px -1px 0 var(--os-gray);
-}
-
-.win-close:active .win-close-inner {
-  box-shadow: none;
-  background: var(--os-dark);
-}
-
-.win-body {
-  margin: 3px;
-  padding: 12px;
-  background: var(--os-white);
-  border: 1px solid var(--os-black);
-  box-shadow:
-    inset 1px 1px 0 var(--os-white),
-    inset -1px -1px 0 var(--os-gray);
-}
+html.os ::-webkit-scrollbar-track { border-left: 1px solid var(--os-black); }
 
 /* ─── BUTTON — classic bevel ───────────────────────────────────────────── */
 
@@ -243,73 +170,6 @@ img { max-width: 100%; height: auto; }
   box-shadow:
     inset 1px 1px 0 var(--os-gray),
     inset -1px -1px 0 var(--os-white);
-}
-
-/* ─── SEPARATOR ────────────────────────────────────────────────────────── */
-
-.os-hr {
-  height: 2px;
-  border: none;
-  background: var(--os-gray);
-  box-shadow: 0 1px 0 var(--os-white);
-  margin: 8px 0;
-}
-
-/* ─── LABEL ────────────────────────────────────────────────────────────── */
-
-.os-label {
-  font-size: 12px;
-  color: var(--os-black);
-  display: block;
-  margin-bottom: 2px;
-}
-
-/* ─── DESKTOP LAYOUT ─────────────────────────────────────────────────── */
-
-.desktop {
-  position: relative;
-  z-index: 10;
-  min-height: 100vh;
-  /* menubar is 22px tall and fixed, add breathing room below it */
-  padding: 28px 0 16px;
-}
-
-/* menu bar at top — always visible */
-.menubar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  height: 22px;
-  background: var(--os-mid);
-  border-bottom: 1px solid var(--os-black);
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  gap: 16px;
-  box-shadow: 0 1px 0 var(--os-white);
-}
-
-.menubar-item {
-  font-size: 12px;
-  font-weight: normal;
-  color: var(--os-black);
-  cursor: default;
-  padding: 0 6px;
-  line-height: 22px;
-  background: none;
-  border: none;
-  font-family: var(--os-font);
-}
-
-.menubar-item:hover {
-  background: var(--os-highlight);
-  color: var(--os-highlight-text);
-}
-
-.menubar-item.bold {
-  font-weight: bold;
 }
 
 /* ─── BOOTROM — the mac boot sequence ────────────────────────────────── */
@@ -418,211 +278,449 @@ img { max-width: 100%; height: auto; }
   .boot-exts { bottom: 16px; gap: 4px; }
 }
 
-/* ─── DESKTOP — the single finder-style scene ────────────────────────── */
 
-.desktop-surface {
-  position: relative;
+/* ═══════════════════════════════════════════════════════════════════════════
+   PLATINUM DESKTOP — mac os 8. every box, stripe and bevel here is from the
+   real appearance manager, including the 1px hard window shadow. that's the
+   world, not a costume
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.pat-macos { background: #6b6bc4 url("./assets/patterns/desktop.png") repeat; image-rendering: pixelated; }
+.pat-gray {
+  background-color: #9a9a9a;
+  background-image: conic-gradient(#8a8a8a 25%, #a8a8a8 0 50%, #8a8a8a 0 75%, #a8a8a8 0);
+  background-size: 2px 2px;
+}
+.pat-teal { background: #2e7d7d; }
+.pat-dither { background: #0b0f16; }
+
+.desktop {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  font-family: var(--os-font);
+  font-size: 12px;
+  color: #000;
+}
+.desk-bg { position: absolute; inset: 0; z-index: 0; }
+.desktop-surface { position: absolute; inset: 20px 0 0 0; z-index: 1; }
+
+html.os ::selection { background: #ccccff; color: #000; }
+
+/* ─── menu bar ───────────────────────────────────────────────────────── */
+
+.menubar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50000;
+  height: 20px;
+  display: flex;
+  align-items: stretch;
+  padding: 0 6px;
+  background: #ddd;
+  border-bottom: 1px solid #000;
+  box-shadow: inset 0 1px 0 #fff;
+  font-family: var(--os-font);
+  font-size: 12px;
+  user-select: none;
+}
+.menubar-menus { display: flex; list-style: none; margin: 0; padding: 0; }
+.mb-menu { position: relative; }
+.menubar-item {
+  height: 19px;
+  padding: 0 10px;
+  font: 12px var(--os-font);
+  color: #000;
+  background: none;
+  border: 0;
+  cursor: default;
+  -webkit-font-smoothing: none;
+}
+.menubar-item.bold { font-weight: bold; }
+.menubar-item.is-open,
+.menubar-item:focus-visible { background: #333399; color: #fff; outline: none; }
+
+.mb-drop {
+  position: absolute;
+  top: 19px;
+  left: 0;
+  min-width: 196px;
+  list-style: none;
+  margin: 0;
+  padding: 3px 0;
+  background: #ddd;
+  border: 1px solid #000;
+  box-shadow: inset 1px 1px 0 #fff, 2px 2px 0 rgba(0, 0, 0, 0.35);
+}
+.mb-drop button {
+  display: block;
   width: 100%;
-  min-height: calc(100vh - 60px);
-  padding: 16px max(16px, 2vw);
+  padding: 2px 20px;
+  text-align: left;
+  font: 12px var(--os-font);
+  color: #000;
+  background: none;
+  border: 0;
+  cursor: default;
+  white-space: nowrap;
+}
+.mb-drop button:hover:not(:disabled),
+.mb-drop button:focus-visible { background: #333399; color: #fff; outline: none; }
+.mb-drop button:disabled { color: #8c8c8c; }
+.mb-sep { height: 1px; margin: 4px 1px; background: #999; box-shadow: 0 1px 0 #fff; }
+
+.menubar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.menubar-clock { font-variant-numeric: tabular-nums; }
+.menubar-app { display: flex; align-items: center; gap: 6px; padding-left: 10px; border-left: 1px solid #999; box-shadow: inset 1px 0 0 #fff; }
+.menubar-app-ico {
+  width: 14px; height: 12px;
+  border: 1px solid #000;
+  background: linear-gradient(90deg, #6b6bc4 50%, #fff 50%);
 }
 
-/* vertical column of icons along the left edge, classic mac finder desktop */
+/* ─── desktop icons ──────────────────────────────────────────────────── */
+
 .desk-icons {
   position: absolute;
-  top: 20px;
-  left: max(16px, 2vw);
-  display: grid;
-  grid-template-columns: auto;
-  gap: 18px;
-  z-index: 2;
-}
-
-.desk-icon {
+  top: 12px;
+  right: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 2px;
-  border: 1px solid transparent;
-  background: none;
-  cursor: pointer;
-  font-family: var(--os-font);
-  color: inherit;
-  user-select: none;
-  outline: none;
+  gap: 8px;
 }
+.desk-trash { position: absolute; right: 10px; bottom: 10px; }
 
-.desk-icon svg { image-rendering: pixelated; }
-
+.desk-icon,
+.fi-icon {
+  width: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 2px;
+  font: 12px var(--os-font);
+  color: #000;
+  background: none;
+  border: 0;
+  cursor: default;
+  text-decoration: none;
+  -webkit-font-smoothing: none;
+}
+.desk-icon svg, .fi-icon svg { flex: none; }
 .desk-icon-label {
-  font-size: 11px;
-  color: var(--os-white);
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.65);
-  padding: 1px 6px;
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid transparent;
-  max-width: 120px;
+  max-width: 88px;
+  padding: 0 3px;
+  line-height: 14px;
   text-align: center;
+  background: #fff;
+  overflow-wrap: anywhere;
+}
+.fi-icon > span { padding: 0 3px; line-height: 14px; text-align: center; overflow-wrap: anywhere; }
+.is-alias > span { font-style: italic; }
+
+.desk-icon.is-sel svg,
+.desk-icon:active svg,
+.fi-icon:focus svg,
+.fi-icon:active svg { filter: brightness(0.45); }
+.desk-icon.is-sel .desk-icon-label,
+.desk-icon:active .desk-icon-label,
+.fi-icon:focus > span,
+.fi-icon:active > span { background: #000; color: #fff; }
+.desk-icon:focus-visible,
+.fi-icon:focus-visible { outline: 1px dotted #000; outline-offset: 1px; }
+a.fi-icon:hover > span { background: #ccccff; }
+
+/* ─── platinum window ────────────────────────────────────────────────── */
+
+.pw {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  max-width: calc(100vw - 16px);
+  padding: 0 5px 5px;
+  background: #ddd;
+  border: 1px solid #000;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #999, 1px 1px 0 #000;
+}
+.pw.is-shade { height: auto !important; padding-bottom: 3px; }
+
+.pw-title {
+  flex: none;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 1px;
+  margin: 0 -2px;
+  touch-action: none;
+  user-select: none;
+  cursor: default;
+}
+.pw.is-active .pw-title {
+  background-image: repeating-linear-gradient(#fff 0 1px, #999 1px 2px);
+  background-clip: content-box;
+  background-origin: content-box;
+}
+.pw-name {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  text-align: center;
+  font: 12px/12px var(--os-font);
+  font-weight: normal;
+}
+.pw-name span {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0 7px;
+  background: #ddd;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  vertical-align: top;
 }
+.pw:not(.is-active) .pw-name { color: #8c8c8c; }
 
-/* momentary selected state — only while held down or keyboard-focused.
-   real mac icons don't stay highlighted just because their window is open. */
-.desk-icon:active .desk-icon-label,
-.desk-icon:focus-visible .desk-icon-label {
-  background: var(--os-highlight);
-  color: var(--os-white);
-  border-color: var(--os-black);
-}
-
-.desk-icon:active svg,
-.desk-icon:focus-visible svg { filter: invert(1); }
-
-.desk-icon:focus-visible { outline: none; }
-
-/* windows float on the desktop, positioned near the centre of the viewport */
-.desk-window {
-  position: absolute;
-  top: 80px;
-  left: 50%;
-  margin-left: -240px;
-  max-width: calc(100vw - 32px);
-  max-height: calc(100vh - 120px);
-  display: flex;
-  flex-direction: column;
-}
-
-.desk-window .win-body {
-  overflow: auto;
-  max-height: calc(100vh - 160px);
-}
-
-/* window close box is a real button, match the static look */
-.desk-window .win-close {
-  background: none;
+.wbox {
+  position: relative;
+  flex: none;
+  width: 13px;
+  height: 12px;
   padding: 0;
-  cursor: pointer;
-  border: 1px solid var(--os-black);
-  width: 11px;
-  height: 11px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #ddd linear-gradient(135deg, #fff 0%, #ddd 45%, #aaa 100%);
+  border: 1px solid #333;
+  box-shadow: 0 0 0 2px #ddd, inset 1px 1px 0 #fff;
+  cursor: default;
 }
-
-.desk-window .win-close:hover .win-close-inner {
-  background: var(--os-black);
+.wbox:active { background: #777; box-shadow: 0 0 0 2px #ddd, inset 1px 1px 0 #444; }
+.wbox-zoom::after {
+  content: "";
+  position: absolute;
+  left: 1px; top: 1px;
+  width: 5px; height: 4px;
+  border: 1px solid #333;
 }
+.wbox-shade::after {
+  content: "";
+  position: absolute;
+  left: 1px; right: 1px; top: 3px;
+  height: 3px;
+  border-block: 1px solid #333;
+}
+.pw:not(.is-active) .wbox { visibility: hidden; }
 
-/* finder-style list row */
-.finder-row {
+.pw-info {
+  flex: none;
+  padding: 1px 8px 3px;
+  text-align: center;
+  font-size: 11px;
+  color: #222;
+  border-bottom: 1px solid #999;
+  margin-bottom: 3px;
+}
+.pw-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #000;
+  box-shadow: -1px -1px 0 #888, 1px 1px 0 #fff;
+  margin: 1px;
+}
+.pw-panel .pw-body,
+.pw-dialog .pw-body { background: #ddd; border-color: transparent; box-shadow: none; }
+.pw-dialog .pw-body { padding: 10px 8px 4px; }
+
+.pw-status {
+  flex: none;
   display: flex;
   justify-content: space-between;
-  padding: 3px 8px;
-  font-size: 11px;
-  text-decoration: none;
-  color: #000;
-  border-bottom: 1px solid #ddd;
-}
-
-.finder-row:hover {
-  background: var(--os-highlight);
-  color: #fff;
-}
-
-@media (max-width: 700px) {
-  .desktop-surface { padding: 16px 12px; }
-  .desk-icons {
-    position: relative;
-    top: auto;
-    left: auto;
-    grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-  .desk-window {
-    position: relative;
-    top: auto;
-    left: auto;
-    margin-left: 0;
-    width: 100% !important;
-    max-height: none;
-    margin-bottom: 12px;
-    transform: none !important;
-  }
-  .desk-window .win-body { max-height: none; }
-}
-
-/* ─── TECH MARQUEE — rAF-driven, immune to scrolltrigger pin refreshes ── */
-
-.tech-marquee-mask {
-  overflow: hidden;
-  position: relative;
-  background: #f5f5f5;
-  border: 1px inset #999;
-  padding: 4px 0;
-}
-
-.tech-marquee-track {
-  display: flex;
-  width: max-content;
-  will-change: transform;
-}
-
-.tech-marquee-chip {
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 2px 12px;
-  white-space: nowrap;
-  font-size: 11px;
-  text-decoration: none;
-  color: #000;
+  gap: 8px;
+  padding: 8px 12px 6px 4px;
 }
-
-.tech-marquee-chip:hover { color: var(--os-highlight); }
-
-.tech-marquee-chip img {
+.pw-grow {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
   width: 14px;
   height: 14px;
-  object-fit: contain;
+  cursor: nwse-resize;
+  touch-action: none;
+  background: repeating-linear-gradient(135deg, transparent 0 2px, #fff 2px 3px, #888 3px 4px);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+.pw:not(.is-active) .pw-grow { visibility: hidden; }
+
+html.os .pw-body { scrollbar-color: #999 #eee; }
+
+/* ─── window contents ────────────────────────────────────────────────── */
+
+.st-doc { padding: 12px 14px; line-height: 1.6; }
+.st-doc p { margin: 0 0 10px; max-width: 60ch; }
+.st-doc hr { border: 0; border-top: 1px dotted #888; margin: 12px 0; }
+.st-hint { color: #444; }
+
+.gi { padding: 10px 10px 6px; }
+.gi-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 14px; }
+.gi-head img { border: 1px solid #000; image-rendering: auto; }
+.gi-rows { display: grid; grid-template-columns: 76px 1fr; gap: 3px 8px; margin: 0 0 10px; padding-top: 8px; border-top: 1px solid #999; box-shadow: inset 0 1px 0 #fff; }
+.gi-rows dt { text-align: right; font-weight: bold; }
+.gi-rows dd { margin: 0; }
+.gi-label { margin: 0 0 3px; font-weight: bold; }
+.gi-comments { min-height: 52px; padding: 5px 6px; background: #fff; border: 1px solid #000; box-shadow: inset 1px 1px 0 #999; line-height: 1.5; }
+.gi-lock { display: flex; align-items: center; gap: 6px; margin-top: 8px; color: #555; }
+
+.fi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 14px 4px;
+  justify-items: center;
+  padding: 12px 8px;
 }
 
-/* ─── MEDIA ROW — side-by-side image + text, stacks on narrow screens ── */
+.fl { width: 100%; border-collapse: collapse; }
+.fl thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0;
+  text-align: left;
+  font-weight: normal;
+  background: #ddd;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #999;
+  box-shadow: inset 1px 1px 0 #fff;
+}
+.fl thead th.is-sort { background: #bbb; box-shadow: inset 1px 1px 0 #999; }
+.fl thead button { width: 100%; padding: 2px 8px; font: 12px var(--os-font); text-align: left; background: none; border: 0; cursor: default; }
+.fl tbody th, .fl tbody td { padding: 3px 8px; text-align: left; vertical-align: top; white-space: nowrap; font-weight: normal; }
+.fl tbody tr:hover { background: #ccccff; }
+.fl tbody th a { display: inline-flex; align-items: center; gap: 5px; color: #000; text-decoration: none; }
+.fl tbody th a:hover { text-decoration: underline; }
+.fl-desc { display: block; max-width: 280px; padding-left: 23px; color: #555; font-size: 11px; white-space: normal; }
+.fl .fl-num { text-align: right; font-variant-numeric: tabular-nums; }
+.fl-msg { padding: 14px; color: #333; }
 
-.media-row {
+.em-head {
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding: 2px 8px;
+  background: #ddd;
+  border-bottom: 1px solid #000;
+  box-shadow: inset 1px 1px 0 #fff;
+}
+.em-head span:first-child { display: none; }
+.em-folder {
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 3px 8px;
+  font: 12px var(--os-font);
+  text-align: left;
+  background: none;
+  border: 0;
+  cursor: default;
+}
+.em-folder:hover, .em-row:hover { background: #ccccff; }
+.em-folder b { font-weight: bold; }
+.em-n { margin-left: auto; color: #555; }
+.tri {
+  width: 0; height: 0;
+  border-left: 6px solid #000;
+  border-block: 4px solid transparent;
+  transition: transform 90ms steps(2);
+}
+.tri.is-open { transform: rotate(90deg); }
+.em-row { display: flex; align-items: center; gap: 8px; padding: 2px 8px 2px 32px; cursor: default; }
+.em-row img { width: 16px; height: 16px; object-fit: contain; }
+.em-noimg { width: 16px; height: 16px; border: 1px dotted #999; }
+.em-btns { display: flex; gap: 10px; }
+
+html.os input[type="checkbox"],
+html.os input[type="radio"] {
+  appearance: none;
+  flex: none;
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  background: #fff;
+  border: 1px solid #000;
+  box-shadow: inset 1px 1px 0 #aaa;
+  display: inline-grid;
+  place-content: center;
+}
+html.os input[type="radio"] { border-radius: 50%; }
+html.os input[type="checkbox"]:checked::after { content: ""; width: 7px; height: 4px; border: 2px solid #000; border-top: 0; border-right: 0; transform: translateY(-1px) rotate(-45deg); }
+html.os input[type="radio"]:checked::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #000; }
+html.os input:disabled { opacity: 0.55; }
+html.os input[type="checkbox"]:focus-visible,
+html.os input[type="radio"]:focus-visible { outline: 2px solid #333399; outline-offset: 1px; }
+
+.dlg-form { display: grid; grid-template-columns: 72px 1fr; gap: 7px 8px; align-items: center; }
+.dlg-form > label, .dlg-lbl { text-align: right; }
+.dlg-static { color: #333; }
+.dlg-msg { grid-column: 1 / -1; min-height: 120px; margin-top: 4px; }
+.dlg-foot { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; padding: 4px 0 6px; }
+.dlg-err { flex: 1; color: #a00; }
+.dlg-count { color: #555; font-variant-numeric: tabular-nums; }
+.dlg-done { display: flex; gap: 14px; padding: 8px 6px 10px; }
+.dlg-done p { margin: 0 0 8px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.atc { padding: 12px; }
+.atc-top { display: flex; gap: 16px; align-items: center; padding-bottom: 12px; margin-bottom: 8px; border-bottom: 1px solid #999; box-shadow: 0 1px 0 #fff; }
+.atc-top p { margin: 0 0 2px; }
+.atc-os { font-size: 18px; font-weight: bold; margin-bottom: 6px !important; }
+.atc-mem { width: 100%; border-collapse: collapse; }
+.atc-mem th, .atc-mem td { padding: 3px 6px; text-align: left; font-weight: normal; }
+.atc-mem thead th { border-bottom: 1px solid #999; }
+.atc-mem tbody th { display: flex; align-items: center; gap: 6px; }
+.atc-mem td:nth-child(2) { width: 40px; text-align: right; font-variant-numeric: tabular-nums; }
+.atc-mem td:last-child { width: 45%; }
+.atc-bar { display: block; height: 11px; background: #fff; border: 1px solid #000; }
+.atc-bar span { display: block; height: 100%; background: #6b6bc4; box-shadow: inset -1px 0 0 #000; }
+
+.ap { margin: 10px; padding: 8px 10px 12px; border: 1px solid #999; box-shadow: 1px 1px 0 #fff, inset 1px 1px 0 #fff; }
+.ap legend { padding: 0 4px; }
+.ap-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ap-opt { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px; cursor: default; }
+.ap-swatch { grid-column: 1 / -1; height: 56px; border: 1px solid #000; box-shadow: inset 0 0 0 1px #fff; }
+.ap-opt.is-on .ap-swatch { outline: 2px solid #000; outline-offset: 2px; }
+.ap-swatch.pat-dither {
+  background-color: #0b0f16;
+  background-image: radial-gradient(#2a3b5c 1px, transparent 1.5px);
+  background-size: 4px 4px;
 }
 
-.media-row-fig {
-  flex: 0 0 200px;
-}
+/* ─── narrow: windows stack, nothing drags ───────────────────────────── */
 
-.media-row-body {
-  flex: 1;
-  min-width: 0;
-}
-
-@media (max-width: 600px) {
-  .media-row { flex-direction: column; }
-  .media-row-fig { flex: 0 0 auto; max-width: 100%; }
-}
-
-/* ─── RESPONSIVE — windows stack on mobile ───────────────────────────── */
-
-@media (max-width: 768px) {
-  .desktop { padding: 28px 8px 16px; }
-  .win { margin-bottom: 8px; }
-}
-
-@media (max-width: 500px) {
-  /* tighten menubar on very small screens */
-  .menubar { gap: 8px; padding: 0 6px; }
-  .menubar-item { font-size: 11px; padding: 0 4px; }
+@media (max-width: 700px) {
+  html.os, html.os body { overflow: auto; height: auto; }
+  .desktop { position: relative; min-height: 100vh; overflow: visible; }
+  .desk-bg { position: fixed; }
+  .desktop-surface { position: relative; inset: auto; padding: 32px 10px 24px; }
+  .desk-icons { position: static; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px 2px; margin-bottom: 12px; }
+  .desk-trash { position: static; display: flex; justify-content: center; margin-top: 8px; }
+  .pw {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: none;
+    margin-bottom: 12px;
+  }
+  .pw-body { max-height: 70vh; }
+  .pw-grow, .wbox-zoom { display: none; }
+  .pw:not(.is-active) .wbox { visibility: visible; }
+  .menubar-app { display: none; }
+  .menubar-item { padding: 0 7px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -631,3 +729,6 @@ img { max-width: 100%; height: auto; }
     transition-duration: 0.01ms !important;
   }
 }
+
+.fi-wide { width: 150px; }
+a.fi-icon { color: #000; text-decoration: none; }

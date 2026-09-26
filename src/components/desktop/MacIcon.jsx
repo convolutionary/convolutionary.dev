@@ -1,6 +1,62 @@
 import React from "react";
 
 const variants = {
+	disk: (
+		<g>
+			<rect x="3" y="9" width="34" height="16" fill="#ddd" stroke="#000" strokeWidth="1.2" />
+			<rect x="4" y="10" width="32" height="2" fill="#fff" />
+			<rect x="6" y="19" width="3" height="2" fill="#2c9c3c" />
+			<rect x="11" y="19" width="20" height="1" fill="#777" />
+			<rect x="11" y="21" width="20" height="1" fill="#777" />
+			<rect x="3" y="25" width="34" height="2" fill="#777" />
+		</g>
+	),
+
+	trash: (
+		<g>
+			<rect x="10" y="7" width="20" height="3" fill="#ddd" stroke="#000" strokeWidth="1" />
+			<rect x="16" y="4" width="8" height="3" fill="#ddd" stroke="#000" strokeWidth="1" />
+			<path d="M11 10 L29 10 L27 30 L13 30 Z" fill="#fff" stroke="#000" strokeWidth="1.2" />
+			<line x1="16" y1="13" x2="16.5" y2="27" stroke="#000" strokeWidth="0.8" />
+			<line x1="20" y1="13" x2="20" y2="27" stroke="#000" strokeWidth="0.8" />
+			<line x1="24" y1="13" x2="23.5" y2="27" stroke="#000" strokeWidth="0.8" />
+		</g>
+	),
+
+	trashFull: (
+		<g>
+			<path d="M13 4 Q16 1 20 4 Q24 1 27 5 L27 8 L13 8 Z" fill="#fff" stroke="#000" strokeWidth="0.8" />
+			<rect x="10" y="7" width="20" height="3" fill="#ddd" stroke="#000" strokeWidth="1" transform="rotate(-8 20 8)" />
+			<path d="M11 10 L29 10 L27 30 L13 30 Z" fill="#fff" stroke="#000" strokeWidth="1.2" />
+			<line x1="16" y1="13" x2="16.5" y2="27" stroke="#000" strokeWidth="0.8" />
+			<line x1="20" y1="13" x2="20" y2="27" stroke="#000" strokeWidth="0.8" />
+			<line x1="24" y1="13" x2="23.5" y2="27" stroke="#000" strokeWidth="0.8" />
+		</g>
+	),
+
+	mac: (
+		<g>
+			<rect x="10" y="2" width="20" height="24" fill="#ddd" stroke="#000" strokeWidth="1.2" />
+			<rect x="13" y="5" width="14" height="11" fill="#fff" stroke="#000" strokeWidth="1" />
+			<rect x="17" y="9" width="1" height="2" fill="#000" />
+			<rect x="22" y="9" width="1" height="2" fill="#000" />
+			<path d="M17 13 Q20 15 23 13" fill="none" stroke="#000" strokeWidth="0.8" />
+			<rect x="21" y="20" width="6" height="1" fill="#000" />
+			<rect x="12" y="26" width="16" height="3" fill="#bbb" stroke="#000" strokeWidth="1" />
+		</g>
+	),
+
+	simpletext: (
+		<g>
+			<path d="M7 3 L25 3 L31 9 L31 29 L7 29 Z" fill="#fff" stroke="#000" strokeWidth="1.2" />
+			<path d="M25 3 L25 9 L31 9" fill="#ddd" stroke="#000" strokeWidth="1" />
+			<rect x="11" y="12" width="8" height="1" fill="#000" />
+			<rect x="11" y="15" width="16" height="1" fill="#000" />
+			<rect x="11" y="18" width="16" height="1" fill="#000" />
+			<rect x="11" y="21" width="12" height="1" fill="#000" />
+			<path d="M20 22 L28 14 L30 16 L22 24 L19 25 Z" fill="#fff" stroke="#000" strokeWidth="0.9" />
+		</g>
+	),
 	folder: (
 		<g>
 			<path d="M2 8 L14 8 L17 5 L28 5 L28 8 L38 8 L38 28 L2 28 Z" fill="#fff" stroke="#000" strokeWidth="1.2" />

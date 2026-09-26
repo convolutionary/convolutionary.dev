@@ -1,46 +1,27 @@
-export const heroContent = {
-	roles: [
-		'software developer',
-		'problem solver',
-		'open source contributor',
-		'digital creator',
-	],
-	bio: {
-		short: 'Self-taught developer passionate about creating elegant solutions and contributing to open-source projects.',
-		medium: 'I thrive on learning new technologies and solving complex problems.',
-	},
-	stats: [
-		{ label: 'Years Experience', value: '7+' },
-		{ label: 'Technologies', value: '15+' },
-		{ label: 'Coffee Cups', value: '∞' },
-		{ label: 'Learning Mode', value: '24/7' },
-	],
-};
+// single source of truth for facts — both the manual and the desktop read from here
 
-export const aboutContent = {
-	story: [
-		"I'm just someone who's genuinely enthusiastic about learning new things and developing creative solutions. I've been programming since 2017, constantly expanding my knowledge and skills over the past 5+ years.",
-		"The journey has been filled with curiosity, experimentation, and a fair share of schizo vibes. I believe in clean code, elegant solutions, and the power of open-source collaboration.",
-	],
-	skills: [
-		{ title: 'Full-Stack Development', desc: 'Building modern web applications with clean architecture' },
-		{ title: 'Problem Solving', desc: 'Tackling complex challenges with creative solutions' },
-		{ title: 'Continuous Learning', desc: 'Always exploring new technologies and methodologies' },
-	],
-};
+export const SINCE = 2017;
+export const yearsIn = () => new Date().getFullYear() - SINCE;
 
-export const blogContent = {
-	featuredPost: {
-		id: 1,
-		title: "first blog post (idk what to put here)",
-		date: "2025-02-15",
-		tags: ["philosophy", "personal"],
-		content: "redacted, but obviously this isn't hard to find again :P",
-		readTime: "5 min read",
-		imageUrl: "https://i.pinimg.com/originals/2f/01/ea/2f01eadfd0be42b8102c19b4d39052f6.gif",
-	},
-	upcomingPosts: [
-		{ file: 'coming-soon.md', status: 'pending...' },
-		{ file: 'more-thoughts.md', status: 'coming soon...' },
-	],
-};
+export const bio = [
+	"I'm Aurora, a self-taught developer. I started programming in 2017 and haven't found a good reason to stop.",
+	"Most of my work sits between the backend and the browser: services in Go, Rust and TypeScript, web apps in React and Next.js, and more browser automation than I'd like to admit. I care about readable code, and about open source that's pleasant to contribute to.",
+];
+
+export const tagline = `Software developer. Self-taught, writing code since ${SINCE}.`;
+
+export const links = [
+	{ id: "github", label: "GitHub", handle: "convolutionary", url: "https://github.com/convolutionary" },
+	{ id: "codeberg", label: "Codeberg", handle: "Dyslexic", url: "https://codeberg.org/Dyslexic" },
+	{ id: "x", label: "X", handle: "Nocixa", url: "https://x.com/Nocixa" },
+	{ id: "email", label: "Email", handle: "cerfnet@anche.no", url: "mailto:cerfnet@anche.no" },
+];
+
+// grouped for the spec sheet. names match images.js so the desktop can reuse them
+export const stack = [
+	{ label: "Languages", items: ["Go", "Rust", "TypeScript", "JavaScript", "Python", "Java", "Bash"] },
+	{ label: "Front end", items: ["React", "Next.js", "Angular", "Tailwind", "HTML", "CSS"] },
+	{ label: "Back end", items: ["Node.js", "Bun", "Express", "NestJS", "Spring Boot", "GraphQL", "Apollo", "Prisma", "Hibernate", "Socket.IO"] },
+	{ label: "Desktop & bots", items: ["Electron", "Discord.js"] },
+	{ label: "Automation", items: ["Puppeteer", "Selenium"] },
+];

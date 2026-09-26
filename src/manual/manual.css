@@ -1,0 +1,551 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   the manual — main page. a late-80s computer manual: garamond on white stock,
+   wide note margin, ruled tables, 1-bit screen figures. chicago only for
+   things that live "on screen" (buttons, fields' chrome).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.man {
+  --paper: #fdfdfc;
+  --ink: #141414;
+  --ink-2: #555553;
+  --hair: #cdcdc8;
+  --tint: #eeeeeb;
+  --serif: "EB Garamond Variable", "EB Garamond", Garamond, "Times New Roman", serif;
+  --screen: "Chicago", "Geneva", system-ui, sans-serif;
+  --head-h: 3rem;
+  --margin-w: 14rem;
+  --gap: clamp(1.5rem, 4vw, 3.5rem);
+
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  padding-inline: clamp(16px, 4vw, 3rem);
+  padding-bottom: 3rem;
+}
+
+html:has(.man) {
+  background: #fdfdfc;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(3rem + 1rem);
+  scrollbar-color: #141414 #eeeeeb;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(.man) { scroll-behavior: auto; }
+}
+
+.man ::selection { background: var(--ink); color: var(--paper); }
+
+.man a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in srgb, var(--ink) 55%, transparent);
+  transition: background-color 80ms, color 80ms;
+}
+/* hover = mac highlight: invert */
+.man a:hover { background: var(--ink); color: var(--paper); text-decoration-color: var(--ink); }
+
+.man :focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.man p { margin: 0 0 0.9em; max-width: 34em; }
+.man b { font-weight: 600; }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 60;
+  background: var(--ink);
+  color: var(--paper) !important;
+  padding: 0.4rem 0.8rem;
+}
+.skip:focus { top: 0.5rem; }
+
+/* ─── running head ─────────────────────────────────────────────────────── */
+
+.run {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  height: var(--head-h);
+  margin-inline: calc(-1 * clamp(16px, 4vw, 3rem));
+  padding-inline: clamp(16px, 4vw, 3rem);
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+  font-size: 1.05rem;
+}
+
+.run-mark {
+  font-weight: 600;
+  text-decoration: none !important;
+  letter-spacing: 0.01em;
+  flex: none;
+}
+
+.run nav { min-width: 0; margin-left: auto; }
+.run ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.run ul::-webkit-scrollbar { display: none; }
+.run li { flex: none; }
+.run nav a { text-decoration: none; white-space: nowrap; padding: 0.1rem 0.2rem; }
+.run-n {
+  font-variant-numeric: lining-nums;
+  color: var(--ink-2);
+  margin-right: 0.4em;
+  font-size: 0.85em;
+}
+.run nav a:hover .run-n { color: inherit; }
+
+/* ─── cover ───────────────────────────────────────────────────────────── */
+
+.cover {
+  min-height: calc(100svh - var(--head-h));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: 1fr auto;
+  column-gap: var(--gap);
+  padding-top: clamp(2.5rem, 9vh, 6rem);
+}
+
+.cover-text { align-self: start; }
+
+.cover-title {
+  font-size: clamp(4.25rem, 10vw, 6rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.5rem -0.04em;
+}
+
+.cover-sub {
+  font-size: clamp(1.4rem, 2.4vw, 1.75rem);
+  line-height: 1.3;
+  font-style: italic;
+  max-width: 18em !important;
+  margin-bottom: 2rem !important;
+}
+
+.cover-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+}
+
+.cover-fig {
+  margin: 0;
+  align-self: center;
+  width: min(30rem, 42vw);
+}
+
+.screen {
+  display: block;
+  border: 1px solid var(--ink);
+  padding: 0.6rem;
+  background: var(--paper);
+}
+.screen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  outline: 1px solid var(--ink);
+}
+
+.cover-fig figcaption,
+.caption {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--ink-2);
+  margin-top: 0.6rem;
+}
+.caption b, figcaption b { color: var(--ink); font-weight: 600; }
+
+.cover-foot {
+  grid-column: 1 / -1;
+  display: flex !important;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: none !important;
+  border-top: 1px solid var(--ink);
+  padding-top: 0.6rem;
+  margin: 3rem 0 0 !important;
+  font-size: 1rem;
+  color: var(--ink-2);
+}
+
+/* ─── chapters ───────────────────────────────────────────────────────── */
+
+.ch,
+.ix {
+  display: grid;
+  grid-template-columns: var(--margin-w) minmax(0, 1fr);
+  column-gap: var(--gap);
+  border-top: 2px solid var(--ink);
+  padding-top: 1.25rem;
+  margin-top: clamp(5rem, 12vh, 8rem);
+}
+
+.ch-num {
+  display: block;
+  font-size: 6rem;
+  line-height: 0.8;
+  font-weight: 400;
+  font-variant-numeric: lining-nums;
+  letter-spacing: -0.02em;
+}
+
+.ch-note {
+  margin-top: 2rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--ink-2);
+  font-style: italic;
+}
+.ch-note p { margin: 0; }
+.ch-note a { color: var(--ink); }
+
+.ch-body { min-width: 0; }
+
+.ch-title,
+.ix-title {
+  font-size: clamp(2.1rem, 4vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin: 0 0 2rem;
+  text-wrap: balance;
+}
+
+.lede { font-size: 1.5rem; line-height: 1.4; }
+
+/* ─── tables ─────────────────────────────────────────────────────────── */
+
+.tbl {
+  width: 100%;
+  max-width: 52rem;
+  border-collapse: collapse;
+  font-size: 1.125rem;
+  line-height: 1.4;
+  margin-bottom: 1.25rem;
+}
+.tbl caption {
+  caption-side: top;
+  text-align: left;
+  margin: 0 0 0.6rem;
+}
+.tbl thead th {
+  font-weight: 600;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.05em;
+  font-size: 1.125rem;
+  text-align: left;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 0.4rem 1rem 0.35rem 0;
+}
+.tbl:not(:has(thead)) tbody tr:first-child > * { border-top: 2px solid var(--ink); }
+.tbl tbody th,
+.tbl tbody td {
+  text-align: left;
+  vertical-align: baseline;
+  padding: 0.6rem 1rem 0.6rem 0;
+  border-bottom: 1px solid var(--hair);
+}
+.tbl tbody tr:last-child > * { border-bottom: 1px solid var(--ink); }
+.tbl tbody th { font-weight: 600; }
+.tbl .num {
+  text-align: right;
+  padding-right: 0;
+  padding-left: 1rem;
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+.tbl th.num { text-align: right; }
+.dim { color: var(--ink-2); font-style: italic; }
+.repos .unit { display: none; }
+
+.specs tbody th { width: 11rem; }
+
+.repos tbody th a { overflow-wrap: anywhere; }
+.repos .desc { color: var(--ink); }
+
+.after-tbl { font-size: 1.05rem; color: var(--ink-2); }
+
+.where { max-width: 34rem; }
+.where tbody th { width: 8rem; }
+
+/* ─── procedure form ─────────────────────────────────────────────────── */
+
+.proc-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 3.5rem 0 1.25rem;
+}
+
+.proc ol {
+  list-style: none;
+  counter-reset: step;
+  margin: 0;
+  padding: 0;
+  max-width: 36rem;
+}
+.proc li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.25rem;
+  margin-bottom: 1.5rem;
+}
+.proc li::before {
+  content: counter(step) ".";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 600;
+  font-variant-numeric: lining-nums;
+}
+.proc label,
+.proc .step { display: block; margin-bottom: 0.5rem; }
+
+.mac-field {
+  display: block;
+  width: 100%;
+  font: inherit;
+  font-size: 1.125rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  padding: 0.45rem 0.6rem;
+  caret-color: var(--ink);
+}
+textarea.mac-field { resize: vertical; min-height: 9rem; line-height: 1.45; }
+.mac-field:focus { outline: 2px solid var(--ink); outline-offset: 2px; }
+.mac-field:disabled { color: var(--ink-2); background: var(--tint); }
+
+.count {
+  display: block;
+  text-align: right;
+  font-size: 0.95rem;
+  color: var(--ink-2);
+  margin-top: 0.35rem;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.send-row { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.err { margin: 0 !important; font-size: 1.05rem; font-style: italic; }
+.err::before { content: "Can't send yet. "; font-style: normal; font-weight: 600; }
+
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.done { padding: 1.25rem 0; border-block: 1px solid var(--ink); max-width: 36rem; }
+
+.callout {
+  max-width: 36rem;
+  margin-top: 2.5rem;
+  padding: 0.8rem 0;
+  border-block: 1px solid var(--hair);
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+.callout b { display: inline; margin-right: 0.5em; }
+.callout p { display: inline; margin: 0; }
+
+/* ─── mac chrome: the only things set in chicago ─────────────────────── */
+
+.mac-btn {
+  display: inline-block;
+  font-family: var(--screen);
+  font-size: 0.85rem;
+  line-height: 1;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--ink);
+  border-radius: 7px;
+  padding: 0.5rem 1.4rem 0.45rem;
+  cursor: pointer;
+  -webkit-font-smoothing: none;
+}
+/* the default button's heavy ring, as drawn by the toolbox */
+.mac-btn-default { box-shadow: 0 0 0 2px #fff, 0 0 0 5px var(--ink); border-radius: 7px; margin: 5px; }
+.mac-btn:active,
+.mac-btn:hover { background: var(--ink); color: #fff; }
+.mac-btn:disabled { color: #9a9a96; border-color: #9a9a96; background: #fff; cursor: default; }
+.mac-btn-default:disabled { box-shadow: 0 0 0 2px #fff, 0 0 0 5px #9a9a96; }
+
+/* ─── appendix figure: the door to the desktop ───────────────────────── */
+
+.desk-fig {
+  display: block;
+  width: 100%;
+  max-width: 44rem;
+  margin-top: 2rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.desk-fig .screen img { transition: filter 90ms steps(1); }
+.desk-fig:hover .screen img { filter: invert(1); }
+.desk-fig:hover .mac-btn { background: var(--ink); color: #fff; }
+.desk-fig:focus-visible { outline: none; }
+.desk-fig:focus-visible .screen { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+.desk-fig-cap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.6rem;
+}
+.desk-fig-cap .caption { margin: 0; }
+
+.zoom-target { position: fixed; inset: 0; visibility: hidden; pointer-events: none; }
+
+/* ─── index + colophon ───────────────────────────────────────────────── */
+
+.ix-title { grid-column: 2; }
+.ix-list {
+  grid-column: 2;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2 16rem;
+  column-gap: 3rem;
+  font-size: 1.125rem;
+}
+.ix-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  break-inside: avoid;
+  padding: 0.12rem 0;
+}
+.ix-lead {
+  flex: 1;
+  min-width: 1rem;
+  border-bottom: 1px dotted #8c8c88;
+  transform: translateY(-0.3em);
+}
+.ix-refs { font-variant-numeric: lining-nums; flex: none; }
+
+.colo {
+  margin-top: 5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--hair);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  color: var(--ink-2);
+}
+.colo p { margin: 0; }
+
+/* ─── narrow ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .man { --margin-w: 7rem; }
+  .ch-num { font-size: 4.5rem; }
+  .ch-note { display: none; }
+}
+
+@media (max-width: 720px) {
+  .man { font-size: 1.15rem; }
+  .run { gap: 1rem; }
+  .run ul { gap: 1rem; }
+
+  .cover {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    min-height: 0;
+    padding-top: 2.5rem;
+  }
+  .cover-fig { width: 100%; max-width: 26rem; margin-top: 2.5rem; }
+
+  .ch, .ix {
+    grid-template-columns: 1fr;
+    margin-top: 4.5rem;
+  }
+  .ch-margin { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem; }
+  .ch-num { font-size: 3.25rem; }
+  .ch-note { display: block; margin: 0; }
+  .ch-margin .ch-note { display: none; }
+  .ix-title, .ix-list { grid-column: 1; }
+
+  .lede { font-size: 1.3rem; }
+
+  /* repo table turns into a stacked list */
+  .repos thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .repos tbody tr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .repos tbody tr:last-child { border-bottom: 1px solid var(--ink); }
+  .repos tbody tr:first-child { border-top: 2px solid var(--ink); }
+  .repos tbody tr > * { border: 0 !important; padding: 0; }
+  .repos tbody th { grid-column: 1 / -1; }
+  .repos .desc { grid-column: 1 / -1; margin: 0.15rem 0 0.3rem; }
+  .repos tbody td:nth-child(3) { font-size: 1rem; color: var(--ink-2); }
+  .repos tbody td.num { font-size: 1rem; color: var(--ink-2); padding-left: 0; }
+  .repos tbody td:nth-child(4) { display: none; }
+  .repos .unit { display: inline; }
+  .run-mark, .run-n { display: none; }
+  .run nav { margin-left: 0; }
+  .run ul { gap: 0.9rem; }
+
+  .specs tbody th, .where tbody th { width: 6.5rem; }
+  .desk-fig-cap { flex-direction: column; align-items: flex-start; }
+}
+
+/* the desktop figure is a full-res capture scaled down; smooth it, don't pixelate */
+.screen-wide img { image-rendering: auto; }
+
+/* .caption is display:block for figures; tables need a real caption box */
+.tbl caption.caption { display: table-caption; }
+
+/* cover: title block and figure share a baseline at the foot of the fold */
+.cover-text, .cover-fig { align-self: end; }
+.cover-text { padding-bottom: 2.4rem; }
+.cover-title { font-size: clamp(4.25rem, 11vw, 6rem); }
+@media (max-width: 720px) { .cover-text { padding-bottom: 0; } }

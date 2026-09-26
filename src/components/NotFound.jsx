@@ -1,19 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Window from "./Window";
+import "../manual/manual.css";
 
 const NotFound = () => (
-	<div className="flex items-center justify-center min-h-screen p-4">
-		<Window title="Error" style={{ width: 300 }}>
-			<div style={{ textAlign: 'center', padding: '12px 0' }}>
-				<p style={{ fontSize: 36, marginBottom: 8 }}>⚠</p>
-				<p style={{ fontWeight: 'bold', marginBottom: 4 }}>Page not found.</p>
-				<p style={{ fontSize: 11, color: '#666', marginBottom: 12 }}>
-					The requested page does not exist.
-				</p>
-				<Link to="/" className="btn">OK</Link>
+	<div className="man">
+		<header className="run">
+			<Link to="/" className="run-mark">Aurora</Link>
+		</header>
+		<section className="ch" aria-labelledby="nf-h">
+			<div className="ch-margin">
+				<span className="ch-num" aria-hidden="true">?</span>
 			</div>
-		</Window>
+			<div className="ch-body">
+				<h1 className="ch-title" id="nf-h">This page isn't in the guide</h1>
+				<p>The address points somewhere that doesn't exist. It may have moved when the site was reorganized.</p>
+				<p><Link to="/">Back to the contents</Link></p>
+			</div>
+		</section>
 	</div>
 );
 
