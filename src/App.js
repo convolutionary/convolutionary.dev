@@ -9,8 +9,8 @@ import NotFound from "./components/NotFound";
 const router = createHashRouter(
 	createRoutesFromElements(
 		<>
-			<Route path="/" element={<Manual />} />
 			<Route path="/desktop" element={<DesktopMode />} />
+			<Route path="/:section?" element={<Manual />} />
 			<Route path="*" element={<NotFound />} />
 		</>
 	)

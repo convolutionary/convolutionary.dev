@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { bio, tagline, links, stack, yearsIn, SINCE } from "../data/content";
 import { useRepos } from "../data/useRepos";
 import { useMailForm, MAX_LEN } from "../data/useMailForm";
@@ -7,6 +7,7 @@ import { zoomRect } from "../utils/zoomRect";
 import portrait from "../assets/manual/portrait-1bit.png";
 import desktopShot from "../assets/manual/desktop-1bit.png";
 import pgp from "../pgp.txt";
+import NotFound from "../components/NotFound";
 import "./manual.css";
 
 const toc = [
@@ -14,13 +15,13 @@ const toc = [
 	{ n: "2", id: "specs", title: "Specs" },
 	{ n: "3", id: "projects", title: "Projects" },
 	{ n: "4", id: "contact", title: "Contact" },
-	{ n: "A", id: "desktop", title: "Desktop" },
+	{ n: "A", id: "appendix", title: "Desktop" },
 ];
 
 const index = [
 	["Codeberg", [["4", "#contact"]]],
 	["contact form", [["4", "#send"]]],
-	["desktop, Macintosh-style", [["A", "#desktop"]]],
+	["desktop, Macintosh-style", [["A", "#appendix"]]],
 	["email", [["4", "#contact"]]],
 	["GitHub", [["3", "#projects"], ["4", "#contact"]]],
 	["Go", [["2", "#specs"]]],
@@ -33,6 +34,9 @@ const index = [
 	["TypeScript", [["2", "#specs"]]],
 	["X (Twitter)", [["4", "#contact"]]],
 ];
+
+// every in-page target is a route (#/projects), since the hash belongs to the router
+const SECTIONS = new Set(["about", "specs", "projects", "contact", "send", "appendix", "index"]);
 
 const when = (iso) =>
 	new Date(iso).toLocaleDateString("en-US", { month: "short", year: "numeric" });
@@ -152,6 +156,37 @@ const MailForm = () => {
 
 const Manual = () => {
 	const nav = useNavigate();
+	const { section } = useParams();
+	const loc = useLocation();
+	const known = !section || SECTIONS.has(section);
+
+	// scroll to the section named in the route. loc.key changes on every click,
+	// so hitting the same link twice still scrolls
+	useEffect(() => {
+		if (!known) return;
+		const first = loc.key === "default"; // fresh page load: jump, don't glide
+		const calm = first || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		const behavior = calm ? "auto" : "smooth";
+		if (!section) {
+			if (!first) window.scrollTo({ top: 0, behavior });
+			return;
+		}
+		const go = () => document.getElementById(section)?.scrollIntoView({ behavior, block: "start" });
+		go();
+		if (!first) return;
+
+		// deep link on a cold load: fonts and the repo table land after we scroll and
+		// shove the target down. keep re-anchoring until the page settles or the user takes over
+		const ro = new ResizeObserver(go);
+		ro.observe(document.body);
+		const quit = () => {
+			ro.disconnect();
+			["wheel", "touchstart", "keydown", "pointerdown"].forEach((ev) => window.removeEventListener(ev, quit));
+		};
+		["wheel", "touchstart", "keydown", "pointerdown"].forEach((ev) => window.addEventListener(ev, quit, { passive: true }));
+		const t = setTimeout(quit, 2500);
+		return () => { clearTimeout(t); quit(); };
+	}, [section, loc.key, known]);
 	const figRef = useRef(null);
 	const fullRef = useRef(null);
 
@@ -163,16 +198,18 @@ const Manual = () => {
 
 	const year = new Date().getFullYear();
 
+	if (!known) return <NotFound />;
+
 	return (
 		<div className="man">
-			<a className="skip" href="#about">Skip to contents</a>
+			<Link className="skip" to="/about">Skip to contents</Link>
 
 			<header className="run">
-				<a href="#top" className="run-mark">Aurora</a>
+				<Link to="/" className="run-mark">Aurora</Link>
 				<nav aria-label="Contents">
 					<ul>
 						{toc.map((c) => (
-							<li key={c.id}><a href={`#${c.id}`}><span className="run-n">{c.n}</span>{c.title}</a></li>
+							<li key={c.id}><Link to={`/${c.id}`}><span className="run-n">{c.n}</span>{c.title}</Link></li>
 						))}
 					</ul>
 				</nav>
@@ -186,7 +223,7 @@ const Manual = () => {
 						{links.filter((l) => l.id !== "x").map((l) => (
 							<li key={l.id}><a href={l.url}>{l.id === "email" ? "Email" : l.label}</a></li>
 						))}
-						<li><a href="#contact">Write to me</a></li>
+						<li><Link to="/contact">Write to me</Link></li>
 					</ul>
 				</div>
 
@@ -209,9 +246,9 @@ const Manual = () => {
 			>
 				{bio.map((p, i) => <p key={i} className={i === 0 ? "lede" : undefined}>{p}</p>)}
 				<p>
-					This guide covers what I work with (<a href="#specs">Chapter 2</a>), what I've built
-					(<a href="#projects">Chapter 3</a>), and how to reach me (<a href="#contact">Chapter 4</a>).
-					There's also an older, stranger version of this site in <a href="#desktop">Appendix A</a>.
+					This guide covers what I work with (<Link to="/specs">Chapter 2</Link>), what I've built
+					(<Link to="/projects">Chapter 3</Link>), and how to reach me (<Link to="/contact">Chapter 4</Link>).
+					There's also an older, stranger version of this site in <Link to="/appendix">Appendix A</Link>.
 				</p>
 			</Chapter>
 
@@ -272,7 +309,7 @@ const Manual = () => {
 			</Chapter>
 
 			<Chapter
-				n="A" id="desktop" title="The desktop"
+				n="A" id="appendix" title="The desktop"
 				note={<p>Best on a real keyboard and mouse. On phones the windows stack instead.</p>}
 			>
 				<p>
@@ -303,7 +340,7 @@ const Manual = () => {
 								{refs.map(([label, href], i) => (
 									<React.Fragment key={href + label}>
 										{i > 0 && ", "}
-										<a href={href}>{label}</a>
+										<Link to={`/${href.slice(1)}`}>{label}</Link>
 									</React.Fragment>
 								))}
 							</span>
